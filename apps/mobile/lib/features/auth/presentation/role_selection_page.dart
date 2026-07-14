@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_text_styles.dart';
@@ -19,21 +20,38 @@ class RoleSelectionPage extends StatelessWidget {
             Text('Welcome to EduCore', style: AppTextStyles.headlineMedium),
             const Gap(AppSpacing.lg),
 
-            _roleButton(title: 'Student', icon: Icons.school),
-
-            const Gap(AppSpacing.md),
-
-            _roleButton(title: 'Parent', icon: Icons.family_restroom),
-
-            const Gap(AppSpacing.md),
-
-            _roleButton(title: 'Teacher', icon: Icons.menu_book),
+            _roleButton(
+              context: context,
+              title: 'Student',
+              icon: Icons.school,
+              route: '/student',
+            ),
 
             const Gap(AppSpacing.md),
 
             _roleButton(
+              context: context,
+              title: 'Parent',
+              icon: Icons.family_restroom,
+              route: '/parent',
+            ),
+
+            const Gap(AppSpacing.md),
+
+            _roleButton(
+              context: context,
+              title: 'Teacher',
+              icon: Icons.menu_book,
+              route: '/teacher',
+            ),
+
+            const Gap(AppSpacing.md),
+
+            _roleButton(
+              context: context,
               title: 'Administrator',
               icon: Icons.admin_panel_settings,
+              route: '/manager',
             ),
           ],
         ),
@@ -41,11 +59,16 @@ class RoleSelectionPage extends StatelessWidget {
     );
   }
 
-  Widget _roleButton({required String title, required IconData icon}) {
+  Widget _roleButton({
+    required BuildContext context,
+    required String title,
+    required IconData icon,
+    required String route,
+  }) {
     return SizedBox(
       height: 60,
       child: ElevatedButton.icon(
-        onPressed: () {},
+        onPressed: () => context.go(route),
         icon: Icon(icon),
         label: Text(title),
       ),

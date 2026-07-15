@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
-import '../../../core/theme/app_spacing.dart';
-import '../../../core/theme/app_text_styles.dart';
+import 'student_dashboard_body.dart';
+import 'widgets/bottom_navigation.dart';
 
 class StudentDashboardPage extends StatelessWidget {
   const StudentDashboardPage({super.key});
@@ -10,46 +10,15 @@ class StudentDashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Student Dashboard')),
-      body: Padding(
-        padding: const EdgeInsets.all(AppSpacing.lg),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Welcome Hassan', style: AppTextStyles.headlineMedium),
-            const Gap(AppSpacing.lg),
-
-            _card(Icons.grade, 'Grades', 'View all exam results'),
-
-            const Gap(AppSpacing.md),
-
-            _card(Icons.calendar_month, 'Class Schedule', 'Today\'s classes'),
-
-            const Gap(AppSpacing.md),
-
-            _card(Icons.notifications, 'Announcements', 'Latest school news'),
-
-            const Gap(AppSpacing.md),
-
-            _card(
-              Icons.menu_book,
-              'Learning Materials',
-              'Books & Presentations',
-            ),
-          ],
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => context.go('/roles'),
         ),
+        title: const Text('Student Dashboard'),
       ),
-    );
-  }
-
-  Widget _card(IconData icon, String title, String subtitle) {
-    return Card(
-      child: ListTile(
-        leading: Icon(icon),
-        title: Text(title),
-        subtitle: Text(subtitle),
-        trailing: const Icon(Icons.arrow_forward_ios),
-      ),
+      body: const StudentDashboardBody(),
+      bottomNavigationBar: const StudentBottomNavigation(currentIndex: 0),
     );
   }
 }

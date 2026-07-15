@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import '../../../core/theme/app_spacing.dart';
+import '../data/fake_student_data.dart';
 import 'widgets/dashboard_card.dart';
 import 'widgets/quick_action_card.dart';
 import 'widgets/student_header.dart';
@@ -16,15 +17,22 @@ class StudentDashboardBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const StudentHeader(),
+          const StudentHeader(student: demoStudent),
 
           const Gap(AppSpacing.lg),
 
           Row(
             children: const [
-              QuickActionCard(icon: Icons.grade, title: 'Grades'),
+              Expanded(
+                child: QuickActionCard(icon: Icons.grade, title: 'Grades'),
+              ),
               SizedBox(width: AppSpacing.md),
-              QuickActionCard(icon: Icons.calendar_month, title: 'Schedule'),
+              Expanded(
+                child: QuickActionCard(
+                  icon: Icons.calendar_month,
+                  title: 'Schedule',
+                ),
+              ),
             ],
           ),
 
@@ -32,9 +40,16 @@ class StudentDashboardBody extends StatelessWidget {
 
           Row(
             children: const [
-              QuickActionCard(icon: Icons.notifications, title: 'News'),
+              Expanded(
+                child: QuickActionCard(
+                  icon: Icons.notifications,
+                  title: 'News',
+                ),
+              ),
               SizedBox(width: AppSpacing.md),
-              QuickActionCard(icon: Icons.payments, title: 'Tuition'),
+              Expanded(
+                child: QuickActionCard(icon: Icons.payments, title: 'Tuition'),
+              ),
             ],
           ),
 

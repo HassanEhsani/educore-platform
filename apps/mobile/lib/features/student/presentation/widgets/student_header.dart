@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/theme/app_spacing.dart';
 import '../../../../core/theme/app_text_styles.dart';
+import '../../domain/student.dart';
 
 class StudentHeader extends StatelessWidget {
-  const StudentHeader({super.key});
+  final Student student;
+
+  const StudentHeader({super.key, required this.student});
 
   @override
   Widget build(BuildContext context) {
@@ -17,22 +20,29 @@ class StudentHeader extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const CircleAvatar(radius: 32, child: Icon(Icons.person, size: 32)),
+          CircleAvatar(
+            radius: 32,
+            backgroundColor: Colors.white,
+            child: Text(
+              student.fullName.substring(0, 1),
+              style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+            ),
+          ),
           const SizedBox(width: AppSpacing.lg),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Hassan Ehsani',
+                  student.fullName,
                   style: AppTextStyles.headlineMedium.copyWith(
                     color: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 6),
-                const Text(
-                  'Grade 10 • Student ID: ST-1025',
-                  style: TextStyle(color: Colors.white70),
+                Text(
+                  '${student.grade} • ${student.studentNumber}',
+                  style: const TextStyle(color: Colors.white70),
                 ),
               ],
             ),

@@ -6,6 +6,7 @@ import '../data/fake_manager_data.dart';
 import 'widgets/manager_action_card.dart';
 import 'widgets/manager_header.dart';
 import 'widgets/statistics_card.dart';
+import 'package:go_router/go_router.dart';
 
 class ManagerDashboardBody extends StatelessWidget {
   const ManagerDashboardBody({super.key});
@@ -28,6 +29,13 @@ class ManagerDashboardBody extends StatelessWidget {
                   icon: Icons.people,
                   title: 'Teachers',
                   onTap: () {},
+                ),
+              ),
+              Expanded(
+                child: ManagerActionCard(
+                  icon: Icons.notifications,
+                  title: 'Notifications',
+                  onTap: () => context.push('/notifications'),
                 ),
               ),
               const SizedBox(width: AppSpacing.md),

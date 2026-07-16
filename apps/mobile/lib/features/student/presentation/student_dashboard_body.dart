@@ -6,6 +6,7 @@ import '../data/fake_student_data.dart';
 import 'widgets/dashboard_card.dart';
 import 'widgets/quick_action_card.dart';
 import 'widgets/student_header.dart';
+import 'package:go_router/go_router.dart';
 
 class StudentDashboardBody extends StatelessWidget {
   const StudentDashboardBody({super.key});
@@ -39,20 +40,16 @@ class StudentDashboardBody extends StatelessWidget {
           const Gap(AppSpacing.md),
 
           Row(
-            children: const [
-              Expanded(
-                child: QuickActionCard(
-                  icon: Icons.notifications,
-                  title: 'News',
-                ),
+            children: [
+              QuickActionCard(
+                icon: Icons.notifications,
+                title: 'News',
+                onTap: () => context.push('/notifications'),
               ),
-              SizedBox(width: AppSpacing.md),
-              Expanded(
-                child: QuickActionCard(icon: Icons.payments, title: 'Tuition'),
-              ),
+              const SizedBox(width: AppSpacing.md),
+              const QuickActionCard(icon: Icons.payments, title: 'Tuition'),
             ],
           ),
-
           const Gap(AppSpacing.xl),
 
           DashboardCard(

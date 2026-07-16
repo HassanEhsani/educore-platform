@@ -6,6 +6,7 @@ import '../data/fake_teacher_data.dart';
 import 'widgets/teacher_action_card.dart';
 import 'widgets/teacher_class_card.dart';
 import 'widgets/teacher_header.dart';
+import 'package:go_router/go_router.dart';
 
 class TeacherDashboardBody extends StatelessWidget {
   const TeacherDashboardBody({super.key});
@@ -30,6 +31,14 @@ class TeacherDashboardBody extends StatelessWidget {
                   onTap: () {},
                 ),
               ),
+              Expanded(
+                child: TeacherActionCard(
+                  icon: Icons.notifications,
+                  title: 'Notifications',
+                  onTap: () => context.push('/notifications'),
+                ),
+              ),
+
               const SizedBox(width: AppSpacing.md),
               Expanded(
                 child: TeacherActionCard(

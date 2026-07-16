@@ -6,6 +6,7 @@ import '../data/fake_parent_data.dart';
 import 'widgets/parent_action_card.dart';
 import 'widgets/parent_child_card.dart';
 import 'widgets/parent_header.dart';
+import 'package:go_router/go_router.dart';
 
 class ParentDashboardBody extends StatelessWidget {
   const ParentDashboardBody({super.key});
@@ -28,6 +29,13 @@ class ParentDashboardBody extends StatelessWidget {
                   icon: Icons.grade,
                   title: 'Grades',
                   onTap: () {},
+                ),
+              ),
+              Expanded(
+                child: ParentActionCard(
+                  icon: Icons.notifications,
+                  title: 'Notifications',
+                  onTap: () => context.push('/notifications'),
                 ),
               ),
               const SizedBox(width: AppSpacing.md),

@@ -7,6 +7,7 @@ import '../../features/student/presentation/student_dashboard_page.dart';
 import '../../features/teacher/presentation/teacher_dashboard_page.dart';
 import '../../features/parent/presentation/parent_dashboard_page.dart';
 import '../../features/manager/presentation/manager_dashboard_page.dart';
+import '../../features/notification/presentation/notification_page.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/',
@@ -40,6 +41,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/teacher',
       builder: (context, state) => const TeacherDashboardPage(),
+    ),
+    GoRoute(
+      path: '/notifications',
+      builder: (context, state) => const NotificationPage(),
     ),
   ],
 );

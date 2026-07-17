@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class StudentBottomNavigation extends StatelessWidget {
   final int currentIndex;
@@ -14,7 +15,27 @@ class StudentBottomNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     return NavigationBar(
       selectedIndex: currentIndex,
-      onDestinationSelected: onTap,
+      onDestinationSelected: (index) {
+        switch (index) {
+          case 0:
+            context.go('/student');
+            break;
+
+          case 1:
+            context.push('/calendar');
+            break;
+
+          case 2:
+            context.push('/messages');
+            break;
+
+          case 3:
+            context.push('/profile');
+            break;
+        }
+
+        onTap?.call(index);
+      },
       destinations: const [
         NavigationDestination(
           icon: Icon(Icons.home_outlined),
@@ -24,12 +45,12 @@ class StudentBottomNavigation extends StatelessWidget {
         NavigationDestination(
           icon: Icon(Icons.calendar_month_outlined),
           selectedIcon: Icon(Icons.calendar_month),
-          label: 'Schedule',
+          label: 'Calendar',
         ),
         NavigationDestination(
-          icon: Icon(Icons.notifications_outlined),
-          selectedIcon: Icon(Icons.notifications),
-          label: 'News',
+          icon: Icon(Icons.message_outlined),
+          selectedIcon: Icon(Icons.message),
+          label: 'Messages',
         ),
         NavigationDestination(
           icon: Icon(Icons.person_outline),

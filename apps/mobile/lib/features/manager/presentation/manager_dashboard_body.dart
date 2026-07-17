@@ -18,7 +18,10 @@ class ManagerDashboardBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const ManagerHeader(manager: demoManager),
+          GestureDetector(
+            onTap: () => context.push('/profile'),
+            child: const ManagerHeader(manager: demoManager),
+          ),
 
           const Gap(AppSpacing.lg),
 

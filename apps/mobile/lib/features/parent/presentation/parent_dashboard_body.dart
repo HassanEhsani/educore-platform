@@ -18,7 +18,10 @@ class ParentDashboardBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const ParentHeader(parent: demoParent),
+          GestureDetector(
+            onTap: () => context.push('/profile'),
+            child: const ParentHeader(parent: demoParent),
+          ),
 
           const Gap(AppSpacing.lg),
 

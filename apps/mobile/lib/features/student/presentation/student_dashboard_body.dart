@@ -18,7 +18,10 @@ class StudentDashboardBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const StudentHeader(student: demoStudent),
+          GestureDetector(
+            onTap: () => context.push('/profile'),
+            child: const StudentHeader(student: demoStudent),
+          ),
 
           const Gap(AppSpacing.lg),
 
@@ -35,7 +38,7 @@ class StudentDashboardBody extends StatelessWidget {
                 child: QuickActionCard(
                   icon: Icons.grade,
                   title: 'Grades',
-                  onTap: () {},
+                  onTap: () => context.push('/documents'),
                 ),
               ),
               SizedBox(
@@ -67,14 +70,14 @@ class StudentDashboardBody extends StatelessWidget {
 
           const Gap(AppSpacing.xl),
 
-          Text('Academic', style: Theme.of(context).textTheme.titleLarge),
+          Text('Learning', style: Theme.of(context).textTheme.titleLarge),
 
           const Gap(AppSpacing.md),
 
           DashboardCard(
             icon: Icons.menu_book,
             title: 'Learning Materials',
-            subtitle: 'Books, presentations and homework',
+            subtitle: 'Books and homework',
             onTap: () => context.push('/documents'),
           ),
 
@@ -88,7 +91,7 @@ class StudentDashboardBody extends StatelessWidget {
           DashboardCard(
             icon: Icons.campaign,
             title: 'Announcements',
-            subtitle: 'Latest school announcements',
+            subtitle: 'Latest school news',
             onTap: () => context.push('/messages'),
           ),
         ],

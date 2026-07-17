@@ -14,8 +14,21 @@ class SettingsPage extends StatelessWidget {
           onPressed: () => context.pop(),
         ),
       ),
-      body: const Center(
-        child: Text('Settings Page', style: TextStyle(fontSize: 22)),
+      body: ListView(
+        children: [
+          const ListTile(
+            leading: Icon(Icons.language),
+            title: Text('Language'),
+          ),
+          const Divider(height: 1),
+          const ListTile(leading: Icon(Icons.dark_mode), title: Text('Theme')),
+          const Divider(height: 1),
+          ListTile(
+            leading: const Icon(Icons.logout),
+            title: const Text('Logout'),
+            onTap: () => context.go('/'),
+          ),
+        ],
       ),
     );
   }

@@ -18,7 +18,10 @@ class TeacherDashboardBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const TeacherHeader(teacher: demoTeacher),
+          GestureDetector(
+            onTap: () => context.push('/profile'),
+            child: const TeacherHeader(teacher: demoTeacher),
+          ),
 
           const Gap(AppSpacing.lg),
 

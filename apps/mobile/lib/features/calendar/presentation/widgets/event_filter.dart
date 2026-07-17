@@ -6,7 +6,7 @@ class EventFilter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
-      value: 'All',
+      initialValue: 'All',
       decoration: const InputDecoration(
         labelText: 'Filter',
         border: OutlineInputBorder(),

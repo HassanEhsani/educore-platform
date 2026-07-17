@@ -8,6 +8,12 @@ import '../../features/teacher/presentation/teacher_dashboard_page.dart';
 import '../../features/parent/presentation/parent_dashboard_page.dart';
 import '../../features/manager/presentation/manager_dashboard_page.dart';
 import '../../features/notification/presentation/notification_page.dart';
+import '../../features/profile/presentation/profile_page.dart';
+import '../../features/messages/presentation/messages_page.dart';
+import '../../features/calendar/presentation/calendar_page.dart';
+import '../../features/documents/presentation/documents_page.dart';
+import '../../features/attendance/presentation/attendance_page.dart';
+import '../../features/settings/presentation/settings_page.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/',
@@ -22,11 +28,6 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/student',
       builder: (context, state) => const StudentDashboardPage(),
-    ),
-
-    GoRoute(
-      path: '/teacher',
-      builder: (context, state) => const TeacherDashboardPage(),
     ),
 
     GoRoute(
@@ -46,34 +47,31 @@ final GoRouter appRouter = GoRouter(
       path: '/notifications',
       builder: (context, state) => const NotificationPage(),
     ),
+    GoRoute(path: '/profile', builder: (context, state) => const ProfilePage()),
+
     GoRoute(
-  path: '/profile',
-  builder: (_, __) => const ProfilePage(),
-),
+      path: '/settings',
+      builder: (context, state) => const SettingsPage(),
+    ),
 
-GoRoute(
-  path: '/settings',
-  builder: (_, __) => const SettingsPage(),
-),
+    GoRoute(
+      path: '/messages',
+      builder: (context, state) => const MessagesPage(),
+    ),
 
-GoRoute(
-  path: '/messages',
-  builder: (_, __) => const MessagesPage(),
-),
+    GoRoute(
+      path: '/calendar',
+      builder: (context, state) => const CalendarPage(),
+    ),
 
-GoRoute(
-  path: '/calendar',
-  builder: (_, __) => const CalendarPage(),
-),
+    GoRoute(
+      path: '/documents',
+      builder: (context, state) => const DocumentsPage(),
+    ),
 
-GoRoute(
-  path: '/documents',
-  builder: (_, __) => const DocumentsPage(),
-),
-
-GoRoute(
-  path: '/attendance',
-  builder: (_, __) => const AttendancePage(),
-),
+    GoRoute(
+      path: '/attendance',
+      builder: (context, state) => const AttendancePage(),
+    ),
   ],
 );

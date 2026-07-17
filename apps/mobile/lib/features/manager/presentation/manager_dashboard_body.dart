@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/theme/app_spacing.dart';
 import '../data/fake_manager_data.dart';
 import 'widgets/manager_action_card.dart';
 import 'widgets/manager_header.dart';
 import 'widgets/statistics_card.dart';
-import 'package:go_router/go_router.dart';
 
 class ManagerDashboardBody extends StatelessWidget {
   const ManagerDashboardBody({super.key});
@@ -19,11 +19,12 @@ class ManagerDashboardBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const ManagerHeader(manager: demoManager),
+
+          const Gap(AppSpacing.lg),
+
           Text('Quick Actions', style: Theme.of(context).textTheme.titleLarge),
 
           const Gap(AppSpacing.md),
-
-          const Gap(AppSpacing.lg),
 
           Wrap(
             spacing: AppSpacing.md,
@@ -34,7 +35,7 @@ class ManagerDashboardBody extends StatelessWidget {
                 child: ManagerActionCard(
                   icon: Icons.people,
                   title: 'Teachers',
-                  onTap: () {},
+                  onTap: () => context.push('/profile'),
                 ),
               ),
               SizedBox(
@@ -42,7 +43,7 @@ class ManagerDashboardBody extends StatelessWidget {
                 child: ManagerActionCard(
                   icon: Icons.school,
                   title: 'Students',
-                  onTap: () {},
+                  onTap: () => context.push('/profile'),
                 ),
               ),
               SizedBox(
@@ -58,7 +59,7 @@ class ManagerDashboardBody extends StatelessWidget {
                 child: ManagerActionCard(
                   icon: Icons.analytics,
                   title: 'Reports',
-                  onTap: () {},
+                  onTap: () => context.push('/documents'),
                 ),
               ),
               SizedBox(
@@ -66,12 +67,14 @@ class ManagerDashboardBody extends StatelessWidget {
                 child: ManagerActionCard(
                   icon: Icons.settings,
                   title: 'Settings',
-                  onTap: () {},
+                  onTap: () => context.push('/settings'),
                 ),
               ),
             ],
           ),
+
           const Gap(AppSpacing.xl),
+
           Text(
             'School Statistics',
             style: Theme.of(context).textTheme.titleLarge,

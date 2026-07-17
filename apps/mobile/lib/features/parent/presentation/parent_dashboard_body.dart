@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/theme/app_spacing.dart';
 import '../data/fake_parent_data.dart';
 import 'widgets/parent_action_card.dart';
 import 'widgets/parent_child_card.dart';
 import 'widgets/parent_header.dart';
-import 'package:go_router/go_router.dart';
 
 class ParentDashboardBody extends StatelessWidget {
   const ParentDashboardBody({super.key});
@@ -22,13 +22,21 @@ class ParentDashboardBody extends StatelessWidget {
 
           const Gap(AppSpacing.lg),
 
+          Text('Quick Actions', style: Theme.of(context).textTheme.titleLarge),
+
+          const Gap(AppSpacing.md),
+
           Wrap(
             spacing: AppSpacing.md,
             runSpacing: AppSpacing.md,
             children: [
               SizedBox(
                 width: 160,
-                child: ParentActionCard(icon: Icons.grade, title: 'Grades'),
+                child: ParentActionCard(
+                  icon: Icons.grade,
+                  title: 'Grades',
+                  onTap: () => context.push('/documents'),
+                ),
               ),
               SizedBox(
                 width: 160,
@@ -40,23 +48,33 @@ class ParentDashboardBody extends StatelessWidget {
               ),
               SizedBox(
                 width: 160,
-                child: ParentActionCard(icon: Icons.message, title: 'Messages'),
+                child: ParentActionCard(
+                  icon: Icons.message,
+                  title: 'Messages',
+                  onTap: () => context.push('/messages'),
+                ),
               ),
               SizedBox(
                 width: 160,
-                child: ParentActionCard(icon: Icons.payments, title: 'Fees'),
+                child: ParentActionCard(
+                  icon: Icons.payments,
+                  title: 'Fees',
+                  onTap: () => context.push('/documents'),
+                ),
               ),
               SizedBox(
                 width: 160,
                 child: ParentActionCard(
                   icon: Icons.calendar_month,
                   title: 'Schedule',
+                  onTap: () => context.push('/calendar'),
                 ),
               ),
             ],
           ),
 
           const Gap(AppSpacing.xl),
+
           Text(
             'Student Information',
             style: Theme.of(context).textTheme.titleLarge,
@@ -69,21 +87,21 @@ class ParentDashboardBody extends StatelessWidget {
             title: 'Attendance',
             subtitle:
                 'Attendance: ${demoParent.attendance.toStringAsFixed(1)}%',
-            onTap: () {},
+            onTap: () => context.push('/attendance'),
           ),
 
           ParentChildCard(
             icon: Icons.notifications,
             title: 'Unread Messages',
             subtitle: '${demoParent.unreadMessages} new messages',
-            onTap: () {},
+            onTap: () => context.push('/messages'),
           ),
 
           ParentChildCard(
             icon: Icons.assignment,
             title: 'Homework',
             subtitle: 'Check homework status',
-            onTap: () {},
+            onTap: () => context.push('/documents'),
           ),
         ],
       ),

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/theme/app_spacing.dart';
 import '../data/fake_student_data.dart';
 import 'widgets/dashboard_card.dart';
 import 'widgets/quick_action_card.dart';
 import 'widgets/student_header.dart';
-import 'package:go_router/go_router.dart';
 
 class StudentDashboardBody extends StatelessWidget {
   const StudentDashboardBody({super.key});
@@ -22,19 +22,28 @@ class StudentDashboardBody extends StatelessWidget {
 
           const Gap(AppSpacing.lg),
 
+          Text('Quick Actions', style: Theme.of(context).textTheme.titleLarge),
+
+          const Gap(AppSpacing.md),
+
           Wrap(
             spacing: AppSpacing.md,
             runSpacing: AppSpacing.md,
             children: [
               SizedBox(
                 width: 160,
-                child: QuickActionCard(icon: Icons.grade, title: 'Grades'),
+                child: QuickActionCard(
+                  icon: Icons.grade,
+                  title: 'Grades',
+                  onTap: () {},
+                ),
               ),
               SizedBox(
                 width: 160,
                 child: QuickActionCard(
                   icon: Icons.calendar_month,
                   title: 'Schedule',
+                  onTap: () => context.push('/calendar'),
                 ),
               ),
               SizedBox(
@@ -47,31 +56,40 @@ class StudentDashboardBody extends StatelessWidget {
               ),
               SizedBox(
                 width: 160,
-                child: QuickActionCard(icon: Icons.payments, title: 'Tuition'),
+                child: QuickActionCard(
+                  icon: Icons.payments,
+                  title: 'Tuition',
+                  onTap: () => context.push('/documents'),
+                ),
               ),
             ],
           ),
+
           const Gap(AppSpacing.xl),
+
+          Text('Academic', style: Theme.of(context).textTheme.titleLarge),
+
+          const Gap(AppSpacing.md),
 
           DashboardCard(
             icon: Icons.menu_book,
             title: 'Learning Materials',
             subtitle: 'Books, presentations and homework',
-            onTap: () {},
+            onTap: () => context.push('/documents'),
           ),
 
           DashboardCard(
             icon: Icons.fact_check,
             title: 'Attendance',
             subtitle: 'View attendance history',
-            onTap: () {},
+            onTap: () => context.push('/attendance'),
           ),
 
           DashboardCard(
             icon: Icons.campaign,
             title: 'Announcements',
             subtitle: 'Latest school announcements',
-            onTap: () {},
+            onTap: () => context.push('/messages'),
           ),
         ],
       ),

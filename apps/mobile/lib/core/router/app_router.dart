@@ -46,5 +46,34 @@ final GoRouter appRouter = GoRouter(
       path: '/notifications',
       builder: (context, state) => const NotificationPage(),
     ),
+    GoRoute(
+  path: '/profile',
+  builder: (_, __) => const ProfilePage(),
+),
+
+GoRoute(
+  path: '/settings',
+  builder: (_, __) => const SettingsPage(),
+),
+
+GoRoute(
+  path: '/messages',
+  builder: (_, __) => const MessagesPage(),
+),
+
+GoRoute(
+  path: '/calendar',
+  builder: (_, __) => const CalendarPage(),
+),
+
+GoRoute(
+  path: '/documents',
+  builder: (_, __) => const DocumentsPage(),
+),
+
+GoRoute(
+  path: '/attendance',
+  builder: (_, __) => const AttendancePage(),
+),
   ],
 );

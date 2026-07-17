@@ -19,60 +19,49 @@ class TeacherDashboardBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const TeacherHeader(teacher: demoTeacher),
+          Text('Quick Actions', style: Theme.of(context).textTheme.titleLarge),
+
+          const Gap(AppSpacing.md),
 
           const Gap(AppSpacing.lg),
 
-          Row(
+          Wrap(
+            spacing: AppSpacing.md,
+            runSpacing: AppSpacing.md,
             children: [
-              Expanded(
+              SizedBox(
+                width: 160,
+                child: TeacherActionCard(icon: Icons.people, title: 'Students'),
+              ),
+              SizedBox(
+                width: 160,
                 child: TeacherActionCard(
                   icon: Icons.assignment,
                   title: 'Assignments',
-                  onTap: () {},
                 ),
               ),
-              Expanded(
+              SizedBox(
+                width: 160,
                 child: TeacherActionCard(
                   icon: Icons.notifications,
                   title: 'Notifications',
                   onTap: () => context.push('/notifications'),
                 ),
               ),
-
-              const SizedBox(width: AppSpacing.md),
-              Expanded(
-                child: TeacherActionCard(
-                  icon: Icons.people,
-                  title: 'Students',
-                  onTap: () {},
-                ),
-              ),
-            ],
-          ),
-
-          const Gap(AppSpacing.md),
-
-          Row(
-            children: [
-              Expanded(
+              SizedBox(
+                width: 160,
                 child: TeacherActionCard(
                   icon: Icons.schedule,
                   title: 'Schedule',
-                  onTap: () {},
-                ),
-              ),
-              const SizedBox(width: AppSpacing.md),
-              Expanded(
-                child: TeacherActionCard(
-                  icon: Icons.analytics,
-                  title: 'Reports',
-                  onTap: () {},
                 ),
               ),
             ],
           ),
 
           const Gap(AppSpacing.xl),
+          Text('Teaching', style: Theme.of(context).textTheme.titleLarge),
+
+          const Gap(AppSpacing.md),
 
           TeacherClassCard(
             icon: Icons.class_,

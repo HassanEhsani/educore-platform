@@ -19,49 +19,50 @@ class ManagerDashboardBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const ManagerHeader(manager: demoManager),
+          Text('Quick Actions', style: Theme.of(context).textTheme.titleLarge),
+
+          const Gap(AppSpacing.md),
 
           const Gap(AppSpacing.lg),
 
-          Row(
+          Wrap(
+            spacing: AppSpacing.md,
+            runSpacing: AppSpacing.md,
             children: [
-              Expanded(
+              SizedBox(
+                width: 160,
                 child: ManagerActionCard(
                   icon: Icons.people,
                   title: 'Teachers',
                   onTap: () {},
                 ),
               ),
-              Expanded(
-                child: ManagerActionCard(
-                  icon: Icons.notifications,
-                  title: 'Notifications',
-                  onTap: () => context.push('/notifications'),
-                ),
-              ),
-              const SizedBox(width: AppSpacing.md),
-              Expanded(
+              SizedBox(
+                width: 160,
                 child: ManagerActionCard(
                   icon: Icons.school,
                   title: 'Students',
                   onTap: () {},
                 ),
               ),
-            ],
-          ),
-
-          const Gap(AppSpacing.md),
-
-          Row(
-            children: [
-              Expanded(
+              SizedBox(
+                width: 160,
+                child: ManagerActionCard(
+                  icon: Icons.notifications,
+                  title: 'Notifications',
+                  onTap: () => context.push('/notifications'),
+                ),
+              ),
+              SizedBox(
+                width: 160,
                 child: ManagerActionCard(
                   icon: Icons.analytics,
                   title: 'Reports',
                   onTap: () {},
                 ),
               ),
-              const SizedBox(width: AppSpacing.md),
-              Expanded(
+              SizedBox(
+                width: 160,
                 child: ManagerActionCard(
                   icon: Icons.settings,
                   title: 'Settings',
@@ -70,8 +71,13 @@ class ManagerDashboardBody extends StatelessWidget {
               ),
             ],
           ),
-
           const Gap(AppSpacing.xl),
+          Text(
+            'School Statistics',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+
+          const Gap(AppSpacing.md),
 
           StatisticsCard(
             icon: Icons.people,

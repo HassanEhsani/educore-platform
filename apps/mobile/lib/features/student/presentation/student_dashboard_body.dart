@@ -22,32 +22,33 @@ class StudentDashboardBody extends StatelessWidget {
 
           const Gap(AppSpacing.lg),
 
-          Row(
-            children: const [
-              Expanded(
+          Wrap(
+            spacing: AppSpacing.md,
+            runSpacing: AppSpacing.md,
+            children: [
+              SizedBox(
+                width: 160,
                 child: QuickActionCard(icon: Icons.grade, title: 'Grades'),
               ),
-              SizedBox(width: AppSpacing.md),
-              Expanded(
+              SizedBox(
+                width: 160,
                 child: QuickActionCard(
                   icon: Icons.calendar_month,
                   title: 'Schedule',
                 ),
               ),
-            ],
-          ),
-
-          const Gap(AppSpacing.md),
-
-          Row(
-            children: [
-              QuickActionCard(
-                icon: Icons.notifications,
-                title: 'News',
-                onTap: () => context.push('/notifications'),
+              SizedBox(
+                width: 160,
+                child: QuickActionCard(
+                  icon: Icons.notifications,
+                  title: 'Notifications',
+                  onTap: () => context.push('/notifications'),
+                ),
               ),
-              const SizedBox(width: AppSpacing.md),
-              const QuickActionCard(icon: Icons.payments, title: 'Tuition'),
+              SizedBox(
+                width: 160,
+                child: QuickActionCard(icon: Icons.payments, title: 'Tuition'),
+              ),
             ],
           ),
           const Gap(AppSpacing.xl),

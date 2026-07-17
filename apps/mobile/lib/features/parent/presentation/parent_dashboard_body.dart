@@ -22,56 +22,47 @@ class ParentDashboardBody extends StatelessWidget {
 
           const Gap(AppSpacing.lg),
 
-          Row(
+          Wrap(
+            spacing: AppSpacing.md,
+            runSpacing: AppSpacing.md,
             children: [
-              Expanded(
-                child: ParentActionCard(
-                  icon: Icons.grade,
-                  title: 'Grades',
-                  onTap: () {},
-                ),
+              SizedBox(
+                width: 160,
+                child: ParentActionCard(icon: Icons.grade, title: 'Grades'),
               ),
-              Expanded(
+              SizedBox(
+                width: 160,
                 child: ParentActionCard(
                   icon: Icons.notifications,
                   title: 'Notifications',
                   onTap: () => context.push('/notifications'),
                 ),
               ),
-              const SizedBox(width: AppSpacing.md),
-              Expanded(
-                child: ParentActionCard(
-                  icon: Icons.message,
-                  title: 'Messages',
-                  onTap: () {},
-                ),
+              SizedBox(
+                width: 160,
+                child: ParentActionCard(icon: Icons.message, title: 'Messages'),
               ),
-            ],
-          ),
-
-          const Gap(AppSpacing.md),
-
-          Row(
-            children: [
-              Expanded(
-                child: ParentActionCard(
-                  icon: Icons.payments,
-                  title: 'Fees',
-                  onTap: () {},
-                ),
+              SizedBox(
+                width: 160,
+                child: ParentActionCard(icon: Icons.payments, title: 'Fees'),
               ),
-              const SizedBox(width: AppSpacing.md),
-              Expanded(
+              SizedBox(
+                width: 160,
                 child: ParentActionCard(
                   icon: Icons.calendar_month,
                   title: 'Schedule',
-                  onTap: () {},
                 ),
               ),
             ],
           ),
 
           const Gap(AppSpacing.xl),
+          Text(
+            'Student Information',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+
+          const Gap(AppSpacing.md),
 
           ParentChildCard(
             icon: Icons.school,

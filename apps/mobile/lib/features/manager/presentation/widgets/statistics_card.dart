@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/widgets/dashboard/dashboard_info_card.dart';
+
 class StatisticsCard extends StatelessWidget {
   final IconData icon;
   final String title;
@@ -14,12 +16,6 @@ class StatisticsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        leading: Icon(icon),
-        title: Text(title),
-        trailing: Text(value, style: Theme.of(context).textTheme.titleMedium),
-      ),
-    );
+    return DashboardInfoCard(icon: icon, title: title, subtitle: value);
   }
 }

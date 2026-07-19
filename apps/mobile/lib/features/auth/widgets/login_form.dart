@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'social_login_section.dart';
 import 'email_text_field.dart';
 import 'forgot_password_button.dart';
 import 'login_button.dart';
@@ -8,6 +8,8 @@ import 'login_header.dart';
 import 'logo_section.dart';
 import 'password_text_field.dart';
 import 'remember_me_checkbox.dart';
+import 'language_selector.dart';
+import 'version_label.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -17,6 +19,7 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  String language = 'en';
   final _formKey = GlobalKey<FormState>();
 
   final emailController = TextEditingController();
@@ -49,6 +52,18 @@ class _LoginFormState extends State<LoginForm> {
           const SizedBox(height: 32),
 
           const LoginHeader(),
+          const SizedBox(height: 20),
+
+          LanguageSelector(
+            value: language,
+            onChanged: (value) {
+              setState(() {
+                language = value ?? 'en';
+              });
+            },
+          ),
+
+          const SizedBox(height: 24),
 
           const SizedBox(height: 32),
 
@@ -72,10 +87,16 @@ class _LoginFormState extends State<LoginForm> {
           const SizedBox(height: 20),
 
           LoginButton(onPressed: login),
+          const SizedBox(height: 24),
+
+          SocialLoginSection(onGooglePressed: () {}, onApplePressed: () {}),
 
           const SizedBox(height: 40),
 
           const LoginFooter(),
+          const SizedBox(height: 12),
+
+          const VersionLabel(),
         ],
       ),
     );

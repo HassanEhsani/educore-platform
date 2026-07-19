@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../models/login_request.dart';
-import '../repositories/login_repository.dart';
 import 'login_repository_provider.dart';
 
 class LoginNotifier extends AsyncNotifier<void> {

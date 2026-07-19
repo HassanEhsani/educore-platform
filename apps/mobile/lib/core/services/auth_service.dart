@@ -1,19 +1,17 @@
-import 'package:dio/dio.dart';
+class AuthService {
+  AuthService._();
 
-class ApiService {
-  ApiService._();
+  static final AuthService instance = AuthService._();
 
-  static final ApiService instance = ApiService._();
+  bool _initialized = false;
 
-  final Dio _dio = Dio();
-
-  Dio get client => _dio;
-
-  Future<Response> get(String path, {Map<String, dynamic>? query}) async {
-    return _dio.get(path, queryParameters: query);
+  Future<void> init() async {
+    _initialized = true;
   }
 
-  Future<Response> post(String path, {dynamic data}) async {
-    return _dio.post(path, data: data);
+  bool get isInitialized => _initialized;
+
+  Future<void> logout() async {
+    _initialized = false;
   }
 }

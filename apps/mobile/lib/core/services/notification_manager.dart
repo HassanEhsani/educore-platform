@@ -9,6 +9,7 @@ class NotificationManager {
     required String title,
     required String message,
   }) async {
+    // ignore: avoid_print
     print('$title: $message');
   }
 }

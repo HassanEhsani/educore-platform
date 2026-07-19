@@ -4,9 +4,9 @@ import 'logger_service.dart';
 import 'storage_service.dart';
 
 class AppInitializer {
-  AppInitializer._();
+  AppInitializer();
 
-  static Future<void> initialize() async {
+  Future<void> initialize() async {
     await StorageService.instance.init();
 
     await DatabaseService.instance.init();

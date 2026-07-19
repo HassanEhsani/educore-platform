@@ -8,7 +8,8 @@ import 'core/theme/app_theme.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await AppInitializer.initialize();
+  final appInitializer = AppInitializer();
+  await appInitializer.initialize();
 
   runApp(const ProviderScope(child: EduCoreApp()));
 }

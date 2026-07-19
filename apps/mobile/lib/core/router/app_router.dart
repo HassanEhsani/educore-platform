@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 
-import '../../features/auth/presentation/login_page.dart';
+import '../../features/auth/pages/login_page.dart';
 import '../../features/auth/presentation/role_selection_page.dart';
 
 import '../../features/student/presentation/student_dashboard_page.dart';
@@ -31,6 +31,11 @@ final GoRouter appRouter = GoRouter(
     ),
 
     GoRoute(
+      path: '/teacher',
+      builder: (context, state) => const TeacherDashboardPage(),
+    ),
+
+    GoRoute(
       path: '/parent',
       builder: (context, state) => const ParentDashboardPage(),
     ),
@@ -39,14 +44,12 @@ final GoRouter appRouter = GoRouter(
       path: '/manager',
       builder: (context, state) => const ManagerDashboardPage(),
     ),
-    GoRoute(
-      path: '/teacher',
-      builder: (context, state) => const TeacherDashboardPage(),
-    ),
+
     GoRoute(
       path: '/notifications',
       builder: (context, state) => const NotificationPage(),
     ),
+
     GoRoute(path: '/profile', builder: (context, state) => const ProfilePage()),
 
     GoRoute(

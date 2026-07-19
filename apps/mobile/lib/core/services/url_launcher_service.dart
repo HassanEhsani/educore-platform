@@ -8,10 +8,6 @@ class UrlLauncherService {
   Future<bool> openUrl(String url) async {
     final uri = Uri.parse(url);
 
-    if (!await canLaunchUrl(uri)) {
-      return false;
-    }
-
-    return launchUrl(uri);
+    return launchUrl(uri, mode: LaunchMode.externalApplication);
   }
 }

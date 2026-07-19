@@ -1,15 +1,15 @@
-import 'package:intl/intl.dart';
+class DatabaseService {
+  DatabaseService._();
 
-class DateService {
-  DateService._();
+  static final DatabaseService instance = DatabaseService._();
 
-  static final DateService instance = DateService._();
+  bool _initialized = false;
 
-  String formatDate(DateTime date) {
-    return DateFormat('yyyy-MM-dd').format(date);
+  Future<void> init() async {
+    _initialized = true;
   }
 
-  String formatDateTime(DateTime date) {
-    return DateFormat('yyyy-MM-dd HH:mm').format(date);
+  bool get isInitialized {
+    return _initialized;
   }
 }

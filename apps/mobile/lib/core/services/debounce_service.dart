@@ -7,7 +7,7 @@ class DebounceService {
 
   Timer? _timer;
 
-  void run(Duration duration, Function callback) {
+  void run(Duration duration, void Function() callback) {
     _timer?.cancel();
 
     _timer = Timer(duration, callback);

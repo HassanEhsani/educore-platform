@@ -1,17 +1,18 @@
 import 'auth_service.dart';
 import 'database_service.dart';
-import 'notification_service.dart';
+import 'logger_service.dart';
+import 'storage_service.dart';
 
 class AppInitializer {
   AppInitializer._();
 
-  static final AppInitializer instance = AppInitializer._();
+  static Future<void> initialize() async {
+    await StorageService.instance.init();
 
-  Future<void> initialize() async {
-    await DatabaseService.instance.initialize();
+    await DatabaseService.instance.init();
 
-    await NotificationService.instance.initialize();
+    await AuthService.instance.init();
 
-    AuthService.instance;
+    LoggerService.instance.info('App initialized successfully');
   }
 }

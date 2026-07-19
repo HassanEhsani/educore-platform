@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 class LoginContainer extends StatelessWidget {
   final Widget child;
 
-  const LoginContainer({
-    super.key,
-    required this.child,
-  });
+  const LoginContainer({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +17,7 @@ class LoginContainer extends StatelessWidget {
           BoxShadow(
             blurRadius: 20,
             offset: const Offset(0, 8),
-            color: Colors.black.withValues(
-              alpha: 0.08,
-            ),
+            color: Colors.black.withValues(alpha: 0.08),
           ),
         ],
       ),

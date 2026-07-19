@@ -7,6 +7,10 @@ import 'interceptors/logger_interceptor.dart';
 class ApiClient {
   ApiClient._();
 
+  factory ApiClient.create() {
+    return ApiClient._();
+  }
+
   static final Dio dio = Dio(
     BaseOptions(
       baseUrl: ApiEndpoints.baseUrl,
@@ -19,4 +23,6 @@ class ApiClient {
       },
     ),
   )..interceptors.addAll([LoggerInterceptor(), AuthInterceptor()]);
+
+  Dio get client => dio;
 }

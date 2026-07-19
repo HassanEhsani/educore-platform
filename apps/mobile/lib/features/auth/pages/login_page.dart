@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/login_form.dart';
+import '../widgets/login_form_wrapper.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
+  const LoginFormWrapper(),
 
   @override
   Widget build(BuildContext context) {

@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'social_login_section.dart';
+
+import 'divider_text.dart';
 import 'email_text_field.dart';
 import 'forgot_password_button.dart';
+import 'loading_overlay.dart';
 import 'login_button.dart';
-import 'login_footer.dart';
-import 'login_header.dart';
-import 'logo_section.dart';
 import 'password_text_field.dart';
 import 'remember_me_checkbox.dart';
-import 'language_selector.dart';
-import 'version_label.dart';
+import 'social_login_section.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -19,85 +17,81 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  String language = 'en';
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
-  bool rememberMe = false;
+  bool _rememberMe = false;
+  bool _isLoading = false;
 
   @override
   void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
-  void login() {
-    if (_formKey.currentState!.validate()) {
-      debugPrint('Login Success');
+  Future<void> _login() async {
+    if (!_formKey.currentState!.validate()) {
+      return;
     }
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    await Future.delayed(const Duration(seconds: 1));
+
+    if (!mounted) return;
+
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const LogoSection(),
+    return LoadingOverlay(
+      loading: _isLoading,
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            EmailTextField(controller: _emailController),
 
-          const SizedBox(height: 32),
+            const SizedBox(height: 16),
 
-          const LoginHeader(),
-          const SizedBox(height: 20),
+            PasswordTextField(controller: _passwordController),
 
-          LanguageSelector(
-            value: language,
-            onChanged: (value) {
-              setState(() {
-                language = value ?? 'en';
-              });
-            },
-          ),
+            const SizedBox(height: 12),
 
-          const SizedBox(height: 24),
+            RememberMeCheckbox(
+              value: _rememberMe,
+              onChanged: (value) {
+                setState(() {
+                  _rememberMe = value ?? false;
+                });
+              },
+            ),
 
-          const SizedBox(height: 32),
+            const SizedBox(height: 12),
 
-          EmailTextField(controller: emailController),
+            ForgotPasswordButton(onPressed: () {}),
 
-          const SizedBox(height: 16),
+            const SizedBox(height: 24),
 
-          PasswordTextField(controller: passwordController),
+            LoginButton(onPressed: _login),
 
-          RememberMeCheckbox(
-            value: rememberMe,
-            onChanged: (value) {
-              setState(() {
-                rememberMe = value ?? false;
-              });
-            },
-          ),
+            const SizedBox(height: 24),
 
-          ForgotPasswordButton(onPressed: () {}),
+            const DividerText(text: 'OR'),
 
-          const SizedBox(height: 20),
+            const SizedBox(height: 20),
 
-          LoginButton(onPressed: login),
-          const SizedBox(height: 24),
-
-          SocialLoginSection(onGooglePressed: () {}, onApplePressed: () {}),
-
-          const SizedBox(height: 40),
-
-          const LoginFooter(),
-          const SizedBox(height: 12),
-
-          const VersionLabel(),
-        ],
+            SocialLoginSection(onGooglePressed: () {}, onApplePressed: () {}),
+          ],
+        ),
       ),
     );
   }

@@ -5,6 +5,8 @@ class AuthService {
 
   static final AuthService instance = AuthService._();
 
+  MockUser? currentUser;
+
   Future<MockUser?> login({
     required String email,
     required String password,
@@ -13,10 +15,16 @@ class AuthService {
 
     for (final user in mockUsers) {
       if (user.email == email && user.password == password) {
+        currentUser = user;
         return user;
       }
     }
 
+    currentUser = null;
     return null;
+  }
+
+  void logout() {
+    currentUser = null;
   }
 }

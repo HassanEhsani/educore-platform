@@ -1,41 +1,49 @@
-// lib/features/admin/presentation/admin_dashboard_page.dart
-
 import 'package:flutter/material.dart';
 
 import '../../../core/widgets/app_shell.dart';
-import '../data/admin_dashboard_data.dart';
+
+import '../data/admin_analytics_data.dart';
 import '../data/fake_admin_data.dart';
-import 'widgets/admin_header.dart';
-import 'widgets/admin_stat_card.dart';
-import 'widgets/admin_business_card.dart';
+
 import 'widgets/admin_activity_card.dart';
+import 'widgets/admin_business_card.dart';
+import 'widgets/admin_growth_card.dart';
+import 'widgets/admin_header.dart';
 import 'widgets/admin_kpi_card.dart';
+import 'widgets/admin_quick_actions.dart';
+import 'widgets/admin_revenue_card.dart';
+import 'widgets/admin_system_health_card.dart';
+import 'widgets/admin_welcome_card.dart';
 
 class AdminDashboardPage extends StatelessWidget {
   const AdminDashboardPage({super.key});
-  static const List<String> _routes = [
+
+  static const List<String> routes = [
     '/admin',
     '/admin/notifications',
     '/admin/profile',
     '/admin/settings',
   ];
 
-  static const List<NavigationDestination> _destinations = [
+  static const List<NavigationDestination> destinations = [
     NavigationDestination(
       icon: Icon(Icons.dashboard_outlined),
       selectedIcon: Icon(Icons.dashboard),
       label: 'Dashboard',
     ),
+
     NavigationDestination(
       icon: Icon(Icons.notifications_outlined),
       selectedIcon: Icon(Icons.notifications),
       label: 'Notifications',
     ),
+
     NavigationDestination(
       icon: Icon(Icons.person_outline),
       selectedIcon: Icon(Icons.person),
       label: 'Profile',
     ),
+
     NavigationDestination(
       icon: Icon(Icons.settings_outlined),
       selectedIcon: Icon(Icons.settings),
@@ -45,135 +53,83 @@ class AdminDashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final summary = AdminDashboardData.summary;
+    final analytics = AdminAnalyticsData.analytics;
 
     return AppShell(
       title: 'Admin Dashboard',
+
       currentIndex: 0,
+
       onTap: (_) {},
-      destinations: _destinations,
-      routes: _routes,
+
+      routes: routes,
+
+      destinations: destinations,
+
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
+
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+
           children: [
-            AdminHeader(admin: FakeAdminData.admin),
-            const SizedBox(height: 24),
+            AdminWelcomeCard(admin: FakeAdminData.admin),
+
+            const SizedBox(height: 20),
 
             GridView.count(
               shrinkWrap: true,
+
               physics: const NeverScrollableScrollPhysics(),
+
               crossAxisCount: 2,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
 
-              children: const [
-                AdminKpiCard(
-                  icon: Icons.business,
-                  title: 'Businesses',
-                  value: '3',
-                  subtitle: 'Active companies',
-                ),
-
+              children: [
                 AdminKpiCard(
                   icon: Icons.people,
                   title: 'Users',
-                  value: '2450',
-                  subtitle: '+120 this month',
+                  value: '${analytics.totalUsers}',
+                  subtitle: 'Active users',
                 ),
 
                 AdminKpiCard(
-                  icon: Icons.attach_money,
-                  title: 'Revenue',
-                  value: '\$45K',
-                  subtitle: 'Monthly income',
-                ),
-
-                AdminKpiCard(
-                  icon: Icons.storage,
-                  title: 'System',
-                  value: '99.9%',
-                  subtitle: 'Uptime',
+                  icon: Icons.business,
+                  title: 'Businesses',
+                  value: '${analytics.totalBusinesses}',
+                  subtitle: 'Companies',
                 ),
               ],
             ),
 
-            const SizedBox(height: 24),
+            const SizedBox(height: 20),
 
-            Text(
-              'Business Overview',
-              style: Theme.of(
-                context,
-              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+            AdminRevenueCard(
+              monthlyRevenue: analytics.monthlyRevenue,
+              yearlyRevenue: analytics.yearlyRevenue,
             ),
 
-            const SizedBox(height: 16),
+            const SizedBox(height: 20),
+
+            AdminGrowthCard(growth: analytics.userGrowth),
+
+            const SizedBox(height: 20),
+
+            AdminSystemHealthCard(uptime: analytics.systemUptime),
+
+            const SizedBox(height: 20),
+
+            const AdminQuickActions(),
+
+            const SizedBox(height: 20),
 
             const AdminBusinessCard(),
 
-            const SizedBox(height: 24),
-
-            Text(
-              'System Statistics',
-              style: Theme.of(
-                context,
-              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-            ),
-
-            const SizedBox(height: 16),
-
-            AdminStatCard(
-              icon: Icons.people,
-              title: 'Total Students',
-              value: '${summary.totalStudents}',
-            ),
-
-            AdminStatCard(
-              icon: Icons.school,
-              title: 'Total Teachers',
-              value: '${summary.totalTeachers}',
-            ),
-
-            AdminStatCard(
-              icon: Icons.family_restroom,
-              title: 'Total Parents',
-              value: '${summary.totalParents}',
-            ),
-
-            AdminStatCard(
-              icon: Icons.attach_money,
-              title: 'Monthly Revenue',
-              value: '\$${summary.monthlyRevenue}',
-            ),
-
-            const SizedBox(height: 24),
-
-            Text(
-              'Recent Activities',
-              style: Theme.of(
-                context,
-              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-            ),
-
-            const SizedBox(height: 16),
+            const SizedBox(height: 20),
 
             const AdminActivityCard(
               title: 'New school registered',
-              subtitle: 'EduCore Branch added today',
+              subtitle: 'EduCore branch added',
               icon: Icons.business,
-            ),
-
-            const AdminActivityCard(
-              title: '120 new students enrolled',
-              subtitle: 'Enrollment updated this week',
-              icon: Icons.person_add,
-            ),
-
-            const AdminActivityCard(
-              title: 'Monthly report generated',
-              subtitle: 'Financial report is ready',
-              icon: Icons.analytics,
             ),
           ],
         ),

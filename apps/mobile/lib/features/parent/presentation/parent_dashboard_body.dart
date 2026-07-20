@@ -20,7 +20,7 @@ class ParentDashboardBody extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () => context.push('/profile'),
-            child: const ParentHeader(parent: demoParent),
+            child: ParentHeader(parent: FakeParentData.parent),
           ),
 
           const Gap(AppSpacing.lg),
@@ -89,14 +89,14 @@ class ParentDashboardBody extends StatelessWidget {
             icon: Icons.school,
             title: 'Attendance',
             subtitle:
-                'Attendance: ${demoParent.attendance.toStringAsFixed(1)}%',
+                'Attendance: ${FakeParentData.parent.attendance.toStringAsFixed(1)}%',
             onTap: () => context.push('/attendance'),
           ),
 
           ParentChildCard(
             icon: Icons.notifications,
             title: 'Unread Messages',
-            subtitle: '${demoParent.unreadMessages} new messages',
+            subtitle: '${FakeParentData.parent.unreadMessages} new messages',
             onTap: () => context.push('/messages'),
           ),
 

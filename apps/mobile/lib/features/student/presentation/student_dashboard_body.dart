@@ -20,7 +20,7 @@ class StudentDashboardBody extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () => context.push('/profile'),
-            child: const StudentHeader(student: demoStudent),
+            child: StudentHeader(student: FakeStudentData.student),
           ),
 
           const Gap(AppSpacing.lg),

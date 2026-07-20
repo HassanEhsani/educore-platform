@@ -28,45 +28,41 @@ class ManagerDashboardBody extends StatelessWidget {
 
           const Gap(24),
 
-          _revenueHero(context),
+          _revenueCard(context),
 
           const Gap(24),
 
-          Text(
-            'Business Overview',
-            style: Theme.of(
-              context,
-            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-          ),
+          _sectionTitle(context, 'Business Overview'),
 
           const Gap(12),
 
-          _businessTile(
+          _businessCard(
             context,
             Icons.school,
-            'School',
+            'EduCore School',
             '1250 Students',
-            '\$25,000',
+            ManagerDashboardData.schoolRevenue,
           ),
 
-          _businessTile(context, Icons.wifi, 'ISP', '430 Users', '\$8,500'),
+          _businessCard(
+            context,
+            Icons.wifi,
+            'EduCore ISP',
+            '${ManagerDashboardData.ispUsers} Users',
+            ManagerDashboardData.ispRevenue,
+          ),
 
-          _businessTile(
+          _businessCard(
             context,
             Icons.biotech,
             'Laboratory',
-            '320 Tests',
-            '\$4,200',
+            '${ManagerDashboardData.laboratoryTests} Tests',
+            ManagerDashboardData.laboratoryRevenue,
           ),
 
           const Gap(24),
 
-          Text(
-            'Performance',
-            style: Theme.of(
-              context,
-            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-          ),
+          _sectionTitle(context, 'Performance'),
 
           const Gap(12),
 
@@ -90,12 +86,7 @@ class ManagerDashboardBody extends StatelessWidget {
 
           const Gap(24),
 
-          Text(
-            'Quick Actions',
-            style: Theme.of(
-              context,
-            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-          ),
+          _sectionTitle(context, 'Quick Actions'),
 
           const Gap(12),
 
@@ -111,19 +102,16 @@ class ManagerDashboardBody extends StatelessWidget {
                 title: 'Add Student',
                 onTap: () => context.push('/documents'),
               ),
-
               QuickActionCard(
                 icon: Icons.group_add,
                 title: 'Add Teacher',
                 onTap: () => context.push('/documents'),
               ),
-
               QuickActionCard(
                 icon: Icons.payment,
                 title: 'Payments',
                 onTap: () => context.push('/documents'),
               ),
-
               QuickActionCard(
                 icon: Icons.analytics,
                 title: 'Reports',
@@ -134,25 +122,20 @@ class ManagerDashboardBody extends StatelessWidget {
 
           const Gap(24),
 
-          Text(
-            'Recent Activity',
-            style: Theme.of(
-              context,
-            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-          ),
+          _sectionTitle(context, 'Recent Activity'),
 
           const Gap(12),
 
           const RecentActivityCard(
             icon: Icons.person_add,
             title: '20 new students registered',
-            subtitle: 'Today 10:30',
+            subtitle: 'Today • 10:30 AM',
           ),
 
           const RecentActivityCard(
             icon: Icons.payment,
             title: 'Monthly payment received',
-            subtitle: 'Today 09:15',
+            subtitle: 'Today • 09:15 AM',
           ),
 
           const RecentActivityCard(
@@ -165,21 +148,29 @@ class ManagerDashboardBody extends StatelessWidget {
     );
   }
 
-  Widget _revenueHero(BuildContext context) {
+  Widget _sectionTitle(BuildContext context, String title) {
+    return Text(
+      title,
+      style: Theme.of(
+        context,
+      ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+    );
+  }
+
+  Widget _revenueCard(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(24),
-
       decoration: BoxDecoration(
+        color: colors.primaryContainer,
         borderRadius: BorderRadius.circular(24),
-        color: Theme.of(context).colorScheme.primaryContainer,
       ),
-
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-
         children: [
-          const Text('Total Monthly Revenue'),
+          const Text('Monthly Revenue'),
 
           const Gap(8),
 
@@ -192,29 +183,34 @@ class ManagerDashboardBody extends StatelessWidget {
 
           const Gap(8),
 
-          const Text('↑ 12% growth compared to last month'),
+          const Text('↑ 12% growth compared to previous month'),
         ],
       ),
     );
   }
 
-  Widget _businessTile(
+  Widget _businessCard(
     BuildContext context,
     IconData icon,
     String title,
     String subtitle,
-    String value,
+    double revenue,
   ) {
+    final colors = Theme.of(context).colorScheme;
+
     return Card(
+      elevation: 0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: ListTile(
-        leading: CircleAvatar(child: Icon(icon)),
-
+        contentPadding: const EdgeInsets.all(16),
+        leading: CircleAvatar(
+          backgroundColor: colors.primaryContainer,
+          child: Icon(icon, color: colors.primary),
+        ),
         title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-
         subtitle: Text(subtitle),
-
         trailing: Text(
-          value,
+          '\$${revenue.toStringAsFixed(0)}',
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ),

@@ -1,12 +1,17 @@
-// lib/core/widgets/app_shell.dart
-
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class AppShell extends StatelessWidget {
   final String title;
   final Widget body;
+
   final int currentIndex;
+
   final ValueChanged<int> onTap;
+
+  final List<NavigationDestination> destinations;
+
+  final List<String> routes;
 
   const AppShell({
     super.key,
@@ -14,6 +19,8 @@ class AppShell extends StatelessWidget {
     required this.body,
     required this.currentIndex,
     required this.onTap,
+    required this.destinations,
+    required this.routes,
   });
 
   @override
@@ -32,33 +39,16 @@ class AppShell extends StatelessWidget {
 
       bottomNavigationBar: NavigationBar(
         selectedIndex: currentIndex,
-        onDestinationSelected: onTap,
 
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.dashboard_outlined),
-            selectedIcon: Icon(Icons.dashboard),
-            label: 'Dashboard',
-          ),
+        destinations: destinations,
 
-          NavigationDestination(
-            icon: Icon(Icons.notifications_outlined),
-            selectedIcon: Icon(Icons.notifications),
-            label: 'Notifications',
-          ),
+        onDestinationSelected: (index) {
+          onTap(index);
 
-          NavigationDestination(
-            icon: Icon(Icons.person_outline),
-            selectedIcon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-
-          NavigationDestination(
-            icon: Icon(Icons.settings_outlined),
-            selectedIcon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ],
+          if (index < routes.length) {
+            context.go(routes[index]);
+          }
+        },
       ),
     );
   }

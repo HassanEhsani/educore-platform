@@ -1,3 +1,5 @@
+// lib/features/manager/data/fake_manager_data.dart
+
 import '../domain/manager.dart';
 
 const demoManager = Manager(

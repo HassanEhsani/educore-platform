@@ -16,10 +16,4 @@ class ManagerDashboardData {
 
   static const int ispUsers = 430;
   static const int laboratoryTests = 320;
-
-  static const List<String> recentActivities = [
-    '20 new students registered',
-    'Teacher attendance completed',
-    'Monthly tuition payment received',
-  ];
 }

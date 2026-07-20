@@ -7,6 +7,35 @@ import 'manager_dashboard_body.dart';
 
 class ManagerDashboardPage extends StatelessWidget {
   const ManagerDashboardPage({super.key});
+  static const List<String> _routes = [
+    '/manager',
+    '/manager/notifications',
+    '/manager/profile',
+    '/manager/settings',
+  ];
+
+  static const List<NavigationDestination> _destinations = [
+    NavigationDestination(
+      icon: Icon(Icons.dashboard_outlined),
+      selectedIcon: Icon(Icons.dashboard),
+      label: 'Dashboard',
+    ),
+    NavigationDestination(
+      icon: Icon(Icons.notifications_outlined),
+      selectedIcon: Icon(Icons.notifications),
+      label: 'Notifications',
+    ),
+    NavigationDestination(
+      icon: Icon(Icons.person_outline),
+      selectedIcon: Icon(Icons.person),
+      label: 'Profile',
+    ),
+    NavigationDestination(
+      icon: Icon(Icons.settings_outlined),
+      selectedIcon: Icon(Icons.settings),
+      label: 'Settings',
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +43,8 @@ class ManagerDashboardPage extends StatelessWidget {
       title: 'Manager Dashboard',
       currentIndex: 0,
       onTap: (_) {},
+      destinations: _destinations,
+      routes: _routes,
       body: const ManagerDashboardBody(),
     );
   }

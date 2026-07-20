@@ -21,33 +21,20 @@ class QuickActionCard extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(20),
-
       child: Card(
         elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-
-        child: Padding(
-          padding: const EdgeInsets.all(18),
-
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-
-            children: [
-              CircleAvatar(
-                radius: 26,
-                backgroundColor: colors.primaryContainer,
-                child: Icon(icon, color: colors.primary, size: 28),
-              ),
-
-              const SizedBox(height: 12),
-
-              Text(
-                title,
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontWeight: FontWeight.w600),
-              ),
-            ],
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              radius: 28,
+              backgroundColor: colors.primaryContainer,
+              child: Icon(icon, color: colors.primary, size: 28),
+            ),
+            const SizedBox(height: 12),
+            Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
+          ],
         ),
       ),
     );

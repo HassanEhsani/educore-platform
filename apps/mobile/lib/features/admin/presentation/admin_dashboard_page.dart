@@ -12,6 +12,35 @@ import 'widgets/admin_activity_card.dart';
 
 class AdminDashboardPage extends StatelessWidget {
   const AdminDashboardPage({super.key});
+  static const List<String> _routes = [
+    '/admin',
+    '/admin/notifications',
+    '/admin/profile',
+    '/admin/settings',
+  ];
+
+  static const List<NavigationDestination> _destinations = [
+    NavigationDestination(
+      icon: Icon(Icons.dashboard_outlined),
+      selectedIcon: Icon(Icons.dashboard),
+      label: 'Dashboard',
+    ),
+    NavigationDestination(
+      icon: Icon(Icons.notifications_outlined),
+      selectedIcon: Icon(Icons.notifications),
+      label: 'Notifications',
+    ),
+    NavigationDestination(
+      icon: Icon(Icons.person_outline),
+      selectedIcon: Icon(Icons.person),
+      label: 'Profile',
+    ),
+    NavigationDestination(
+      icon: Icon(Icons.settings_outlined),
+      selectedIcon: Icon(Icons.settings),
+      label: 'Settings',
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +50,8 @@ class AdminDashboardPage extends StatelessWidget {
       title: 'Admin Dashboard',
       currentIndex: 0,
       onTap: (_) {},
+      destinations: _destinations,
+      routes: _routes,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(

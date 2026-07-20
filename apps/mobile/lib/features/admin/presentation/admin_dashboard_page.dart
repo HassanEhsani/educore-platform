@@ -9,6 +9,7 @@ import 'widgets/admin_header.dart';
 import 'widgets/admin_stat_card.dart';
 import 'widgets/admin_business_card.dart';
 import 'widgets/admin_activity_card.dart';
+import 'widgets/admin_kpi_card.dart';
 
 class AdminDashboardPage extends StatelessWidget {
   const AdminDashboardPage({super.key});
@@ -58,6 +59,45 @@ class AdminDashboardPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AdminHeader(admin: FakeAdminData.admin),
+            const SizedBox(height: 24),
+
+            GridView.count(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              crossAxisCount: 2,
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
+
+              children: const [
+                AdminKpiCard(
+                  icon: Icons.business,
+                  title: 'Businesses',
+                  value: '3',
+                  subtitle: 'Active companies',
+                ),
+
+                AdminKpiCard(
+                  icon: Icons.people,
+                  title: 'Users',
+                  value: '2450',
+                  subtitle: '+120 this month',
+                ),
+
+                AdminKpiCard(
+                  icon: Icons.attach_money,
+                  title: 'Revenue',
+                  value: '\$45K',
+                  subtitle: 'Monthly income',
+                ),
+
+                AdminKpiCard(
+                  icon: Icons.storage,
+                  title: 'System',
+                  value: '99.9%',
+                  subtitle: 'Uptime',
+                ),
+              ],
+            ),
 
             const SizedBox(height: 24),
 

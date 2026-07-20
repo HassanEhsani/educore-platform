@@ -1,14 +1,14 @@
+// lib/features/admin/presentation/admin_dashboard_page.dart
+
 import 'package:flutter/material.dart';
 
 import '../../../core/widgets/app_shell.dart';
 
 import '../data/admin_analytics_data.dart';
-import '../data/fake_admin_data.dart';
 
 import 'widgets/admin_activity_card.dart';
 import 'widgets/admin_business_card.dart';
 import 'widgets/admin_growth_card.dart';
-import 'widgets/admin_header.dart';
 import 'widgets/admin_kpi_card.dart';
 import 'widgets/admin_quick_actions.dart';
 import 'widgets/admin_revenue_card.dart';
@@ -31,19 +31,16 @@ class AdminDashboardPage extends StatelessWidget {
       selectedIcon: Icon(Icons.dashboard),
       label: 'Dashboard',
     ),
-
     NavigationDestination(
       icon: Icon(Icons.notifications_outlined),
       selectedIcon: Icon(Icons.notifications),
       label: 'Notifications',
     ),
-
     NavigationDestination(
       icon: Icon(Icons.person_outline),
       selectedIcon: Icon(Icons.person),
       label: 'Profile',
     ),
-
     NavigationDestination(
       icon: Icon(Icons.settings_outlined),
       selectedIcon: Icon(Icons.settings),
@@ -57,33 +54,34 @@ class AdminDashboardPage extends StatelessWidget {
 
     return AppShell(
       title: 'Admin Dashboard',
-
       currentIndex: 0,
-
       onTap: (_) {},
-
       routes: routes,
-
       destinations: destinations,
-
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
-
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-
           children: [
-            AdminWelcomeCard(admin: FakeAdminData.admin),
+            const AdminWelcomeCard(),
 
-            const SizedBox(height: 20),
+            const SizedBox(height: 24),
+
+            Text(
+              'Overview',
+              style: Theme.of(
+                context,
+              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+            ),
+
+            const SizedBox(height: 16),
 
             GridView.count(
               shrinkWrap: true,
-
               physics: const NeverScrollableScrollPhysics(),
-
               crossAxisCount: 2,
-
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
               children: [
                 AdminKpiCard(
                   icon: Icons.people,
@@ -98,10 +96,24 @@ class AdminDashboardPage extends StatelessWidget {
                   value: '${analytics.totalBusinesses}',
                   subtitle: 'Companies',
                 ),
+
+                AdminKpiCard(
+                  icon: Icons.school,
+                  title: 'Students',
+                  value: '${analytics.activeStudents}',
+                  subtitle: 'Registered',
+                ),
+
+                AdminKpiCard(
+                  icon: Icons.person,
+                  title: 'Teachers',
+                  value: '${analytics.activeTeachers}',
+                  subtitle: 'Active staff',
+                ),
               ],
             ),
 
-            const SizedBox(height: 20),
+            const SizedBox(height: 24),
 
             AdminRevenueCard(
               monthlyRevenue: analytics.monthlyRevenue,
@@ -120,16 +132,40 @@ class AdminDashboardPage extends StatelessWidget {
 
             const AdminQuickActions(),
 
-            const SizedBox(height: 20),
+            const SizedBox(height: 24),
+
+            Text(
+              'Business Overview',
+              style: Theme.of(
+                context,
+              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+            ),
+
+            const SizedBox(height: 16),
 
             const AdminBusinessCard(),
 
-            const SizedBox(height: 20),
+            const SizedBox(height: 24),
+
+            Text(
+              'Recent Activities',
+              style: Theme.of(
+                context,
+              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+            ),
+
+            const SizedBox(height: 16),
 
             const AdminActivityCard(
               title: 'New school registered',
               subtitle: 'EduCore branch added',
               icon: Icons.business,
+            ),
+
+            const AdminActivityCard(
+              title: 'Monthly report generated',
+              subtitle: 'Financial report is ready',
+              icon: Icons.analytics,
             ),
           ],
         ),

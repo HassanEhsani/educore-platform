@@ -1,3 +1,5 @@
+// lib/features/admin/presentation/widgets/admin_revenue_card.dart
+
 import 'package:flutter/material.dart';
 
 class AdminRevenueCard extends StatelessWidget {
@@ -12,41 +14,76 @@ class AdminRevenueCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return Card(
       elevation: 0,
-
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
-
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       child: Padding(
         padding: const EdgeInsets.all(20),
-
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-
           children: [
-            const Text(
-              'Revenue Overview',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Row(
+              children: [
+                CircleAvatar(
+                  radius: 20,
+                  backgroundColor: colors.primaryContainer,
+                  child: Icon(Icons.attach_money, color: colors.primary),
+                ),
+
+                const SizedBox(width: 12),
+
+                Text(
+                  'Revenue Overview',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 24),
+
+            Row(
+              children: [
+                Expanded(
+                  child: _RevenueItem(
+                    title: 'Monthly Revenue',
+                    value: _formatCurrency(monthlyRevenue),
+                    icon: Icons.calendar_month,
+                  ),
+                ),
+
+                const SizedBox(width: 16),
+
+                Expanded(
+                  child: _RevenueItem(
+                    title: 'Yearly Revenue',
+                    value: _formatCurrency(yearlyRevenue),
+                    icon: Icons.account_balance_wallet,
+                  ),
+                ),
+              ],
             ),
 
             const SizedBox(height: 20),
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: LinearProgressIndicator(
+                value: 0.75,
+                minHeight: 8,
+                backgroundColor: colors.surfaceContainerHighest,
+                color: colors.primary,
+              ),
+            ),
 
-              children: [
-                _item(
-                  context,
-                  'Monthly',
-                  '\$${monthlyRevenue.toStringAsFixed(0)}',
-                ),
+            const SizedBox(height: 8),
 
-                _item(
-                  context,
-                  'Yearly',
-                  '\$${yearlyRevenue.toStringAsFixed(0)}',
-                ),
-              ],
+            Text(
+              '75% of yearly target achieved',
+              style: Theme.of(context).textTheme.bodySmall,
             ),
           ],
         ),
@@ -54,23 +91,64 @@ class AdminRevenueCard extends StatelessWidget {
     );
   }
 
-  Widget _item(BuildContext context, String title, String value) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+  String _formatCurrency(double value) {
+    if (value >= 1000000) {
+      return '\$${(value / 1000000).toStringAsFixed(1)}M';
+    }
 
-      children: [
-        Text(title),
+    if (value >= 1000) {
+      return '\$${(value / 1000).toStringAsFixed(0)}K';
+    }
 
-        const SizedBox(height: 6),
+    return '\$${value.toStringAsFixed(0)}';
+  }
+}
 
-        Text(
-          value,
+class _RevenueItem extends StatelessWidget {
+  final String title;
+  final String value;
+  final IconData icon;
 
-          style: Theme.of(
-            context,
-          ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-        ),
-      ],
+  const _RevenueItem({
+    required this.title,
+    required this.value,
+    required this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: colors.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(18),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, size: 20, color: colors.primary),
+
+          const SizedBox(height: 10),
+
+          Text(
+            title,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+
+          const SizedBox(height: 6),
+
+          Text(
+            value,
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
     );
   }
 }

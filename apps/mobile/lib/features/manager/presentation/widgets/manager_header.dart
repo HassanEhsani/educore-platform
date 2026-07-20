@@ -1,6 +1,9 @@
+// lib/features/manager/presentation/widgets/manager_header.dart
+
+import 'package:flutter/material.dart';
+
 import '../../../../core/widgets/dashboard/dashboard_header.dart';
 import '../../domain/manager.dart';
-import 'package:flutter/material.dart';
 
 class ManagerHeader extends StatelessWidget {
   final Manager manager;
@@ -10,10 +13,10 @@ class ManagerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DashboardHeader(
-      name: manager.name,
+      name: 'Good Morning, ${manager.name} 👋',
       subtitle: manager.schoolName,
-      description: 'School Manager',
-      icon: Icons.admin_panel_settings,
+      description: 'Business Manager • Last Login Today',
+      icon: Icons.business_center,
     );
   }
 }

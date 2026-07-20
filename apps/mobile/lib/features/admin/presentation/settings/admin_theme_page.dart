@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/theme/theme_controller.dart';
+
 class AdminThemePage extends StatefulWidget {
   const AdminThemePage({super.key});
 
@@ -16,6 +18,13 @@ class _AdminThemePageState extends State<AdminThemePage> {
   final List<String> themes = ['System Default', 'Light', 'Dark'];
 
   @override
+  void initState() {
+    super.initState();
+
+    selectedTheme = _currentThemeName();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -25,7 +34,6 @@ class _AdminThemePageState extends State<AdminThemePage> {
             context.pop();
           },
         ),
-
         title: const Text('Appearance'),
       ),
 
@@ -83,11 +91,7 @@ class _AdminThemePageState extends State<AdminThemePage> {
           const SizedBox(height: 24),
 
           FilledButton.icon(
-            onPressed: () {
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text('$selectedTheme applied')));
-            },
+            onPressed: _applyTheme,
 
             icon: const Icon(Icons.check),
 
@@ -96,6 +100,38 @@ class _AdminThemePageState extends State<AdminThemePage> {
         ],
       ),
     );
+  }
+
+  void _applyTheme() {
+    switch (selectedTheme) {
+      case 'Light':
+        themeController.setLightMode();
+        break;
+
+      case 'Dark':
+        themeController.setDarkMode();
+        break;
+
+      default:
+        themeController.setSystemMode();
+    }
+
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text('$selectedTheme applied')));
+  }
+
+  String _currentThemeName() {
+    switch (themeController.themeMode) {
+      case ThemeMode.light:
+        return 'Light';
+
+      case ThemeMode.dark:
+        return 'Dark';
+
+      default:
+        return 'System Default';
+    }
   }
 
   String _subtitle(String theme) {

@@ -20,17 +20,15 @@ class DashboardStatCard extends StatelessWidget {
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
       child: Padding(
-        padding: const EdgeInsets.all(18),
+        padding: const EdgeInsets.all(20),
         child: Row(
           children: [
             CircleAvatar(
-              radius: 26,
+              radius: 28,
               backgroundColor: color.withValues(alpha: 0.12),
               child: Icon(icon, color: color, size: 28),
             ),
-
-            const SizedBox(width: 16),
-
+            const SizedBox(width: 18),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

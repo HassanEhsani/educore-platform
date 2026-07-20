@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
+import '../domain/user_role.dart';
 import 'divider_text.dart';
 import 'email_text_field.dart';
 import 'forgot_password_button.dart';
@@ -8,6 +10,7 @@ import 'login_button.dart';
 import 'password_text_field.dart';
 import 'remember_me_checkbox.dart';
 import 'social_login_section.dart';
+import '../services/auth_service.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -21,6 +24,8 @@ class _LoginFormState extends State<LoginForm> {
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  final AuthService _authService = AuthService.instance;
 
   bool _rememberMe = false;
   bool _isLoading = false;
@@ -41,13 +46,41 @@ class _LoginFormState extends State<LoginForm> {
       _isLoading = true;
     });
 
-    await Future.delayed(const Duration(seconds: 1));
+    final user = await _authService.login(
+      email: _emailController.text.trim(),
+      password: _passwordController.text.trim(),
+    );
 
     if (!mounted) return;
 
     setState(() {
       _isLoading = false;
     });
+
+    if (user == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Invalid email or password')),
+      );
+      return;
+    }
+
+    switch (user.role) {
+      case UserRole.manager:
+        context.go('/manager');
+        break;
+
+      case UserRole.teacher:
+        context.go('/teacher');
+        break;
+
+      case UserRole.student:
+        context.go('/student');
+        break;
+
+      case UserRole.parent:
+        context.go('/parent');
+        break;
+    }
   }
 
   @override

@@ -1,23 +1,55 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
-import 'manager_dashboard_body.dart';
+import '../../../../core/widgets/app_shell.dart';
+import '../widgets/dashboard_stat_card.dart';
 
 class ManagerDashboardPage extends StatelessWidget {
   const ManagerDashboardPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      appBar: AppBar(
-        title: const Text('Manager Dashboard'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.go('/roles'),
-        ),
+    return AppShell(
+      title: 'Manager Dashboard',
+      currentIndex: 0,
+      onTap: (_) {},
+      body: ListView(
+        padding: const EdgeInsets.all(20),
+        children: const [
+          DashboardStatCard(
+            icon: Icons.people,
+            title: 'Students',
+            value: '1,245',
+            color: Colors.blue,
+          ),
+
+          SizedBox(height: 16),
+
+          DashboardStatCard(
+            icon: Icons.school,
+            title: 'Teachers',
+            value: '82',
+            color: Colors.green,
+          ),
+
+          SizedBox(height: 16),
+
+          DashboardStatCard(
+            icon: Icons.attach_money,
+            title: 'Monthly Revenue',
+            value: '\$18,450',
+            color: Colors.orange,
+          ),
+
+          SizedBox(height: 16),
+
+          DashboardStatCard(
+            icon: Icons.event_available,
+            title: 'Attendance',
+            value: '96%',
+            color: Colors.purple,
+          ),
+        ],
       ),
-      body: const ManagerDashboardBody(),
     );
   }
 }

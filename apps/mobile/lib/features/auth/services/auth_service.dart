@@ -1,5 +1,4 @@
 import '../data/mock_users.dart';
-import '../domain/user_role.dart';
 
 class AuthService {
   AuthService._();

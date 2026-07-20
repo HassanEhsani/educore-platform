@@ -1,3 +1,5 @@
+// lib/core/widgets/dashboard/dashboard_header.dart
+
 import 'package:flutter/material.dart';
 
 import '../../theme/app_spacing.dart';
@@ -19,25 +21,36 @@ class DashboardHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(AppSpacing.lg),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primary,
-        borderRadius: BorderRadius.circular(20),
+        gradient: LinearGradient(
+          colors: [colors.primary, colors.primaryContainer],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: colors.primary.withValues(alpha: 0.25),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+          ),
+        ],
       ),
       child: Row(
         children: [
           CircleAvatar(
-            radius: 32,
+            radius: 34,
             backgroundColor: Colors.white,
-            child: Icon(
-              icon,
-              size: 34,
-              color: Theme.of(context).colorScheme.primary,
-            ),
+            child: Icon(icon, size: 36, color: colors.primary),
           ),
+
           const SizedBox(width: AppSpacing.lg),
+
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,20 +59,25 @@ class DashboardHeader extends StatelessWidget {
                   name,
                   style: AppTextStyles.headlineMedium.copyWith(
                     color: Colors.white,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 6),
+
+                const SizedBox(height: 8),
+
                 Text(
                   subtitle,
                   style: const TextStyle(
-                    color: Colors.white70,
+                    color: Colors.white,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                const SizedBox(height: 2),
+
+                const SizedBox(height: 4),
+
                 Text(
                   description,
-                  style: const TextStyle(color: Colors.white70),
+                  style: const TextStyle(color: Colors.white70, fontSize: 13),
                 ),
               ],
             ),

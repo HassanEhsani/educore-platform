@@ -15,7 +15,7 @@ class ManagerHeader extends StatelessWidget {
     return DashboardHeader(
       name: 'Good Morning, ${manager.name} 👋',
       subtitle: manager.schoolName,
-      description: 'Business Manager • Last Login Today',
+      description: 'Business Manager • Active Today',
       icon: Icons.business_center,
     );
   }

@@ -1,3 +1,5 @@
+// lib/features/manager/presentation/widgets/recent_activity_card.dart
+
 import 'package:flutter/material.dart';
 
 class RecentActivityCard extends StatelessWidget {
@@ -14,15 +16,27 @@ class RecentActivityCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return Card(
       elevation: 0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+      margin: const EdgeInsets.only(bottom: 12),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: ListTile(
-        leading: CircleAvatar(child: Icon(icon)),
+        contentPadding: const EdgeInsets.all(14),
+
+        leading: CircleAvatar(
+          radius: 24,
+          backgroundColor: colors.primaryContainer,
+          child: Icon(icon, color: colors.primary),
+        ),
 
         title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
 
-        subtitle: Text(subtitle),
+        subtitle: Padding(
+          padding: const EdgeInsets.only(top: 4),
+          child: Text(subtitle),
+        ),
       ),
     );
   }

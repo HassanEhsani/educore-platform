@@ -1,3 +1,5 @@
+// lib/features/manager/presentation/widgets/statistics_card.dart
+
 import 'package:flutter/material.dart';
 
 import '../../../../core/widgets/dashboard/dashboard_info_card.dart';
@@ -16,6 +18,9 @@ class StatisticsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DashboardInfoCard(icon: icon, title: title, subtitle: value);
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: DashboardInfoCard(icon: icon, title: title, subtitle: value),
+    );
   }
 }

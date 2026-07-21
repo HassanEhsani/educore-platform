@@ -16,7 +16,12 @@ import '../../features/admin/presentation/admin_dashboard_page.dart';
 // Admin Profile
 import '../../features/admin/presentation/profile/admin_profile_page.dart';
 import '../../features/admin/presentation/profile/admin_edit_profile_page.dart';
-import '../../features/admin/presentation/profile/admin_security_page.dart';
+
+// Admin Security
+import '../../features/admin/presentation/security/admin_security_page.dart';
+import '../../features/admin/presentation/security/admin_change_password_page.dart';
+import '../../features/admin/presentation/security/admin_two_factor_page.dart';
+import '../../features/admin/presentation/security/admin_security_activity_page.dart';
 
 // Admin Settings
 import '../../features/admin/presentation/settings/admin_settings_page.dart';
@@ -31,7 +36,6 @@ import '../../features/admin/presentation/notifications/admin_notifications_page
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/',
-
   routes: [
     GoRoute(path: '/', builder: (context, state) => const LoginPage()),
 
@@ -61,7 +65,7 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => const ManagerDashboardPage(),
     ),
 
-    // Admin
+    // Admin Dashboard
     GoRoute(
       path: '/admin',
       builder: (context, state) => const AdminDashboardPage(),
@@ -78,9 +82,25 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => const AdminEditProfilePage(),
     ),
 
+    // Admin Security
     GoRoute(
       path: '/admin/security',
       builder: (context, state) => const AdminSecurityPage(),
+    ),
+
+    GoRoute(
+      path: '/admin/security/change-password',
+      builder: (context, state) => const AdminChangePasswordPage(),
+    ),
+
+    GoRoute(
+      path: '/admin/security/two-factor',
+      builder: (context, state) => const AdminTwoFactorPage(),
+    ),
+
+    GoRoute(
+      path: '/admin/security/activity',
+      builder: (context, state) => const AdminSecurityActivityPage(),
     ),
 
     // Admin Notifications

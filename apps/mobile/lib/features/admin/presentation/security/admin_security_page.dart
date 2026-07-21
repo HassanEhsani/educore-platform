@@ -1,3 +1,5 @@
+// lib/features/admin/presentation/security/admin_security_page.dart
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -10,7 +12,9 @@ class AdminSecurityPage extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new),
-          onPressed: () => context.pop(),
+          onPressed: () {
+            context.pop();
+          },
         ),
         title: const Text('Security'),
       ),
@@ -24,14 +28,14 @@ class AdminSecurityPage extends StatelessWidget {
             title: 'Change Password',
             subtitle: 'Update your account password',
             onTap: () {
-              context.push('/admin/security/password');
+              context.push('/admin/security/change-password');
             },
           ),
 
           _SecurityCard(
             icon: Icons.security,
             title: 'Two Factor Authentication',
-            subtitle: 'Manage additional account protection',
+            subtitle: 'Enable additional account protection',
             onTap: () {
               context.push('/admin/security/two-factor');
             },
@@ -39,8 +43,8 @@ class AdminSecurityPage extends StatelessWidget {
 
           _SecurityCard(
             icon: Icons.devices,
-            title: 'Security Activity',
-            subtitle: 'Review login history and active sessions',
+            title: 'Active Sessions',
+            subtitle: 'Manage connected devices and login activity',
             onTap: () {
               context.push('/admin/security/activity');
             },
@@ -54,7 +58,7 @@ class AdminSecurityPage extends StatelessWidget {
             ),
 
             onPressed: () {
-              _logoutDialog(context);
+              _showLogoutDialog(context);
             },
 
             icon: const Icon(Icons.logout),
@@ -66,7 +70,7 @@ class AdminSecurityPage extends StatelessWidget {
     );
   }
 
-  void _logoutDialog(BuildContext context) {
+  void _showLogoutDialog(BuildContext context) {
     showDialog(
       context: context,
 
@@ -74,9 +78,7 @@ class AdminSecurityPage extends StatelessWidget {
         return AlertDialog(
           title: const Text('Logout'),
 
-          content: const Text(
-            'Are you sure you want to logout from this account?',
-          ),
+          content: const Text('Are you sure you want to logout?'),
 
           actions: [
             TextButton(
@@ -129,10 +131,7 @@ class _SecurityCard extends StatelessWidget {
       child: ListTile(
         onTap: onTap,
 
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 18,
-          vertical: 10,
-        ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
 
         leading: CircleAvatar(
           backgroundColor: colors.primaryContainer,

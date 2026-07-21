@@ -1,3 +1,5 @@
+// lib/features/admin/presentation/settings/admin_notification_settings_page.dart
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -23,9 +25,7 @@ class _AdminNotificationSettingsPageState
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new),
-          onPressed: () {
-            context.pop();
-          },
+          onPressed: () => context.pop(),
         ),
         title: const Text('Notifications'),
       ),
@@ -34,10 +34,10 @@ class _AdminNotificationSettingsPageState
         padding: const EdgeInsets.all(20),
 
         children: [
-          _sectionTitle(context, 'General'),
+          _SectionTitle(title: 'General'),
 
           _NotificationTile(
-            icon: Icons.notifications_active,
+            icon: Icons.notifications_active_outlined,
             title: 'Push Notifications',
             subtitle: 'Receive application notifications',
             value: pushNotifications,
@@ -50,10 +50,10 @@ class _AdminNotificationSettingsPageState
 
           const SizedBox(height: 24),
 
-          _sectionTitle(context, 'Business Activities'),
+          _SectionTitle(title: 'Business Activities'),
 
           _NotificationTile(
-            icon: Icons.school,
+            icon: Icons.school_outlined,
             title: 'Student Updates',
             subtitle: 'Enrollment and student activity changes',
             value: studentUpdates,
@@ -65,7 +65,7 @@ class _AdminNotificationSettingsPageState
           ),
 
           _NotificationTile(
-            icon: Icons.payments,
+            icon: Icons.payments_outlined,
             title: 'Payment Alerts',
             subtitle: 'Revenue and payment notifications',
             value: paymentAlerts,
@@ -78,10 +78,10 @@ class _AdminNotificationSettingsPageState
 
           const SizedBox(height: 24),
 
-          _sectionTitle(context, 'System Monitoring'),
+          _SectionTitle(title: 'System Monitoring'),
 
           _NotificationTile(
-            icon: Icons.cloud_done,
+            icon: Icons.cloud_done_outlined,
             title: 'System Alerts',
             subtitle: 'Server status and application health',
             value: systemAlerts,
@@ -93,7 +93,7 @@ class _AdminNotificationSettingsPageState
           ),
 
           _NotificationTile(
-            icon: Icons.security,
+            icon: Icons.security_outlined,
             title: 'Security Alerts',
             subtitle: 'Login activities and security events',
             value: securityAlerts,
@@ -107,13 +107,7 @@ class _AdminNotificationSettingsPageState
           const SizedBox(height: 24),
 
           FilledButton.icon(
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Notification settings saved successfully'),
-                ),
-              );
-            },
+            onPressed: _saveSettings,
             icon: const Icon(Icons.save),
             label: const Text('Save Settings'),
           ),
@@ -122,7 +116,20 @@ class _AdminNotificationSettingsPageState
     );
   }
 
-  Widget _sectionTitle(BuildContext context, String title) {
+  void _saveSettings() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Notification settings saved successfully')),
+    );
+  }
+}
+
+class _SectionTitle extends StatelessWidget {
+  final String title;
+
+  const _SectionTitle({required this.title});
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Text(
@@ -166,7 +173,6 @@ class _NotificationTile extends StatelessWidget {
 
         secondary: CircleAvatar(
           backgroundColor: colors.primaryContainer,
-
           child: Icon(icon, color: colors.primary),
         ),
 

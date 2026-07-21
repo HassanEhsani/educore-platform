@@ -15,6 +15,8 @@ class _AdminBackupPageState extends State<AdminBackupPage> {
 
   String backupFrequency = 'Every Night';
 
+  bool isBackingUp = false;
+
   final List<String> frequencies = const [
     'Every Day',
     'Every Night',
@@ -30,32 +32,27 @@ class _AdminBackupPageState extends State<AdminBackupPage> {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new),
-          onPressed: () {
-            context.pop();
-          },
+          onPressed: () => context.pop(),
         ),
         title: const Text('Backup Settings'),
       ),
-
       body: ListView(
         padding: const EdgeInsets.all(20),
-
         children: [
           _BackupCard(
             child: SwitchListTile(
               contentPadding: const EdgeInsets.all(18),
-
-              secondary: const CircleAvatar(child: Icon(Icons.backup)),
-
+              secondary: const CircleAvatar(child: Icon(Icons.backup_outlined)),
               title: const Text(
                 'Automatic Backup',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-
-              subtitle: const Text('Automatically backup system data'),
-
+              subtitle: Text(
+                automaticBackup
+                    ? 'System data will backup automatically'
+                    : 'Automatic backup is disabled',
+              ),
               value: automaticBackup,
-
               onChanged: (value) {
                 setState(() {
                   automaticBackup = value;
@@ -77,13 +74,11 @@ class _AdminBackupPageState extends State<AdminBackupPage> {
 
           _BackupCard(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 18),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<String>(
                   value: backupFrequency,
-
                   isExpanded: true,
-
                   items: frequencies
                       .map(
                         (frequency) => DropdownMenuItem<String>(
@@ -92,16 +87,17 @@ class _AdminBackupPageState extends State<AdminBackupPage> {
                         ),
                       )
                       .toList(),
+                  onChanged: automaticBackup
+                      ? (value) {
+                          if (value == null) {
+                            return;
+                          }
 
-                  onChanged: (value) {
-                    if (value == null) {
-                      return;
-                    }
-
-                    setState(() {
-                      backupFrequency = value;
-                    });
-                  },
+                          setState(() {
+                            backupFrequency = value;
+                          });
+                        }
+                      : null,
                 ),
               ),
             ),
@@ -123,19 +119,15 @@ class _AdminBackupPageState extends State<AdminBackupPage> {
               subtitle: Text(_formatDate(lastBackup)),
 
               trailing: IconButton(
-                icon: const Icon(Icons.refresh),
+                icon: isBackingUp
+                    ? const SizedBox(
+                        width: 22,
+                        height: 22,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : const Icon(Icons.cloud_upload_outlined),
 
-                onPressed: () {
-                  setState(() {
-                    lastBackup = DateTime.now();
-                  });
-
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Backup completed successfully'),
-                    ),
-                  );
-                },
+                onPressed: isBackingUp ? null : _createBackup,
               ),
             ),
           ),
@@ -143,20 +135,39 @@ class _AdminBackupPageState extends State<AdminBackupPage> {
           const SizedBox(height: 24),
 
           FilledButton.icon(
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Backup settings saved successfully'),
-                ),
-              );
-            },
-
+            onPressed: _saveSettings,
             icon: const Icon(Icons.save),
-
             label: const Text('Save Settings'),
           ),
         ],
       ),
+    );
+  }
+
+  Future<void> _createBackup() async {
+    setState(() {
+      isBackingUp = true;
+    });
+
+    await Future.delayed(const Duration(seconds: 2));
+
+    setState(() {
+      lastBackup = DateTime.now();
+      isBackingUp = false;
+    });
+
+    if (!mounted) {
+      return;
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Backup completed successfully')),
+    );
+  }
+
+  void _saveSettings() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Backup settings saved successfully')),
     );
   }
 
@@ -185,9 +196,7 @@ class _BackupCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 0,
-
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-
       child: child,
     );
   }

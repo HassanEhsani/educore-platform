@@ -25,9 +25,9 @@ class AdminSystemInfoPage extends StatelessWidget {
             icon: Icons.apps,
             title: 'Application',
             items: const [
-              _SystemItem(label: 'Name', value: 'EduCore Platform'),
-              _SystemItem(label: 'Version', value: '1.0.0'),
-              _SystemItem(label: 'Environment', value: 'Production'),
+              SystemItem(label: 'Name', value: 'EduCore Platform'),
+              SystemItem(label: 'Version', value: '1.0.0'),
+              SystemItem(label: 'Environment', value: 'Production'),
             ],
           ),
 
@@ -37,9 +37,9 @@ class AdminSystemInfoPage extends StatelessWidget {
             icon: Icons.storage,
             title: 'Server Status',
             items: const [
-              _SystemItem(label: 'API Status', value: 'Online'),
-              _SystemItem(label: 'Database', value: 'Connected'),
-              _SystemItem(label: 'Uptime', value: '99.9%'),
+              SystemItem(label: 'API Status', value: 'Online'),
+              SystemItem(label: 'Database', value: 'Connected'),
+              SystemItem(label: 'Uptime', value: '99.9%'),
             ],
           ),
 
@@ -49,12 +49,12 @@ class AdminSystemInfoPage extends StatelessWidget {
             icon: Icons.security,
             title: 'Security',
             items: const [
-              _SystemItem(label: 'Encryption', value: 'Enabled'),
-              _SystemItem(
+              SystemItem(label: 'Encryption', value: 'Enabled'),
+              SystemItem(
                 label: 'Two Factor Authentication',
                 value: 'Available',
               ),
-              _SystemItem(label: 'Last Security Check', value: 'Today'),
+              SystemItem(label: 'Last Security Check', value: 'Today'),
             ],
           ),
 
@@ -64,9 +64,9 @@ class AdminSystemInfoPage extends StatelessWidget {
             icon: Icons.info_outline,
             title: 'Technical Details',
             items: const [
-              _SystemItem(label: 'Framework', value: 'Flutter'),
-              _SystemItem(label: 'Platform', value: 'Mobile'),
-              _SystemItem(label: 'Build', value: 'Stable'),
+              SystemItem(label: 'Framework', value: 'Flutter'),
+              SystemItem(label: 'Platform', value: 'Mobile'),
+              SystemItem(label: 'Build', value: 'Stable'),
             ],
           ),
         ],
@@ -78,7 +78,7 @@ class AdminSystemInfoPage extends StatelessWidget {
 class _SystemInfoCard extends StatelessWidget {
   final IconData icon;
   final String title;
-  final List<_SystemItem> items;
+  final List<SystemItem> items;
 
   const _SystemInfoCard({
     required this.icon,
@@ -130,12 +130,7 @@ class _SystemInfoCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
                   children: [
-                    Expanded(
-                      child: Text(
-                        item.label,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                    ),
+                    Expanded(child: Text(item.label)),
 
                     const SizedBox(width: 16),
 
@@ -143,9 +138,7 @@ class _SystemInfoCard extends StatelessWidget {
                       child: Text(
                         item.value,
                         textAlign: TextAlign.end,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
+                        style: const TextStyle(fontWeight: FontWeight.w600),
                       ),
                     ),
                   ],
@@ -159,9 +152,9 @@ class _SystemInfoCard extends StatelessWidget {
   }
 }
 
-class _SystemItem {
+class SystemItem {
   final String label;
   final String value;
 
-  const _SystemItem({required this.label, required this.value});
+  const SystemItem({required this.label, required this.value});
 }

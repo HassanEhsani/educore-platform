@@ -21,10 +21,10 @@ class AdminSettingsPage extends StatelessWidget {
         padding: const EdgeInsets.all(20),
 
         children: [
-          _sectionTitle(context, 'Application'),
+          _SectionTitle(title: 'Application'),
 
           _SettingTile(
-            icon: Icons.language,
+            icon: Icons.language_outlined,
             title: 'Language',
             subtitle: 'English',
             onTap: () {
@@ -33,7 +33,7 @@ class AdminSettingsPage extends StatelessWidget {
           ),
 
           _SettingTile(
-            icon: Icons.dark_mode,
+            icon: Icons.dark_mode_outlined,
             title: 'Appearance',
             subtitle: 'System Default',
             onTap: () {
@@ -43,28 +43,28 @@ class AdminSettingsPage extends StatelessWidget {
 
           const SizedBox(height: 24),
 
-          _sectionTitle(context, 'Account & Security'),
+          _SectionTitle(title: 'Account & Security'),
 
           _SettingTile(
-            icon: Icons.notifications,
+            icon: Icons.notifications_outlined,
             title: 'Notifications',
-            subtitle: 'Enabled',
+            subtitle: 'Manage application alerts',
             onTap: () {
               context.push('/admin/settings/notifications');
             },
           ),
 
           _SettingTile(
-            icon: Icons.security,
+            icon: Icons.security_outlined,
             title: 'Security',
-            subtitle: 'Password & Two Factor Authentication',
+            subtitle: 'Password, 2FA and sessions',
             onTap: () {
               context.push('/admin/security');
             },
           ),
 
           _SettingTile(
-            icon: Icons.person,
+            icon: Icons.person_outline,
             title: 'Account Settings',
             subtitle: 'Profile information',
             onTap: () {
@@ -74,10 +74,10 @@ class AdminSettingsPage extends StatelessWidget {
 
           const SizedBox(height: 24),
 
-          _sectionTitle(context, 'System'),
+          _SectionTitle(title: 'System'),
 
           _SettingTile(
-            icon: Icons.backup,
+            icon: Icons.backup_outlined,
             title: 'Automatic Backup',
             subtitle: 'Every Night',
             onTap: () {
@@ -86,7 +86,7 @@ class AdminSettingsPage extends StatelessWidget {
           ),
 
           _SettingTile(
-            icon: Icons.storage,
+            icon: Icons.storage_outlined,
             title: 'System Information',
             subtitle: 'Version and diagnostics',
             onTap: () {
@@ -106,18 +106,6 @@ class AdminSettingsPage extends StatelessWidget {
             },
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _sectionTitle(BuildContext context, String title) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12),
-      child: Text(
-        title,
-        style: Theme.of(
-          context,
-        ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -147,6 +135,25 @@ class AdminSettingsPage extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+}
+
+class _SectionTitle extends StatelessWidget {
+  final String title;
+
+  const _SectionTitle({required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Text(
+        title,
+        style: Theme.of(
+          context,
+        ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+      ),
     );
   }
 }

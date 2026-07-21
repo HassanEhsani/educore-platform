@@ -11,29 +11,33 @@ class AdminSystemHealthCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
 
-    final healthStatus = uptime >= 99
-        ? 'Excellent'
-        : uptime >= 95
-        ? 'Good'
-        : 'Needs Attention';
+    final normalizedUptime = uptime.clamp(0.0, 100.0).toDouble();
+
+    final health = _getHealthStatus(normalizedUptime);
 
     return Card(
       elevation: 0,
+
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+
       child: Padding(
         padding: const EdgeInsets.all(20),
+
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+
           children: [
             Row(
               children: [
                 Container(
                   width: 52,
                   height: 52,
+
                   decoration: BoxDecoration(
                     color: colors.primaryContainer,
                     borderRadius: BorderRadius.circular(16),
                   ),
+
                   child: Icon(Icons.cloud_done, color: colors.primary),
                 ),
 
@@ -42,6 +46,7 @@ class AdminSystemHealthCard extends StatelessWidget {
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+
                     children: [
                       Text(
                         'System Health',
@@ -49,18 +54,21 @@ class AdminSystemHealthCard extends StatelessWidget {
                             ?.copyWith(fontWeight: FontWeight.bold),
                       ),
 
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 6),
 
                       Text(
-                        healthStatus,
-                        style: Theme.of(context).textTheme.bodySmall,
+                        health.label,
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: health.color,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ],
                   ),
                 ),
 
                 Text(
-                  '${uptime.toStringAsFixed(1)}%',
+                  '${normalizedUptime.toStringAsFixed(1)}%',
                   style: Theme.of(
                     context,
                   ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
@@ -72,11 +80,12 @@ class AdminSystemHealthCard extends StatelessWidget {
 
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
+
               child: LinearProgressIndicator(
-                value: uptime / 100,
+                value: normalizedUptime / 100,
                 minHeight: 8,
                 backgroundColor: colors.surfaceContainerHighest,
-                color: colors.primary,
+                color: health.color,
               ),
             ),
 
@@ -91,4 +100,23 @@ class AdminSystemHealthCard extends StatelessWidget {
       ),
     );
   }
+
+  _HealthStatus _getHealthStatus(double value) {
+    if (value >= 99) {
+      return const _HealthStatus(label: 'Excellent', color: Colors.green);
+    }
+
+    if (value >= 95) {
+      return const _HealthStatus(label: 'Good', color: Colors.orange);
+    }
+
+    return const _HealthStatus(label: 'Needs Attention', color: Colors.red);
+  }
+}
+
+class _HealthStatus {
+  final String label;
+  final Color color;
+
+  const _HealthStatus({required this.label, required this.color});
 }

@@ -9,8 +9,12 @@ class AdminWelcomeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final admin = FakeAdminData.admin;
+    final merchant = FakeAdminData.admin;
     final colors = Theme.of(context).colorScheme;
+
+    final initials = merchant.name.isNotEmpty
+        ? merchant.name.substring(0, 1).toUpperCase()
+        : 'M';
 
     return Card(
       elevation: 0,
@@ -32,7 +36,7 @@ class AdminWelcomeCard extends StatelessWidget {
               radius: 32,
               backgroundColor: colors.primary,
               child: Text(
-                admin.name.substring(0, 1).toUpperCase(),
+                initials,
                 style: TextStyle(
                   color: colors.onPrimary,
                   fontSize: 26,
@@ -55,7 +59,7 @@ class AdminWelcomeCard extends StatelessWidget {
                   const SizedBox(height: 4),
 
                   Text(
-                    admin.name,
+                    merchant.name,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -66,7 +70,7 @@ class AdminWelcomeCard extends StatelessWidget {
                   const SizedBox(height: 6),
 
                   Text(
-                    'Manage your businesses and system from here.',
+                    'Manage your businesses, revenue and daily operations from one place.',
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.bodySmall,

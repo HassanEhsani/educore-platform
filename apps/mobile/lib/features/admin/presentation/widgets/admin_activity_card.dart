@@ -1,3 +1,5 @@
+// lib/features/admin/presentation/widgets/admin_activity_card.dart
+
 import 'package:flutter/material.dart';
 
 class AdminActivityCard extends StatelessWidget {
@@ -16,23 +18,29 @@ class AdminActivityCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
 
     return Card(
       elevation: 0,
       margin: const EdgeInsets.only(bottom: 12),
+
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+
       child: Padding(
         padding: const EdgeInsets.all(16),
+
         child: Row(
           children: [
             Container(
               width: 46,
               height: 46,
+
               decoration: BoxDecoration(
                 color: colors.primaryContainer,
                 borderRadius: BorderRadius.circular(14),
               ),
+
               child: Icon(icon, color: colors.primary),
             ),
 
@@ -41,12 +49,14 @@ class AdminActivityCard extends StatelessWidget {
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+
                 children: [
                   Text(
                     title,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+
+                    style: theme.textTheme.titleSmall?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -57,7 +67,8 @@ class AdminActivityCard extends StatelessWidget {
                     subtitle,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodySmall,
+
+                    style: theme.textTheme.bodySmall,
                   ),
 
                   if (time != null) ...[
@@ -65,7 +76,7 @@ class AdminActivityCard extends StatelessWidget {
 
                     Text(
                       time!,
-                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                      style: theme.textTheme.labelSmall?.copyWith(
                         color: colors.primary,
                         fontWeight: FontWeight.w600,
                       ),
@@ -75,7 +86,7 @@ class AdminActivityCard extends StatelessWidget {
               ),
             ),
 
-            const Icon(Icons.chevron_right, size: 20),
+            Icon(Icons.chevron_right, size: 20, color: colors.onSurfaceVariant),
           ],
         ),
       ),

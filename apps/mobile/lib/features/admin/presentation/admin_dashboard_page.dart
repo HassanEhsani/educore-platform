@@ -10,20 +10,19 @@ import 'widgets/admin_growth_card.dart';
 import 'widgets/admin_kpi_card.dart';
 import 'widgets/admin_quick_actions.dart';
 import 'widgets/admin_revenue_card.dart';
-import 'widgets/admin_system_health_card.dart';
 import 'widgets/admin_welcome_card.dart';
 
 class AdminDashboardPage extends StatelessWidget {
   const AdminDashboardPage({super.key});
 
-  static const routes = [
+  static const List<String> routes = [
     '/admin',
     '/admin/notifications',
     '/admin/profile',
     '/admin/settings',
   ];
 
-  static const destinations = [
+  static const List<NavigationDestination> destinations = [
     NavigationDestination(
       icon: Icon(Icons.dashboard_outlined),
       selectedIcon: Icon(Icons.dashboard),
@@ -51,7 +50,7 @@ class AdminDashboardPage extends StatelessWidget {
     final analytics = AdminAnalyticsData.analytics;
 
     return AppShell(
-      title: 'Admin Dashboard',
+      title: 'Merchant Dashboard',
       currentIndex: 0,
       onTap: (_) {},
       routes: routes,
@@ -66,7 +65,7 @@ class AdminDashboardPage extends StatelessWidget {
             const SizedBox(height: 24),
 
             _DashboardSection(
-              title: 'Organization Overview',
+              title: 'Business Performance',
               child: GridView.count(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -75,13 +74,6 @@ class AdminDashboardPage extends StatelessWidget {
                 mainAxisSpacing: 12,
                 children: [
                   AdminKpiCard(
-                    icon: Icons.people_outline,
-                    title: 'Users',
-                    value: '${analytics.totalUsers}',
-                    subtitle: 'Registered',
-                  ),
-
-                  AdminKpiCard(
                     icon: Icons.school_outlined,
                     title: 'Students',
                     value: '${analytics.activeStudents}',
@@ -89,17 +81,24 @@ class AdminDashboardPage extends StatelessWidget {
                   ),
 
                   AdminKpiCard(
-                    icon: Icons.person_outline,
+                    icon: Icons.people_outline,
                     title: 'Teachers',
                     value: '${analytics.activeTeachers}',
                     subtitle: 'Staff',
                   ),
 
                   AdminKpiCard(
-                    icon: Icons.business_outlined,
-                    title: 'Businesses',
-                    value: '${analytics.totalBusinesses}',
-                    subtitle: 'Managed',
+                    icon: Icons.wifi_outlined,
+                    title: 'ISP Users',
+                    value: '430',
+                    subtitle: 'Connected',
+                  ),
+
+                  AdminKpiCard(
+                    icon: Icons.biotech_outlined,
+                    title: 'Laboratory',
+                    value: '320',
+                    subtitle: 'Tests',
                   ),
                 ],
               ),
@@ -126,8 +125,12 @@ class AdminDashboardPage extends StatelessWidget {
             const SizedBox(height: 24),
 
             _DashboardSection(
-              title: 'System Monitoring',
-              child: AdminSystemHealthCard(uptime: analytics.systemUptime),
+              title: 'Managed Businesses',
+              child: AdminBusinessCard(
+                businesses: analytics.totalBusinesses,
+                users: analytics.totalUsers,
+                revenue: analytics.monthlyRevenue,
+              ),
             ),
 
             const SizedBox(height: 24),
@@ -140,31 +143,20 @@ class AdminDashboardPage extends StatelessWidget {
             const SizedBox(height: 24),
 
             _DashboardSection(
-              title: 'Business Overview',
-              child: AdminBusinessCard(
-                businesses: analytics.totalBusinesses,
-                users: analytics.totalUsers,
-                revenue: analytics.monthlyRevenue,
-              ),
-            ),
-
-            const SizedBox(height: 24),
-
-            _DashboardSection(
               title: 'Recent Activities',
               child: const Column(
                 children: [
                   AdminActivityCard(
-                    title: 'New school registered',
-                    subtitle: 'EduCore branch added',
-                    icon: Icons.business,
+                    title: 'School payment received',
+                    subtitle: 'Monthly tuition payment completed',
+                    icon: Icons.payment_outlined,
                     time: 'Today',
                   ),
 
                   AdminActivityCard(
-                    title: 'Monthly report generated',
-                    subtitle: 'Financial report is ready',
-                    icon: Icons.analytics,
+                    title: 'Financial report generated',
+                    subtitle: 'Business revenue summary updated',
+                    icon: Icons.analytics_outlined,
                     time: 'Yesterday',
                   ),
                 ],

@@ -1,3 +1,5 @@
+// lib/features/admin/presentation/widgets/admin_revenue_card.dart
+
 import 'package:flutter/material.dart';
 
 class AdminRevenueCard extends StatelessWidget {
@@ -15,33 +17,28 @@ class AdminRevenueCard extends StatelessWidget {
     final theme = Theme.of(context);
     final colors = theme.colorScheme;
 
+    final progress = _calculateProgress();
+
     return Card(
       elevation: 0,
-
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-
       child: Padding(
         padding: const EdgeInsets.all(20),
-
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-
           children: [
             Row(
               children: [
                 CircleAvatar(
                   radius: 20,
-
                   backgroundColor: colors.primaryContainer,
-
-                  child: Icon(Icons.attach_money, color: colors.primary),
+                  child: Icon(Icons.payments_outlined, color: colors.primary),
                 ),
 
                 const SizedBox(width: 12),
 
                 Text(
-                  'Revenue Overview',
-
+                  'Revenue Performance',
                   style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -77,14 +74,10 @@ class AdminRevenueCard extends StatelessWidget {
 
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
-
               child: LinearProgressIndicator(
-                value: _calculateProgress(),
-
+                value: progress,
                 minHeight: 8,
-
                 backgroundColor: colors.surfaceContainerHighest,
-
                 color: colors.primary,
               ),
             ),
@@ -92,8 +85,7 @@ class AdminRevenueCard extends StatelessWidget {
             const SizedBox(height: 8),
 
             Text(
-              '${(_calculateProgress() * 100).toInt()}% of yearly target achieved',
-
+              '${(progress * 100).toInt()}% of yearly goal achieved',
               style: theme.textTheme.bodySmall,
             ),
           ],
@@ -103,19 +95,14 @@ class AdminRevenueCard extends StatelessWidget {
   }
 
   double _calculateProgress() {
-    const yearlyTarget = 720000.0;
+    // Temporary demo target.
+    // Later this should come from business settings.
 
-    final progress = yearlyRevenue / yearlyTarget;
+    const yearlyGoal = 720000.0;
 
-    if (progress > 1) {
-      return 1;
-    }
+    final result = yearlyRevenue / yearlyGoal;
 
-    if (progress < 0) {
-      return 0;
-    }
-
-    return progress;
+    return result.clamp(0.0, 1.0);
   }
 
   String _formatCurrency(double value) {
@@ -152,7 +139,6 @@ class _RevenueItem extends StatelessWidget {
 
       decoration: BoxDecoration(
         color: colors.surfaceContainerHighest,
-
         borderRadius: BorderRadius.circular(18),
       ),
 
@@ -166,11 +152,8 @@ class _RevenueItem extends StatelessWidget {
 
           Text(
             title,
-
             maxLines: 1,
-
             overflow: TextOverflow.ellipsis,
-
             style: theme.textTheme.bodySmall,
           ),
 
@@ -178,7 +161,6 @@ class _RevenueItem extends StatelessWidget {
 
           Text(
             value,
-
             style: theme.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.bold,
             ),

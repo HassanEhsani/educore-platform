@@ -1,5 +1,3 @@
-// lib/features/admin/presentation/widgets/admin_stat_card.dart
-
 import 'package:flutter/material.dart';
 
 class AdminStatCard extends StatelessWidget {
@@ -16,15 +14,22 @@ class AdminStatCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
+
     return Card(
-      margin: const EdgeInsets.only(bottom: 14),
       elevation: 0,
+      margin: const EdgeInsets.only(bottom: 14),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
       child: Padding(
         padding: const EdgeInsets.all(18),
         child: Row(
           children: [
-            CircleAvatar(radius: 26, child: Icon(icon)),
+            CircleAvatar(
+              radius: 26,
+              backgroundColor: colors.primaryContainer,
+              child: Icon(icon, color: colors.primary),
+            ),
 
             const SizedBox(width: 16),
 
@@ -32,13 +37,13 @@ class AdminStatCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title),
+                  Text(title, style: theme.textTheme.bodyMedium),
 
                   const SizedBox(height: 6),
 
                   Text(
                     value,
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    style: theme.textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
                   ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../data/fake_admin_data.dart';
+import '../../domain/admin.dart';
 
 class AdminProfilePage extends StatelessWidget {
   const AdminProfilePage({super.key});
@@ -17,8 +18,7 @@ class AdminProfilePage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: () => context.go('/admin'),
         ),
-
-        title: const Text('Admin Profile'),
+        title: const Text('Business Owner Profile'),
       ),
 
       body: SingleChildScrollView(
@@ -39,7 +39,6 @@ class AdminProfilePage extends StatelessWidget {
                 children: [
                   Expanded(
                     child: _miniStat(
-                      context,
                       Icons.business,
                       '${admin.totalBusinesses}',
                       'Businesses',
@@ -48,7 +47,6 @@ class AdminProfilePage extends StatelessWidget {
 
                   Expanded(
                     child: _miniStat(
-                      context,
                       Icons.people,
                       '${admin.totalUsers}',
                       'Users',
@@ -66,7 +64,7 @@ class AdminProfilePage extends StatelessWidget {
 
             _infoCard(context, Icons.phone_outlined, 'Phone', admin.phone),
 
-            _infoCard(context, Icons.badge_outlined, 'Admin ID', admin.id),
+            _infoCard(context, Icons.badge_outlined, 'Merchant ID', admin.id),
 
             _infoCard(
               context,
@@ -75,66 +73,49 @@ class AdminProfilePage extends StatelessWidget {
               admin.role,
             ),
 
+            _infoCard(
+              context,
+              Icons.calendar_month_outlined,
+              'Created',
+              admin.createdAt,
+            ),
+
             const SizedBox(height: 20),
 
-            _sectionTitle(context, 'Security Status'),
+            _sectionTitle(context, 'Account Status'),
 
             _dashboardCard(
               context,
 
-              child: Column(
-                children: [
-                  _statusRow(
-                    context,
-                    Icons.check_circle,
-                    'Account Status',
-                    admin.accountStatus,
-                    colors.primary,
-                  ),
-
-                  const Divider(),
-
-                  _statusRow(
-                    context,
-                    Icons.login,
-                    'Last Login',
-                    admin.lastLogin,
-                    null,
-                  ),
-
-                  const Divider(),
-
-                  _statusRow(
-                    context,
-                    Icons.calendar_month,
-                    'Created',
-                    admin.createdAt,
-                    null,
-                  ),
-                ],
+              child: _statusRow(
+                context,
+                Icons.check_circle_outline,
+                'Status',
+                admin.accountStatus,
+                colors.primary,
               ),
             ),
 
             const SizedBox(height: 20),
 
-            _sectionTitle(context, 'Permissions'),
+            _sectionTitle(context, 'Business Access'),
 
             _dashboardCard(
               context,
 
               child: Wrap(
                 spacing: 8,
-
                 runSpacing: 8,
 
-                children: admin.permissions
-                    .map(
-                      (permission) => Chip(
-                        label: Text(permission),
-                        avatar: const Icon(Icons.check, size: 18),
-                      ),
-                    )
-                    .toList(),
+                children: [
+                  _permissionChip('School Management'),
+
+                  _permissionChip('ISP Management'),
+
+                  _permissionChip('Laboratory Management'),
+
+                  _permissionChip('Financial Reports'),
+                ],
               ),
             ),
 
@@ -142,25 +123,13 @@ class AdminProfilePage extends StatelessWidget {
 
             _sectionTitle(context, 'Recent Activity'),
 
-            _activityCard(
-              context,
-              Icons.edit,
-              'Profile updated',
-              'Today 09:30 AM',
-            ),
-
-            _activityCard(
-              context,
-              Icons.security,
-              'Security checked',
-              'Yesterday 18:20 PM',
-            ),
+            _activityCard(context, Icons.edit, 'Profile reviewed', 'Today'),
 
             _activityCard(
               context,
               Icons.business,
-              'New business added',
-              '2 days ago',
+              'Business dashboard accessed',
+              'Yesterday',
             ),
 
             const SizedBox(height: 24),
@@ -168,12 +137,15 @@ class AdminProfilePage extends StatelessWidget {
             FilledButton.icon(
               style: FilledButton.styleFrom(
                 minimumSize: const Size(double.infinity, 52),
+
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
                 ),
               ),
 
-              onPressed: () => context.push('/admin/profile/edit'),
+              onPressed: () {
+                context.push('/admin/profile/edit');
+              },
 
               icon: const Icon(Icons.edit),
 
@@ -185,12 +157,15 @@ class AdminProfilePage extends StatelessWidget {
             OutlinedButton.icon(
               style: OutlinedButton.styleFrom(
                 minimumSize: const Size(double.infinity, 52),
+
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
                 ),
               ),
 
-              onPressed: () => context.push('/admin/security'),
+              onPressed: () {
+                context.push('/admin/security');
+              },
 
               icon: const Icon(Icons.lock_outline),
 
@@ -202,7 +177,7 @@ class AdminProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _profileHeader(BuildContext context, dynamic admin) {
+  Widget _profileHeader(BuildContext context, Admin admin) {
     final colors = Theme.of(context).colorScheme;
 
     return Container(
@@ -226,9 +201,11 @@ class AdminProfilePage extends StatelessWidget {
             child: Text(
               admin.name.substring(0, 1).toUpperCase(),
 
-              style: const TextStyle(
-                color: Colors.white,
+              style: TextStyle(
+                color: colors.onPrimary,
+
                 fontSize: 32,
+
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -264,12 +241,7 @@ class AdminProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _miniStat(
-    BuildContext context,
-    IconData icon,
-    String value,
-    String label,
-  ) {
+  Widget _miniStat(IconData icon, String value, String label) {
     return Column(
       children: [
         Icon(icon),
@@ -329,7 +301,7 @@ class AdminProfilePage extends StatelessWidget {
     IconData icon,
     String title,
     String value,
-    Color? color,
+    Color color,
   ) {
     return ListTile(
       contentPadding: EdgeInsets.zero,
@@ -343,6 +315,10 @@ class AdminProfilePage extends StatelessWidget {
         style: const TextStyle(fontWeight: FontWeight.bold),
       ),
     );
+  }
+
+  Widget _permissionChip(String text) {
+    return Chip(avatar: const Icon(Icons.check, size: 18), label: Text(text));
   }
 
   Widget _activityCard(

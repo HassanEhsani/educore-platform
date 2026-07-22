@@ -1,3 +1,5 @@
+// lib/features/admin/presentation/widgets/admin_business_card.dart
+
 import 'package:flutter/material.dart';
 
 class AdminBusinessCard extends StatelessWidget {
@@ -14,7 +16,8 @@ class AdminBusinessCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
 
     return Card(
       elevation: 0,
@@ -29,14 +32,14 @@ class AdminBusinessCard extends StatelessWidget {
                 CircleAvatar(
                   radius: 22,
                   backgroundColor: colors.primaryContainer,
-                  child: Icon(Icons.business, color: colors.primary),
+                  child: Icon(Icons.storefront_outlined, color: colors.primary),
                 ),
 
                 const SizedBox(width: 12),
 
                 Text(
-                  'Business Overview',
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  'My Businesses',
+                  style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -49,7 +52,7 @@ class AdminBusinessCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: _BusinessItem(
-                    icon: Icons.domain,
+                    icon: Icons.business_outlined,
                     title: 'Businesses',
                     value: businesses.toString(),
                   ),
@@ -57,15 +60,15 @@ class AdminBusinessCard extends StatelessWidget {
 
                 Expanded(
                   child: _BusinessItem(
-                    icon: Icons.people,
-                    title: 'Users',
+                    icon: Icons.people_outline,
+                    title: 'Customers',
                     value: users.toString(),
                   ),
                 ),
 
                 Expanded(
                   child: _BusinessItem(
-                    icon: Icons.attach_money,
+                    icon: Icons.payments_outlined,
                     title: 'Revenue',
                     value: _formatCurrency(revenue),
                   ),
@@ -104,7 +107,8 @@ class _BusinessItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
 
     return Column(
       children: [
@@ -114,9 +118,9 @@ class _BusinessItem extends StatelessWidget {
 
         Text(
           value,
-          style: Theme.of(
-            context,
-          ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+          style: theme.textTheme.titleLarge?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
         ),
 
         const SizedBox(height: 4),
@@ -124,7 +128,7 @@ class _BusinessItem extends StatelessWidget {
         Text(
           title,
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodySmall,
+          style: theme.textTheme.bodySmall,
         ),
       ],
     );

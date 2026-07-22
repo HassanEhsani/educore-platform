@@ -1,35 +1,61 @@
+// lib/features/admin/data/fake_admin_data.dart
+
 import '../domain/admin.dart';
 
 class FakeAdminData {
+  const FakeAdminData._();
+
+  /// Temporary Merchant profile data.
+  ///
+  /// Current location:
+  /// features/admin/data/
+  ///
+  /// Future migration:
+  /// features/merchant/data/
+  ///
+  /// This will become:
+  /// MerchantProfileData
+
   static const Admin admin = Admin(
-    id: 'ADM001',
+    id: 'MER001',
 
     name: 'Hassan Ehsani',
 
-    email: 'admin@educore.com',
+    email: 'owner@educore.com',
 
     phone: '+93 700 000 000',
 
-    role: 'System Owner',
+    /// Merchant role.
+    role: 'Business Owner',
 
+    /// Owned businesses:
+    ///
+    /// 1. School
+    /// 2. ISP
+    /// 3. Laboratory
     totalBusinesses: 3,
 
-    totalUsers: 2450,
+    /// Total users across businesses:
+    ///
+    /// School:
+    /// - Students
+    /// - Parents
+    ///
+    /// ISP:
+    /// - Customers
+    ///
+    /// Laboratory:
+    /// - Customers
+    totalUsers: 1680,
 
+    /// Empty for now.
+    /// Later will contain:
+    /// - Network image URL
+    /// - Local asset path
     avatar: '',
 
     accountStatus: 'Active',
 
-    lastLogin: 'Today, 10:30 AM',
-
     createdAt: 'January 2026',
-
-    permissions: [
-      'Manage Users',
-      'Manage Businesses',
-      'Financial Reports',
-      'System Settings',
-      'Security Control',
-    ],
   );
 }

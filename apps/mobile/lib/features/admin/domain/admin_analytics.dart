@@ -1,14 +1,24 @@
 class AdminAnalytics {
+  /// Total users across all merchant businesses
   final int totalUsers;
+
+  /// Number of businesses owned by merchant
   final int totalBusinesses;
 
+  /// Education business metrics
   final int activeStudents;
   final int activeTeachers;
 
+  /// Financial metrics
   final double monthlyRevenue;
   final double yearlyRevenue;
 
+  /// Growth compared with previous period
   final double userGrowth;
+
+  /// Temporary compatibility field.
+  /// Belongs to System Admin domain.
+  /// Do not use in Merchant Dashboard.
   final double systemUptime;
 
   const AdminAnalytics({
@@ -28,7 +38,7 @@ class AdminAnalytics {
 
   String get formattedGrowth => '${userGrowth.toStringAsFixed(1)}%';
 
-  String get formattedUptime => '${systemUptime.toStringAsFixed(1)}%';
+  String get formattedSystemUptime => '${systemUptime.toStringAsFixed(1)}%';
 
   static String _formatCurrency(double value) {
     if (value >= 1000000) {
@@ -36,7 +46,7 @@ class AdminAnalytics {
     }
 
     if (value >= 1000) {
-      return '\$${(value / 1000).toStringAsFixed(0)}K';
+      return '\$${(value / 1000).toStringAsFixed(1)}K';
     }
 
     return '\$${value.toStringAsFixed(0)}';

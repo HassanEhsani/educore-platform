@@ -1,3 +1,5 @@
+// lib/features/admin/presentation/widgets/admin_kpi_card.dart
+
 import 'package:flutter/material.dart';
 
 class AdminKpiCard extends StatelessWidget {
@@ -21,21 +23,15 @@ class AdminKpiCard extends StatelessWidget {
 
     return Card(
       elevation: 0,
-
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
-
       child: Padding(
         padding: const EdgeInsets.all(16),
-
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-
           children: [
             CircleAvatar(
               radius: 20,
-
               backgroundColor: colors.primaryContainer,
-
               child: Icon(icon, size: 22, color: colors.primary),
             ),
 
@@ -43,13 +39,10 @@ class AdminKpiCard extends StatelessWidget {
 
             Text(
               title,
-
               maxLines: 1,
-
               overflow: TextOverflow.ellipsis,
-
               style: theme.textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w600,
               ),
             ),
 
@@ -57,11 +50,8 @@ class AdminKpiCard extends StatelessWidget {
 
             Text(
               value,
-
               maxLines: 1,
-
               overflow: TextOverflow.ellipsis,
-
               style: theme.textTheme.headlineSmall?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -71,11 +61,8 @@ class AdminKpiCard extends StatelessWidget {
 
             Text(
               subtitle,
-
               maxLines: 1,
-
               overflow: TextOverflow.ellipsis,
-
               style: theme.textTheme.bodySmall?.copyWith(
                 color: colors.onSurfaceVariant,
               ),

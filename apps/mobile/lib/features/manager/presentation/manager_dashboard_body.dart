@@ -12,6 +12,7 @@ import 'widgets/statistics_card.dart';
 import 'widgets/manager_revenue_card.dart';
 import 'widgets/manager_business_card.dart';
 import 'widgets/manager_quick_actions.dart';
+import '../data/manager_activity_data.dart';
 
 class ManagerDashboardBody extends StatelessWidget {
   const ManagerDashboardBody({super.key});
@@ -99,22 +100,12 @@ class ManagerDashboardBody extends StatelessWidget {
 
           const Gap(12),
 
-          const RecentActivityCard(
-            icon: Icons.person_add,
-            title: '20 new students registered',
-            subtitle: 'Today • 10:30 AM',
-          ),
-
-          const RecentActivityCard(
-            icon: Icons.payment,
-            title: 'Monthly payment received',
-            subtitle: 'Today • 09:15 AM',
-          ),
-
-          const RecentActivityCard(
-            icon: Icons.check_circle,
-            title: 'Teacher attendance completed',
-            subtitle: 'Yesterday',
+          ...ManagerActivityData.activities.map(
+            (activity) => RecentActivityCard(
+              icon: activity.icon,
+              title: activity.title,
+              subtitle: activity.subtitle,
+            ),
           ),
         ],
       ),

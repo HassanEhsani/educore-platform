@@ -4,9 +4,11 @@ import 'package:gap/gap.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/widgets/dashboard/dashboard_welcome_card.dart';
 
-import '../data/fake_manager_data.dart';
 import '../data/manager_activity_data.dart';
-import '../data/manager_dashboard_data.dart';
+import '../data/datasources/manager_dashboard_datasource.dart';
+import '../data/repositories/manager_repository_impl.dart';
+
+import '../domain/entities/manager_dashboard.dart';
 
 import 'widgets/manager_quick_actions.dart';
 import 'widgets/manager_revenue_card.dart';
@@ -18,90 +20,122 @@ class ManagerDashboardBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final summary = ManagerDashboardData.summary;
+    final repository = ManagerRepositoryImpl(
+      datasource: ManagerDashboardDataSource(),
+    );
 
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(AppSpacing.lg),
+    return FutureBuilder<ManagerDashboard>(
+      future: repository.getDashboard(),
 
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
 
-        children: [
-          DashboardWelcomeCard(
-            name: demoManager.name,
-            role: 'School Manager',
-            description:
-                'Manage students, teachers, attendance and school operations.',
-          ),
+        if (snapshot.hasError) {
+          return Center(child: Text(snapshot.error.toString()));
+        }
 
-          const Gap(28),
+        final dashboard = snapshot.data!;
 
-          _DashboardSection(
-            title: 'Financial Overview',
-            child: ManagerRevenueCard(
-              monthlyRevenue: summary.monthlyCollection,
-              growthPercentage: ManagerDashboardData.monthlyGrowth,
-            ),
-          ),
+        return SingleChildScrollView(
+          padding: const EdgeInsets.all(AppSpacing.lg),
 
-          const Gap(28),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
 
-          _DashboardSection(
-            title: 'School Overview',
-            child: Column(
-              children: [
-                StatisticsCard(
-                  icon: Icons.people_outline,
-                  title: 'Students',
-                  value: '${summary.students}',
+            children: [
+              DashboardWelcomeCard(
+                name: dashboard.managerName,
+
+                role: 'School Manager',
+
+                description:
+                    'Manage students, teachers, attendance and school operations.',
+              ),
+
+              const Gap(28),
+
+              _DashboardSection(
+                title: 'Financial Overview',
+
+                child: ManagerRevenueCard(
+                  monthlyRevenue: dashboard.monthlyRevenue,
+
+                  growthPercentage: dashboard.growth,
                 ),
+              ),
 
-                StatisticsCard(
-                  icon: Icons.school_outlined,
-                  title: 'Teachers',
-                  value: '${summary.teachers}',
-                ),
+              const Gap(28),
 
-                StatisticsCard(
-                  icon: Icons.fact_check_outlined,
-                  title: 'Attendance',
-                  value: '${summary.attendance}%',
-                ),
-              ],
-            ),
-          ),
+              _DashboardSection(
+                title: 'School Overview',
 
-          const Gap(28),
+                child: Column(
+                  children: [
+                    StatisticsCard(
+                      icon: Icons.people_outline,
 
-          _DashboardSection(
-            title: 'Quick Actions',
-            child: const ManagerQuickActions(),
-          ),
+                      title: 'Students',
 
-          const Gap(28),
-
-          _DashboardSection(
-            title: 'Recent Activity',
-            child: Column(
-              children: ManagerActivityData.activities
-                  .map(
-                    (activity) => RecentActivityCard(
-                      icon: activity.icon,
-                      title: activity.title,
-                      subtitle: activity.subtitle,
+                      value: dashboard.students.toString(),
                     ),
-                  )
-                  .toList(),
-            ),
+
+                    StatisticsCard(
+                      icon: Icons.school_outlined,
+
+                      title: 'Teachers',
+
+                      value: dashboard.teachers.toString(),
+                    ),
+
+                    StatisticsCard(
+                      icon: Icons.fact_check_outlined,
+
+                      title: 'Attendance',
+
+                      value: '${dashboard.attendance}%',
+                    ),
+                  ],
+                ),
+              ),
+
+              const Gap(28),
+
+              _DashboardSection(
+                title: 'Quick Actions',
+
+                child: const ManagerQuickActions(),
+              ),
+
+              const Gap(28),
+
+              _DashboardSection(
+                title: 'Recent Activity',
+
+                child: Column(
+                  children: ManagerActivityData.activities.map((activity) {
+                    return RecentActivityCard(
+                      icon: activity.icon,
+
+                      title: activity.title,
+
+                      subtitle: activity.subtitle,
+                    );
+                  }).toList(),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
 
 class _DashboardSection extends StatelessWidget {
   final String title;
+
   final Widget child;
 
   const _DashboardSection({required this.title, required this.child});
@@ -114,6 +148,7 @@ class _DashboardSection extends StatelessWidget {
       children: [
         Text(
           title,
+
           style: Theme.of(
             context,
           ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),

@@ -4,8 +4,8 @@ class RevenueData {
   const RevenueData._();
 
   static const RevenueSummary monthly = RevenueSummary(
-    schoolRevenue: 25000,
-    ispRevenue: 8500,
-    laboratoryRevenue: 4200,
+    tuitionCollection: 25000,
+    pendingPayments: 8400,
+    monthlyCollection: 33400,
   );
 }

@@ -11,75 +11,64 @@ class RevenueBreakdownCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
 
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: colors.surface,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: colors.outlineVariant),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Revenue Breakdown',
-            style: Theme.of(
-              context,
-            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-          ),
+    return Card(
+      elevation: 0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Financial Overview',
+              style: Theme.of(
+                context,
+              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+            ),
 
-          const SizedBox(height: 20),
+            const SizedBox(height: 20),
 
-          _RevenueRow(
-            icon: Icons.school,
-            title: 'EduCore School',
-            value: revenue.schoolRevenue,
-            color: colors.primary,
-          ),
+            _RevenueRow(
+              icon: Icons.school_outlined,
+              title: 'Tuition Collection',
+              value: revenue.tuitionCollection,
+              color: colors.primary,
+            ),
 
-          const SizedBox(height: 16),
+            const SizedBox(height: 16),
 
-          _RevenueRow(
-            icon: Icons.wifi,
-            title: 'EduCore ISP',
-            value: revenue.ispRevenue,
-            color: colors.secondary,
-          ),
+            _RevenueRow(
+              icon: Icons.pending_actions_outlined,
+              title: 'Pending Payments',
+              value: revenue.pendingPayments,
+              color: colors.error,
+            ),
 
-          const SizedBox(height: 16),
+            const SizedBox(height: 20),
 
-          _RevenueRow(
-            icon: Icons.biotech,
-            title: 'Laboratory',
-            value: revenue.laboratoryRevenue,
-            color: colors.tertiary,
-          ),
+            Divider(color: colors.outlineVariant),
 
-          const SizedBox(height: 20),
+            const SizedBox(height: 12),
 
-          Divider(color: colors.outlineVariant),
-
-          const SizedBox(height: 12),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Total Revenue',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-
-              Text(
-                _formatCurrency(revenue.totalRevenue),
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Monthly Collection',
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-              ),
-            ],
-          ),
-        ],
+
+                Text(
+                  _formatCurrency(revenue.monthlyCollection),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -107,7 +96,8 @@ class _RevenueRow extends StatelessWidget {
     return Row(
       children: [
         CircleAvatar(
-          backgroundColor: color.withValues(alpha: 0.15),
+          backgroundColor: color.withValues(alpha: 0.12),
+
           child: Icon(icon, color: color),
         ),
 

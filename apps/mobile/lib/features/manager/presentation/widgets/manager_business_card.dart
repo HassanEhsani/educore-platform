@@ -16,87 +16,75 @@ class ManagerBusinessCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colors = theme.colorScheme;
+    final colors = Theme.of(context).colorScheme;
 
-    return Card(
-      elevation: 0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24),
-          gradient: LinearGradient(
-            colors: [
-              colors.surface,
-              colors.primaryContainer.withValues(alpha: 0.35),
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  width: 52,
-                  height: 52,
-                  decoration: BoxDecoration(
-                    color: colors.primary,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Icon(icon, color: colors.onPrimary, size: 26),
+    return Container(
+      padding: const EdgeInsets.all(20),
+
+      decoration: BoxDecoration(
+        color: colors.surface,
+
+        borderRadius: BorderRadius.circular(24),
+
+        border: Border.all(color: colors.outlineVariant),
+      ),
+
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 52,
+                height: 52,
+
+                decoration: BoxDecoration(
+                  color: colors.primaryContainer,
+
+                  borderRadius: BorderRadius.circular(16),
                 ),
 
-                const SizedBox(width: 16),
-
-                Expanded(
-                  child: Text(
-                    title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-
-            const SizedBox(height: 20),
-
-            Text(subtitle, style: theme.textTheme.bodyMedium),
-
-            const SizedBox(height: 16),
-
-            Text('Monthly Revenue', style: theme.textTheme.bodySmall),
-
-            const SizedBox(height: 4),
-
-            Text(
-              _formatRevenue(revenue),
-              style: theme.textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-                color: colors.primary,
+                child: Icon(icon, color: colors.primary),
               ),
-            ),
-          ],
-        ),
+
+              const SizedBox(width: 16),
+
+              Expanded(
+                child: Text(
+                  title,
+
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 20),
+
+          Text(subtitle, style: Theme.of(context).textTheme.bodyMedium),
+
+          const SizedBox(height: 12),
+
+          Text('Monthly Revenue', style: Theme.of(context).textTheme.bodySmall),
+
+          const SizedBox(height: 6),
+
+          Text(
+            _currency(revenue),
+
+            style: Theme.of(
+              context,
+            ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+          ),
+        ],
       ),
     );
   }
 
-  String _formatRevenue(double value) {
-    if (value >= 1000000) {
-      return '\$${(value / 1000000).toStringAsFixed(1)}M';
-    }
-
-    if (value >= 1000) {
-      return '\$${(value / 1000).toStringAsFixed(1)}K';
-    }
-
+  String _currency(double value) {
     return '\$${value.toStringAsFixed(0)}';
   }
 }

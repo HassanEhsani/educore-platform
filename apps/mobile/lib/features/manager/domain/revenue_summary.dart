@@ -1,13 +1,11 @@
 class RevenueSummary {
-  final double schoolRevenue;
-  final double ispRevenue;
-  final double laboratoryRevenue;
+  final double tuitionCollection;
+  final double pendingPayments;
+  final double monthlyCollection;
 
   const RevenueSummary({
-    required this.schoolRevenue,
-    required this.ispRevenue,
-    required this.laboratoryRevenue,
+    required this.tuitionCollection,
+    required this.pendingPayments,
+    required this.monthlyCollection,
   });
-
-  double get totalRevenue => schoolRevenue + ispRevenue + laboratoryRevenue;
 }

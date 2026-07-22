@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/widgets/app_shell.dart';
 
-import '../data/admin_analytics_data.dart';
-
+import '../data/admin_dashboard_data.dart';
 import 'widgets/admin_activity_card.dart';
 import 'widgets/admin_business_card.dart';
 import 'widgets/admin_growth_card.dart';
@@ -47,7 +46,7 @@ class AdminDashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final analytics = AdminAnalyticsData.analytics;
+    final summary = AdminDashboardData.summary;
 
     return AppShell(
       title: 'Merchant Dashboard',
@@ -76,14 +75,14 @@ class AdminDashboardPage extends StatelessWidget {
                   AdminKpiCard(
                     icon: Icons.school_outlined,
                     title: 'Students',
-                    value: '${analytics.activeStudents}',
+                    value: '${summary.totalStudents}',
                     subtitle: 'Active',
                   ),
 
                   AdminKpiCard(
                     icon: Icons.people_outline,
                     title: 'Teachers',
-                    value: '${analytics.activeTeachers}',
+                    value: '${summary.totalTeachers}',
                     subtitle: 'Staff',
                   ),
 
@@ -111,13 +110,13 @@ class AdminDashboardPage extends StatelessWidget {
               child: Column(
                 children: [
                   AdminRevenueCard(
-                    monthlyRevenue: analytics.monthlyRevenue,
-                    yearlyRevenue: analytics.yearlyRevenue,
+                    monthlyRevenue: summary.monthlyRevenue,
+                    yearlyRevenue: summary.yearlyRevenue,
                   ),
 
                   const SizedBox(height: 16),
 
-                  AdminGrowthCard(growth: analytics.userGrowth),
+                  AdminGrowthCard(growth: summary.userGrowth),
                 ],
               ),
             ),
@@ -127,9 +126,9 @@ class AdminDashboardPage extends StatelessWidget {
             _DashboardSection(
               title: 'Managed Businesses',
               child: AdminBusinessCard(
-                businesses: analytics.totalBusinesses,
-                users: analytics.totalUsers,
-                revenue: analytics.monthlyRevenue,
+                businesses: summary.totalBusinesses,
+                users: summary.totalUsers,
+                revenue: summary.monthlyRevenue,
               ),
             ),
 

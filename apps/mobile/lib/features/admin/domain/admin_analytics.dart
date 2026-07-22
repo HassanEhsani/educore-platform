@@ -1,3 +1,12 @@
+/// Deprecated.
+///
+/// Temporary model kept for backward compatibility.
+///
+/// Merchant Dashboard must use
+/// AdminDashboardSummary instead.
+///
+/// This class will be removed after
+/// System Admin domain separation.
 class AdminAnalytics {
   /// Total users across all merchant businesses
   final int totalUsers;

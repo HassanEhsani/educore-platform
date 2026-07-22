@@ -1,6 +1,7 @@
 // lib/features/admin/presentation/widgets/admin_quick_actions.dart
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class AdminQuickActions extends StatelessWidget {
   const AdminQuickActions({super.key});
@@ -11,21 +12,27 @@ class AdminQuickActions extends StatelessWidget {
 
     return Card(
       elevation: 0,
+
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+
       child: Padding(
         padding: const EdgeInsets.all(20),
+
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+
           children: [
             Row(
               children: [
                 Container(
                   width: 42,
                   height: 42,
+
                   decoration: BoxDecoration(
                     color: colors.primaryContainer,
                     borderRadius: BorderRadius.circular(14),
                   ),
+
                   child: Icon(Icons.flash_on, color: colors.primary),
                 ),
 
@@ -45,29 +52,38 @@ class AdminQuickActions extends StatelessWidget {
             Wrap(
               spacing: 12,
               runSpacing: 12,
+
               children: [
                 _ActionButton(
-                  icon: Icons.add_business,
-                  title: 'Add Business',
-                  onTap: () {},
+                  icon: Icons.security,
+                  title: 'Security',
+                  onTap: () {
+                    context.push('/admin/security');
+                  },
                 ),
 
                 _ActionButton(
-                  icon: Icons.people,
-                  title: 'Manage Users',
-                  onTap: () {},
-                ),
-
-                _ActionButton(
-                  icon: Icons.analytics,
-                  title: 'View Reports',
-                  onTap: () {},
+                  icon: Icons.notifications,
+                  title: 'Notifications',
+                  onTap: () {
+                    context.push('/admin/notifications');
+                  },
                 ),
 
                 _ActionButton(
                   icon: Icons.settings,
-                  title: 'System Settings',
-                  onTap: () {},
+                  title: 'Settings',
+                  onTap: () {
+                    context.push('/admin/settings');
+                  },
+                ),
+
+                _ActionButton(
+                  icon: Icons.person,
+                  title: 'Profile',
+                  onTap: () {
+                    context.push('/admin/profile');
+                  },
                 ),
               ],
             ),
@@ -95,15 +111,20 @@ class _ActionButton extends StatelessWidget {
 
     return InkWell(
       borderRadius: BorderRadius.circular(16),
+
       onTap: onTap,
+
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+
         decoration: BoxDecoration(
           color: colors.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(16),
         ),
+
         child: Row(
           mainAxisSize: MainAxisSize.min,
+
           children: [
             Icon(icon, size: 20, color: colors.primary),
 

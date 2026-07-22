@@ -1,5 +1,3 @@
-// lib/features/admin/presentation/admin_dashboard_page.dart
-
 import 'package:flutter/material.dart';
 
 import '../../../core/widgets/app_shell.dart';
@@ -18,14 +16,14 @@ import 'widgets/admin_welcome_card.dart';
 class AdminDashboardPage extends StatelessWidget {
   const AdminDashboardPage({super.key});
 
-  static const List<String> routes = [
+  static const routes = [
     '/admin',
     '/admin/notifications',
     '/admin/profile',
     '/admin/settings',
   ];
 
-  static const List<NavigationDestination> destinations = [
+  static const destinations = [
     NavigationDestination(
       icon: Icon(Icons.dashboard_outlined),
       selectedIcon: Icon(Icons.dashboard),
@@ -67,109 +65,140 @@ class AdminDashboardPage extends StatelessWidget {
 
             const SizedBox(height: 24),
 
-            Text(
-              'Overview',
-              style: Theme.of(
-                context,
-              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-            ),
+            _DashboardSection(
+              title: 'Organization Overview',
+              child: GridView.count(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisCount: 2,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
+                children: [
+                  AdminKpiCard(
+                    icon: Icons.people_outline,
+                    title: 'Users',
+                    value: '${analytics.totalUsers}',
+                    subtitle: 'Registered',
+                  ),
 
-            const SizedBox(height: 16),
+                  AdminKpiCard(
+                    icon: Icons.school_outlined,
+                    title: 'Students',
+                    value: '${analytics.activeStudents}',
+                    subtitle: 'Active',
+                  ),
 
-            GridView.count(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: 2,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-              children: [
-                AdminKpiCard(
-                  icon: Icons.people,
-                  title: 'Users',
-                  value: '${analytics.totalUsers}',
-                  subtitle: 'Active users',
-                ),
+                  AdminKpiCard(
+                    icon: Icons.person_outline,
+                    title: 'Teachers',
+                    value: '${analytics.activeTeachers}',
+                    subtitle: 'Staff',
+                  ),
 
-                AdminKpiCard(
-                  icon: Icons.business,
-                  title: 'Businesses',
-                  value: '${analytics.totalBusinesses}',
-                  subtitle: 'Companies',
-                ),
-
-                AdminKpiCard(
-                  icon: Icons.school,
-                  title: 'Students',
-                  value: '${analytics.activeStudents}',
-                  subtitle: 'Registered',
-                ),
-
-                AdminKpiCard(
-                  icon: Icons.person,
-                  title: 'Teachers',
-                  value: '${analytics.activeTeachers}',
-                  subtitle: 'Active staff',
-                ),
-              ],
+                  AdminKpiCard(
+                    icon: Icons.business_outlined,
+                    title: 'Businesses',
+                    value: '${analytics.totalBusinesses}',
+                    subtitle: 'Managed',
+                  ),
+                ],
+              ),
             ),
 
             const SizedBox(height: 24),
 
-            AdminRevenueCard(
-              monthlyRevenue: analytics.monthlyRevenue,
-              yearlyRevenue: analytics.yearlyRevenue,
+            _DashboardSection(
+              title: 'Financial Overview',
+              child: Column(
+                children: [
+                  AdminRevenueCard(
+                    monthlyRevenue: analytics.monthlyRevenue,
+                    yearlyRevenue: analytics.yearlyRevenue,
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  AdminGrowthCard(growth: analytics.userGrowth),
+                ],
+              ),
             ),
-
-            const SizedBox(height: 20),
-
-            AdminGrowthCard(growth: analytics.userGrowth),
-
-            const SizedBox(height: 20),
-
-            AdminSystemHealthCard(uptime: analytics.systemUptime),
-
-            const SizedBox(height: 20),
-
-            const AdminQuickActions(),
 
             const SizedBox(height: 24),
 
-            Text(
-              'Business Overview',
-              style: Theme.of(
-                context,
-              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+            _DashboardSection(
+              title: 'System Monitoring',
+              child: AdminSystemHealthCard(uptime: analytics.systemUptime),
             ),
-
-            const SizedBox(height: 16),
-
-            const AdminBusinessCard(),
 
             const SizedBox(height: 24),
 
-            Text(
-              'Recent Activities',
-              style: Theme.of(
-                context,
-              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+            _DashboardSection(
+              title: 'Quick Actions',
+              child: const AdminQuickActions(),
             ),
 
-            const SizedBox(height: 16),
+            const SizedBox(height: 24),
 
-            const AdminActivityCard(
-              title: 'New school registered',
-              subtitle: 'EduCore branch added',
-              icon: Icons.business,
+            _DashboardSection(
+              title: 'Business Overview',
+              child: AdminBusinessCard(
+                businesses: analytics.totalBusinesses,
+                users: analytics.totalUsers,
+                revenue: analytics.monthlyRevenue,
+              ),
             ),
 
-            const AdminActivityCard(
-              title: 'Monthly report generated',
-              subtitle: 'Financial report is ready',
-              icon: Icons.analytics,
+            const SizedBox(height: 24),
+
+            _DashboardSection(
+              title: 'Recent Activities',
+              child: const Column(
+                children: [
+                  AdminActivityCard(
+                    title: 'New school registered',
+                    subtitle: 'EduCore branch added',
+                    icon: Icons.business,
+                    time: 'Today',
+                  ),
+
+                  AdminActivityCard(
+                    title: 'Monthly report generated',
+                    subtitle: 'Financial report is ready',
+                    icon: Icons.analytics,
+                    time: 'Yesterday',
+                  ),
+                ],
+              ),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class _DashboardSection extends StatelessWidget {
+  final String title;
+  final Widget child;
+
+  const _DashboardSection({required this.title, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: Theme.of(
+            context,
+          ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+        ),
+
+        const SizedBox(height: 16),
+
+        child,
+      ],
     );
   }
 }

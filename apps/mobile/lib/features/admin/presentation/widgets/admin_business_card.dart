@@ -1,45 +1,131 @@
-// lib/features/admin/presentation/widgets/admin_business_card.dart
-
 import 'package:flutter/material.dart';
 
 class AdminBusinessCard extends StatelessWidget {
-  const AdminBusinessCard({super.key});
+  final int businesses;
+  final int users;
+  final double revenue;
+
+  const AdminBusinessCard({
+    super.key,
+    this.businesses = 0,
+    this.users = 0,
+    this.revenue = 0,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return Card(
       elevation: 0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       child: Padding(
         padding: const EdgeInsets.all(20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
-            _Item(title: 'Businesses', value: '3'),
-            _Item(title: 'Users', value: '2450'),
-            _Item(title: 'Revenue', value: '\$45K'),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                CircleAvatar(
+                  radius: 22,
+                  backgroundColor: colors.primaryContainer,
+                  child: Icon(Icons.business, color: colors.primary),
+                ),
+
+                const SizedBox(width: 12),
+
+                Text(
+                  'Business Overview',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 24),
+
+            Row(
+              children: [
+                Expanded(
+                  child: _BusinessItem(
+                    icon: Icons.domain,
+                    title: 'Businesses',
+                    value: businesses.toString(),
+                  ),
+                ),
+
+                Expanded(
+                  child: _BusinessItem(
+                    icon: Icons.people,
+                    title: 'Users',
+                    value: users.toString(),
+                  ),
+                ),
+
+                Expanded(
+                  child: _BusinessItem(
+                    icon: Icons.attach_money,
+                    title: 'Revenue',
+                    value: _formatCurrency(revenue),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
     );
   }
+
+  String _formatCurrency(double value) {
+    if (value >= 1000000) {
+      return '\$${(value / 1000000).toStringAsFixed(1)}M';
+    }
+
+    if (value >= 1000) {
+      return '\$${(value / 1000).toStringAsFixed(0)}K';
+    }
+
+    return '\$${value.toStringAsFixed(0)}';
+  }
 }
 
-class _Item extends StatelessWidget {
+class _BusinessItem extends StatelessWidget {
+  final IconData icon;
   final String title;
   final String value;
 
-  const _Item({required this.title, required this.value});
+  const _BusinessItem({
+    required this.icon,
+    required this.title,
+    required this.value,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return Column(
       children: [
+        Icon(icon, size: 22, color: colors.primary),
+
+        const SizedBox(height: 8),
+
         Text(
           value,
-          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          style: Theme.of(
+            context,
+          ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
         ),
-        Text(title),
+
+        const SizedBox(height: 4),
+
+        Text(
+          title,
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
       ],
     );
   }

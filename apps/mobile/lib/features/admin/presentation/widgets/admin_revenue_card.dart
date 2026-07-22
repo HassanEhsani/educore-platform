@@ -1,5 +1,3 @@
-// lib/features/admin/presentation/widgets/admin_revenue_card.dart
-
 import 'package:flutter/material.dart';
 
 class AdminRevenueCard extends StatelessWidget {
@@ -14,21 +12,28 @@ class AdminRevenueCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
 
     return Card(
       elevation: 0,
+
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+
       child: Padding(
         padding: const EdgeInsets.all(20),
+
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+
           children: [
             Row(
               children: [
                 CircleAvatar(
                   radius: 20,
+
                   backgroundColor: colors.primaryContainer,
+
                   child: Icon(Icons.attach_money, color: colors.primary),
                 ),
 
@@ -36,7 +41,8 @@ class AdminRevenueCard extends StatelessWidget {
 
                 Text(
                   'Revenue Overview',
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+
+                  style: theme.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -51,7 +57,7 @@ class AdminRevenueCard extends StatelessWidget {
                   child: _RevenueItem(
                     title: 'Monthly Revenue',
                     value: _formatCurrency(monthlyRevenue),
-                    icon: Icons.calendar_month,
+                    icon: Icons.calendar_month_outlined,
                   ),
                 ),
 
@@ -61,20 +67,24 @@ class AdminRevenueCard extends StatelessWidget {
                   child: _RevenueItem(
                     title: 'Yearly Revenue',
                     value: _formatCurrency(yearlyRevenue),
-                    icon: Icons.account_balance_wallet,
+                    icon: Icons.account_balance_wallet_outlined,
                   ),
                 ),
               ],
             ),
 
-            const SizedBox(height: 20),
+            const SizedBox(height: 24),
 
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
+
               child: LinearProgressIndicator(
-                value: 0.75,
+                value: _calculateProgress(),
+
                 minHeight: 8,
+
                 backgroundColor: colors.surfaceContainerHighest,
+
                 color: colors.primary,
               ),
             ),
@@ -82,13 +92,30 @@ class AdminRevenueCard extends StatelessWidget {
             const SizedBox(height: 8),
 
             Text(
-              '75% of yearly target achieved',
-              style: Theme.of(context).textTheme.bodySmall,
+              '${(_calculateProgress() * 100).toInt()}% of yearly target achieved',
+
+              style: theme.textTheme.bodySmall,
             ),
           ],
         ),
       ),
     );
+  }
+
+  double _calculateProgress() {
+    const yearlyTarget = 720000.0;
+
+    final progress = yearlyRevenue / yearlyTarget;
+
+    if (progress > 1) {
+      return 1;
+    }
+
+    if (progress < 0) {
+      return 0;
+    }
+
+    return progress;
   }
 
   String _formatCurrency(double value) {
@@ -117,16 +144,21 @@ class _RevenueItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
 
     return Container(
       padding: const EdgeInsets.all(14),
+
       decoration: BoxDecoration(
         color: colors.surfaceContainerHighest,
+
         borderRadius: BorderRadius.circular(18),
       ),
+
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+
         children: [
           Icon(icon, size: 20, color: colors.primary),
 
@@ -134,18 +166,22 @@ class _RevenueItem extends StatelessWidget {
 
           Text(
             title,
+
             maxLines: 1,
+
             overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.bodySmall,
+
+            style: theme.textTheme.bodySmall,
           ),
 
           const SizedBox(height: 6),
 
           Text(
             value,
-            style: Theme.of(
-              context,
-            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+
+            style: theme.textTheme.titleLarge?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ],
       ),

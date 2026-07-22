@@ -11,20 +11,26 @@ class AdminGrowthCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
 
+    final formattedGrowth = growth.toStringAsFixed(1);
+
     return Card(
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+
       child: Padding(
         padding: const EdgeInsets.all(20),
+
         child: Row(
           children: [
             Container(
               width: 52,
               height: 52,
+
               decoration: BoxDecoration(
                 color: colors.primaryContainer,
                 borderRadius: BorderRadius.circular(16),
               ),
+
               child: Icon(Icons.trending_up, color: colors.primary),
             ),
 
@@ -33,6 +39,7 @@ class AdminGrowthCard extends StatelessWidget {
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+
                 children: [
                   Text(
                     'User Growth',
@@ -48,19 +55,23 @@ class AdminGrowthCard extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
 
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 12),
 
                   Row(
                     children: [
-                      Icon(Icons.arrow_upward, size: 16, color: colors.primary),
+                      Icon(
+                        growth >= 0 ? Icons.arrow_upward : Icons.arrow_downward,
+                        size: 16,
+                        color: growth >= 0 ? colors.primary : colors.error,
+                      ),
 
                       const SizedBox(width: 4),
 
                       Text(
-                        '${growth.toStringAsFixed(1)}%',
+                        '$formattedGrowth%',
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.bold,
-                          color: colors.primary,
+                          color: growth >= 0 ? colors.primary : colors.error,
                         ),
                       ),
 

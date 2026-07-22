@@ -16,58 +16,71 @@ class AdminKpiCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
 
     return Card(
       elevation: 0,
+
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
+
       child: Padding(
-        padding: const EdgeInsets.all(14),
-        child: FittedBox(
-          fit: BoxFit.scaleDown,
-          alignment: Alignment.topLeft,
-          child: SizedBox(
-            width: 140,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CircleAvatar(
-                  radius: 20,
-                  backgroundColor: colors.primaryContainer,
-                  child: Icon(icon, size: 22, color: colors.primary),
-                ),
+        padding: const EdgeInsets.all(16),
 
-                const SizedBox(height: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
 
-                Text(
-                  title,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
+          children: [
+            CircleAvatar(
+              radius: 20,
 
-                const SizedBox(height: 4),
+              backgroundColor: colors.primaryContainer,
 
-                Text(
-                  value,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-                ),
-
-                const SizedBox(height: 2),
-
-                Text(
-                  subtitle,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-              ],
+              child: Icon(icon, size: 22, color: colors.primary),
             ),
-          ),
+
+            const SizedBox(height: 12),
+
+            Text(
+              title,
+
+              maxLines: 1,
+
+              overflow: TextOverflow.ellipsis,
+
+              style: theme.textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+
+            const SizedBox(height: 6),
+
+            Text(
+              value,
+
+              maxLines: 1,
+
+              overflow: TextOverflow.ellipsis,
+
+              style: theme.textTheme.headlineSmall?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 4),
+
+            Text(
+              subtitle,
+
+              maxLines: 1,
+
+              overflow: TextOverflow.ellipsis,
+
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: colors.onSurfaceVariant,
+              ),
+            ),
+          ],
         ),
       ),
     );

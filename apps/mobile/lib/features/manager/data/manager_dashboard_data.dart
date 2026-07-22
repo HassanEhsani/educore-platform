@@ -1,14 +1,16 @@
-// lib/features/manager/data/manager_dashboard_data.dart
-
 import '../domain/dashboard_summary.dart';
 
 class ManagerDashboardData {
+  const ManagerDashboardData._();
+
   static const DashboardSummary summary = DashboardSummary(
     students: 1250,
     teachers: 42,
     monthlyRevenue: 37700,
     attendance: 97,
   );
+
+  static const double monthlyGrowth = 12.0;
 
   static const double schoolRevenue = 25000;
   static const double ispRevenue = 8500;

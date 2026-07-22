@@ -1,13 +1,25 @@
-class DashboardSummary {
+class ManagerDashboardSummary {
   final int students;
+
   final int teachers;
-  final double monthlyRevenue;
+
+  final int classes;
+
   final double attendance;
 
-  const DashboardSummary({
+  final double monthlyCollection;
+
+  final int pendingPayments;
+
+  final int todayAttendance;
+
+  const ManagerDashboardSummary({
     required this.students,
     required this.teachers,
-    required this.monthlyRevenue,
+    required this.classes,
     required this.attendance,
+    required this.monthlyCollection,
+    required this.pendingPayments,
+    required this.todayAttendance,
   });
 }

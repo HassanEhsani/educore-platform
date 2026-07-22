@@ -15,10 +15,13 @@ class RoleSelectionPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Choose your role')),
+
       body: Padding(
         padding: const EdgeInsets.all(AppSpacing.lg),
+
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
+
           children: [
             Text('Welcome to EduCore', style: AppTextStyles.headlineMedium),
 
@@ -30,23 +33,52 @@ class RoleSelectionPage extends StatelessWidget {
               const Gap(AppSpacing.lg),
             ],
 
-            _roleButton(context, 'Student', Icons.school, '/student'),
-
-            const Gap(AppSpacing.md),
-
-            _roleButton(context, 'Parent', Icons.family_restroom, '/parent'),
-
-            const Gap(AppSpacing.md),
-
-            _roleButton(context, 'Teacher', Icons.menu_book, '/teacher'),
-
-            const Gap(AppSpacing.md),
-
+            // Merchant / Business Owner
             _roleButton(
               context,
-              'Administrator',
-              Icons.admin_panel_settings,
-              '/admin',
+              title: 'Merchant',
+              icon: Icons.business_center_outlined,
+              route: '/admin',
+            ),
+
+            const Gap(AppSpacing.md),
+
+            // School Manager
+            _roleButton(
+              context,
+              title: 'School Manager',
+              icon: Icons.manage_accounts_outlined,
+              route: '/manager',
+            ),
+
+            const Gap(AppSpacing.md),
+
+            // Teacher
+            _roleButton(
+              context,
+              title: 'Teacher',
+              icon: Icons.menu_book_outlined,
+              route: '/teacher',
+            ),
+
+            const Gap(AppSpacing.md),
+
+            // Student
+            _roleButton(
+              context,
+              title: 'Student',
+              icon: Icons.school_outlined,
+              route: '/student',
+            ),
+
+            const Gap(AppSpacing.md),
+
+            // Parent
+            _roleButton(
+              context,
+              title: 'Parent',
+              icon: Icons.family_restroom_outlined,
+              route: '/parent',
             ),
           ],
         ),
@@ -55,19 +87,25 @@ class RoleSelectionPage extends StatelessWidget {
   }
 
   Widget _roleButton(
-    BuildContext context,
-    String title,
-    IconData icon,
-    String route,
-  ) {
+    BuildContext context, {
+    required String title,
+    required IconData icon,
+    required String route,
+  }) {
     return SizedBox(
       height: 60,
+
       child: ElevatedButton.icon(
         onPressed: () {
           context.go(route);
         },
+
         icon: Icon(icon),
-        label: Text(title),
+
+        label: Text(
+          title,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+        ),
       ),
     );
   }

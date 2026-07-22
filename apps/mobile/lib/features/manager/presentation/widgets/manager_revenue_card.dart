@@ -12,63 +12,107 @@ class ManagerRevenueCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
 
-    final bool isPositive = growthPercentage >= 0;
+    final isGrowthPositive = growthPercentage >= 0;
 
     return Card(
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-      child: Padding(
+      child: Container(
         padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(24),
+          gradient: LinearGradient(
+            colors: [colors.primaryContainer, colors.surface],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
-                CircleAvatar(
-                  radius: 22,
-                  backgroundColor: colors.primaryContainer,
-                  child: Icon(
-                    Icons.attach_money_rounded,
+                Container(
+                  width: 52,
+                  height: 52,
+                  decoration: BoxDecoration(
                     color: colors.primary,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Icon(
+                    Icons.account_balance_wallet_rounded,
+                    color: colors.onPrimary,
+                    size: 26,
                   ),
                 ),
-                const SizedBox(width: 12),
+
+                const SizedBox(width: 16),
+
                 Expanded(
-                  child: Text(
-                    'Monthly Revenue',
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'School Revenue',
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+
+                      const SizedBox(height: 4),
+
+                      Text(
+                        'Monthly financial overview',
+                        style: theme.textTheme.bodySmall,
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 24),
+
+            const SizedBox(height: 28),
+
             Text(
               _formatCurrency(monthlyRevenue),
-              style: Theme.of(
-                context,
-              ).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold),
+              style: theme.textTheme.headlineMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            const SizedBox(height: 12),
-            Row(
-              children: [
-                Icon(
-                  isPositive ? Icons.trending_up : Icons.trending_down,
-                  size: 18,
-                  color: isPositive ? Colors.green : Colors.red,
-                ),
-                const SizedBox(width: 6),
-                Text(
-                  '${growthPercentage.toStringAsFixed(1)}% compared to last month',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: isPositive ? Colors.green : Colors.red,
-                    fontWeight: FontWeight.w600,
+
+            const SizedBox(height: 14),
+
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              decoration: BoxDecoration(
+                color: isGrowthPositive
+                    ? colors.primaryContainer
+                    : colors.errorContainer,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    isGrowthPositive ? Icons.trending_up : Icons.trending_down,
+                    size: 18,
+                    color: isGrowthPositive ? colors.primary : colors.error,
                   ),
-                ),
-              ],
+
+                  const SizedBox(width: 6),
+
+                  Text(
+                    '${growthPercentage.toStringAsFixed(1)}% this month',
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: isGrowthPositive ? colors.primary : colors.error,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

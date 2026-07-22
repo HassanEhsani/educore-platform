@@ -10,36 +10,54 @@ class ManagerQuickActions extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.count(
       shrinkWrap: true,
+
       physics: const NeverScrollableScrollPhysics(),
 
       crossAxisCount: 2,
 
       crossAxisSpacing: 12,
+
       mainAxisSpacing: 12,
 
       children: [
         QuickActionCard(
-          icon: Icons.person_add,
+          icon: Icons.person_add_alt_1_outlined,
+
           title: 'Add Student',
-          onTap: () => context.push('/documents'),
+
+          onTap: () {
+            context.push('/student');
+          },
         ),
 
         QuickActionCard(
-          icon: Icons.group_add,
-          title: 'Add Teacher',
-          onTap: () => context.push('/documents'),
+          icon: Icons.fact_check_outlined,
+
+          title: 'Attendance',
+
+          onTap: () {
+            context.push('/attendance');
+          },
         ),
 
         QuickActionCard(
-          icon: Icons.payment,
-          title: 'Payments',
-          onTap: () => context.push('/documents'),
+          icon: Icons.grade_outlined,
+
+          title: 'Enter Grades',
+
+          onTap: () {
+            context.push('/documents');
+          },
         ),
 
         QuickActionCard(
-          icon: Icons.analytics,
-          title: 'Reports',
-          onTap: () => context.push('/documents'),
+          icon: Icons.campaign_outlined,
+
+          title: 'Announcement',
+
+          onTap: () {
+            context.push('/messages');
+          },
         ),
       ],
     );

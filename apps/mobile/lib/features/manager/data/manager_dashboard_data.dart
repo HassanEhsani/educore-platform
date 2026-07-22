@@ -3,19 +3,21 @@ import '../domain/dashboard_summary.dart';
 class ManagerDashboardData {
   const ManagerDashboardData._();
 
-  static const DashboardSummary summary = DashboardSummary(
+  static const ManagerDashboardSummary summary = ManagerDashboardSummary(
     students: 1250,
+
     teachers: 42,
-    monthlyRevenue: 37700,
-    attendance: 97,
+
+    classes: 36,
+
+    attendance: 97.3,
+
+    monthlyCollection: 25000,
+
+    pendingPayments: 84,
+
+    todayAttendance: 1218,
   );
 
   static const double monthlyGrowth = 12.0;
-
-  static const double schoolRevenue = 25000;
-  static const double ispRevenue = 8500;
-  static const double laboratoryRevenue = 4200;
-
-  static const int ispUsers = 430;
-  static const int laboratoryTests = 320;
 }

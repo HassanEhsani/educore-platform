@@ -19,7 +19,7 @@ class StatisticsCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
 
-      padding: const EdgeInsets.all(18),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
 
       decoration: BoxDecoration(
         color: colors.surface,
@@ -30,35 +30,50 @@ class StatisticsCard extends StatelessWidget {
       ),
 
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+
         children: [
           CircleAvatar(
-            radius: 26,
+            radius: 24,
 
             backgroundColor: colors.primaryContainer,
 
-            child: Icon(icon, color: colors.primary),
+            child: Icon(icon, color: colors.primary, size: 22),
           ),
 
-          const SizedBox(width: 16),
+          const SizedBox(width: 14),
 
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
 
+              mainAxisSize: MainAxisSize.min,
+
               children: [
                 Text(
                   title,
-                  style: const TextStyle(fontWeight: FontWeight.w600),
+
+                  maxLines: 1,
+
+                  overflow: TextOverflow.ellipsis,
+
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
                 ),
 
-                const SizedBox(height: 6),
+                const SizedBox(height: 4),
 
                 Text(
                   value,
 
-                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  maxLines: 1,
+
+                  overflow: TextOverflow.ellipsis,
+
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                 ),
               ],
             ),

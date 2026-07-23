@@ -6,26 +6,32 @@ class ManagerDashboardModel extends ManagerDashboard {
     required super.schoolName,
     required super.students,
     required super.teachers,
+    required super.classes,
     required super.attendance,
     required super.monthlyRevenue,
+    required super.monthlyExpenses,
+    required super.netProfit,
     required super.growth,
+    required super.pendingPayments,
+    required super.todayAttendance,
+    required super.alerts,
   });
 
-  factory ManagerDashboardModel.fromJson(Map<String, dynamic> json) {
+  factory ManagerDashboardModel.fromEntity(ManagerDashboard dashboard) {
     return ManagerDashboardModel(
-      managerName: json['managerName'],
-
-      schoolName: json['schoolName'],
-
-      students: json['students'],
-
-      teachers: json['teachers'],
-
-      attendance: (json['attendance']).toDouble(),
-
-      monthlyRevenue: (json['monthlyRevenue']).toDouble(),
-
-      growth: (json['growth']).toDouble(),
+      managerName: dashboard.managerName,
+      schoolName: dashboard.schoolName,
+      students: dashboard.students,
+      teachers: dashboard.teachers,
+      classes: dashboard.classes,
+      attendance: dashboard.attendance,
+      monthlyRevenue: dashboard.monthlyRevenue,
+      monthlyExpenses: dashboard.monthlyExpenses,
+      netProfit: dashboard.netProfit,
+      growth: dashboard.growth,
+      pendingPayments: dashboard.pendingPayments,
+      todayAttendance: dashboard.todayAttendance,
+      alerts: dashboard.alerts,
     );
   }
 }

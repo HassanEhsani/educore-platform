@@ -1,4 +1,4 @@
-class ManagerDashboardSummary {
+class DashboardSummary {
   final int students;
 
   final int teachers;
@@ -13,7 +13,7 @@ class ManagerDashboardSummary {
 
   final int todayAttendance;
 
-  const ManagerDashboardSummary({
+  const DashboardSummary({
     required this.students,
     required this.teachers,
     required this.classes,

@@ -11,27 +11,42 @@ class ManagerDashboardModel extends ManagerDashboard {
     required super.monthlyRevenue,
     required super.monthlyExpenses,
     required super.netProfit,
-    required super.growth,
     required super.pendingPayments,
     required super.todayAttendance,
     required super.alerts,
+    required super.notifications,
+    required super.activities,
+    required super.growth,
   });
 
-  factory ManagerDashboardModel.fromEntity(ManagerDashboard dashboard) {
+  factory ManagerDashboardModel.fromJson(Map<String, dynamic> json) {
     return ManagerDashboardModel(
-      managerName: dashboard.managerName,
-      schoolName: dashboard.schoolName,
-      students: dashboard.students,
-      teachers: dashboard.teachers,
-      classes: dashboard.classes,
-      attendance: dashboard.attendance,
-      monthlyRevenue: dashboard.monthlyRevenue,
-      monthlyExpenses: dashboard.monthlyExpenses,
-      netProfit: dashboard.netProfit,
-      growth: dashboard.growth,
-      pendingPayments: dashboard.pendingPayments,
-      todayAttendance: dashboard.todayAttendance,
-      alerts: dashboard.alerts,
+      managerName: json['managerName'] as String,
+      schoolName: json['schoolName'] as String,
+
+      students: json['students'] as int,
+      teachers: json['teachers'] as int,
+      classes: json['classes'] as int,
+
+      attendance: (json['attendance'] as num).toDouble(),
+
+      monthlyRevenue: (json['monthlyRevenue'] as num).toDouble(),
+
+      monthlyExpenses: (json['monthlyExpenses'] as num).toDouble(),
+
+      netProfit: (json['netProfit'] as num).toDouble(),
+
+      pendingPayments: json['pendingPayments'] as int,
+
+      todayAttendance: json['todayAttendance'] as int,
+
+      growth: (json['growth'] as num).toDouble(),
+
+      alerts: [],
+
+      notifications: [],
+
+      activities: [],
     );
   }
 }

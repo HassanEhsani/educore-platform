@@ -3,8 +3,7 @@ import '../domain/entities/dashboard_summary.dart';
 class ManagerDashboardData {
   const ManagerDashboardData._();
 
-  static const DashboardSummary summary =
-    DashboardSummary(
+  static const DashboardSummary summary = DashboardSummary(
     students: 1250,
 
     teachers: 42,

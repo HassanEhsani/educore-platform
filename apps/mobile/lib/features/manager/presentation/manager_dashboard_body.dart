@@ -1,43 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/widgets/dashboard/dashboard_welcome_card.dart';
 
-import '../data/manager_activity_data.dart';
-import '../data/datasources/manager_dashboard_datasource.dart';
-import '../data/repositories/manager_repository_impl.dart';
-
-import '../domain/entities/manager_dashboard.dart';
+import 'providers/manager_dashboard_provider.dart';
 
 import 'widgets/manager_quick_actions.dart';
 import 'widgets/manager_revenue_card.dart';
 import 'widgets/recent_activity_card.dart';
 import 'widgets/statistics_card.dart';
 
-class ManagerDashboardBody extends StatelessWidget {
+class ManagerDashboardBody extends ConsumerWidget {
   const ManagerDashboardBody({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final repository = ManagerRepositoryImpl(
-      datasource: ManagerDashboardDataSource(),
-    );
+  Widget build(BuildContext context, WidgetRef ref) {
+    final dashboardState = ref.watch(managerDashboardProvider);
 
-    return FutureBuilder<ManagerDashboard>(
-      future: repository.getDashboard(),
+    return dashboardState.when(
+      loading: () {
+        return const Center(child: CircularProgressIndicator());
+      },
 
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        }
+      error: (error, stackTrace) {
+        return Center(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
 
-        if (snapshot.hasError) {
-          return Center(child: Text(snapshot.error.toString()));
-        }
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
 
-        final dashboard = snapshot.data!;
+              children: [
+                const Icon(Icons.error_outline, size: 48),
 
+                const Gap(16),
+
+                Text(error.toString(), textAlign: TextAlign.center),
+
+                const Gap(16),
+
+                FilledButton(
+                  onPressed: () {
+                    ref.invalidate(managerDashboardProvider);
+                  },
+
+                  child: const Text('Retry'),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+
+      data: (dashboard) {
         return SingleChildScrollView(
           padding: const EdgeInsets.all(AppSpacing.lg),
 
@@ -94,7 +111,7 @@ class ManagerDashboardBody extends StatelessWidget {
 
                       title: 'Attendance',
 
-                      value: '${dashboard.attendance}%',
+                      value: '${dashboard.attendance.toStringAsFixed(1)}%',
                     ),
                   ],
                 ),
@@ -114,13 +131,33 @@ class ManagerDashboardBody extends StatelessWidget {
                 title: 'Recent Activity',
 
                 child: Column(
-                  children: ManagerActivityData.activities.map((activity) {
+                  children: dashboard.activities.map((activity) {
                     return RecentActivityCard(
-                      icon: activity.icon,
+                      icon: Icons.history,
 
                       title: activity.title,
 
-                      subtitle: activity.subtitle,
+                      subtitle: activity.description,
+                    );
+                  }).toList(),
+                ),
+              ),
+
+              const Gap(28),
+
+              _DashboardSection(
+                title: 'Notifications',
+
+                child: Column(
+                  children: dashboard.notifications.map((notification) {
+                    return ListTile(
+                      contentPadding: EdgeInsets.zero,
+
+                      leading: const Icon(Icons.notifications_outlined),
+
+                      title: Text(notification.title),
+
+                      subtitle: Text(notification.message),
                     );
                   }).toList(),
                 ),

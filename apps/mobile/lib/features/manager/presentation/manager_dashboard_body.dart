@@ -13,6 +13,7 @@ import 'widgets/dashboard_statistics_grid.dart';
 import 'widgets/manager_quick_actions.dart';
 import 'widgets/manager_revenue_card.dart';
 import 'widgets/recent_activity_card.dart';
+import 'widgets/business_overview_card.dart';
 
 class ManagerDashboardBody extends ConsumerWidget {
   const ManagerDashboardBody({super.key});
@@ -82,6 +83,27 @@ class ManagerDashboardBody extends ConsumerWidget {
                   monthlyRevenue: dashboard.monthlyRevenue,
 
                   growthPercentage: dashboard.growth,
+                ),
+              ),
+              const Gap(28),
+
+              _DashboardSection(
+                title: 'Business Overview',
+
+                child: Column(
+                  children: [
+                    BusinessOverviewCard(
+                      businessName: dashboard.schoolName,
+
+                      revenue: dashboard.monthlyRevenue.toString(),
+
+                      expenses: dashboard.monthlyExpenses.toString(),
+
+                      profit: dashboard.netProfit.toString(),
+
+                      icon: Icons.school_outlined,
+                    ),
+                  ],
                 ),
               ),
 

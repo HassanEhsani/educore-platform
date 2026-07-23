@@ -7,6 +7,7 @@ import '../../../core/widgets/dashboard/dashboard_welcome_card.dart';
 
 import 'providers/manager_dashboard_provider.dart';
 
+import 'widgets/dashboard_alert_card.dart';
 import 'widgets/manager_quick_actions.dart';
 import 'widgets/manager_revenue_card.dart';
 import 'widgets/recent_activity_card.dart';
@@ -80,6 +81,18 @@ class ManagerDashboardBody extends ConsumerWidget {
                   monthlyRevenue: dashboard.monthlyRevenue,
 
                   growthPercentage: dashboard.growth,
+                ),
+              ),
+
+              const Gap(28),
+
+              _DashboardSection(
+                title: 'Alerts',
+
+                child: Column(
+                  children: dashboard.alerts.map((alert) {
+                    return DashboardAlertCard(alert: alert);
+                  }).toList(),
                 ),
               ),
 

@@ -33,6 +33,9 @@ import '../../features/admin/presentation/settings/admin_system_info_page.dart';
 
 // Admin Notifications
 import '../../features/admin/presentation/notifications/admin_notifications_page.dart';
+import '../../features/manager/presentation/manager_dashboard_page.dart';
+import '../../features/manager/presentation/pages/manager_settings_page.dart';
+import '../../features/manager/presentation/profile/manager_profile_page.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/',
@@ -63,6 +66,14 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/manager',
       builder: (context, state) => const ManagerDashboardPage(),
+    ),
+    GoRoute(
+      path: '/manager/settings',
+      builder: (context, state) => const ManagerSettingsPage(),
+    ),
+    GoRoute(
+      path: '/manager/profile',
+      builder: (context, state) => const ManagerProfilePage(),
     ),
 
     // Admin Dashboard

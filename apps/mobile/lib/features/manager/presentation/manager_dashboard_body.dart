@@ -13,7 +13,6 @@ import 'widgets/dashboard_statistics_grid.dart';
 import 'widgets/manager_quick_actions.dart';
 import 'widgets/manager_revenue_card.dart';
 import 'widgets/recent_activity_card.dart';
-import 'widgets/business_overview_card.dart';
 
 class ManagerDashboardBody extends ConsumerWidget {
   const ManagerDashboardBody({super.key});
@@ -85,39 +84,6 @@ class ManagerDashboardBody extends ConsumerWidget {
                   growthPercentage: dashboard.growth,
                 ),
               ),
-              const Gap(28),
-
-              _DashboardSection(
-                title: 'Business Overview',
-
-                child: Column(
-                  children: [
-                    BusinessOverviewCard(
-                      businessName: dashboard.schoolName,
-
-                      revenue: dashboard.monthlyRevenue.toString(),
-
-                      expenses: dashboard.monthlyExpenses.toString(),
-
-                      profit: dashboard.netProfit.toString(),
-
-                      icon: Icons.school_outlined,
-                    ),
-                  ],
-                ),
-              ),
-
-              const Gap(28),
-
-              _DashboardSection(
-                title: 'Alerts',
-
-                child: Column(
-                  children: dashboard.alerts.map((alert) {
-                    return DashboardAlertCard(alert: alert);
-                  }).toList(),
-                ),
-              ),
 
               const Gap(28),
 
@@ -136,6 +102,18 @@ class ManagerDashboardBody extends ConsumerWidget {
                   pendingPayments: dashboard.pendingPayments,
 
                   netProfit: dashboard.netProfit,
+                ),
+              ),
+
+              const Gap(28),
+
+              _DashboardSection(
+                title: 'Alerts',
+
+                child: Column(
+                  children: dashboard.alerts.map((alert) {
+                    return DashboardAlertCard(alert: alert);
+                  }).toList(),
                 ),
               ),
 

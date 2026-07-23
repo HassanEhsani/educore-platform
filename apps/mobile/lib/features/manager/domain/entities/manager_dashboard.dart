@@ -1,4 +1,3 @@
-import 'business_summary.dart';
 import 'dashboard_alert.dart';
 import 'dashboard_notification.dart';
 import 'recent_activity.dart';
@@ -28,8 +27,6 @@ class ManagerDashboard {
 
   final double growth;
 
-  final List<BusinessSummary> businesses;
-
   final List<DashboardAlert> alerts;
 
   final List<DashboardNotification> notifications;
@@ -49,7 +46,6 @@ class ManagerDashboard {
     required this.pendingPayments,
     required this.todayAttendance,
     required this.growth,
-    required this.businesses,
     required this.alerts,
     required this.notifications,
     required this.activities,

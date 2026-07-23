@@ -1,4 +1,3 @@
-import '../../domain/entities/business_summary.dart';
 import '../../domain/entities/manager_dashboard.dart';
 
 class ManagerDashboardModel extends ManagerDashboard {
@@ -15,7 +14,6 @@ class ManagerDashboardModel extends ManagerDashboard {
     required super.pendingPayments,
     required super.todayAttendance,
     required super.growth,
-    required super.businesses,
     required super.alerts,
     required super.notifications,
     required super.activities,
@@ -47,43 +45,11 @@ class ManagerDashboardModel extends ManagerDashboard {
 
       growth: (json['growth'] as num? ?? 0).toDouble(),
 
-      businesses: (json['businesses'] as List<dynamic>? ?? [])
-          .map(
-            (business) => BusinessSummary(
-              id: business['id'] as String? ?? '',
+      alerts: const [],
 
-              name: business['name'] as String? ?? '',
+      notifications: const [],
 
-              type: BusinessType.values.firstWhere(
-                (type) => type.name == business['type'],
-
-                orElse: () => BusinessType.school,
-              ),
-
-              monthlyRevenue: (business['monthlyRevenue'] as num? ?? 0)
-                  .toDouble(),
-
-              monthlyExpenses: (business['monthlyExpenses'] as num? ?? 0)
-                  .toDouble(),
-
-              netProfit: (business['netProfit'] as num? ?? 0).toDouble(),
-
-              customers: business['customers'] as int? ?? 0,
-
-              status: BusinessStatus.values.firstWhere(
-                (status) => status.name == business['status'],
-
-                orElse: () => BusinessStatus.active,
-              ),
-            ),
-          )
-          .toList(),
-
-      alerts: [],
-
-      notifications: [],
-
-      activities: [],
+      activities: const [],
     );
   }
 }

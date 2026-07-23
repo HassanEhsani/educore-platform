@@ -26,7 +26,7 @@ class ManagerQuickActions extends StatelessWidget {
           title: 'Add Student',
 
           onTap: () {
-            context.push('/student');
+            // TODO: Create student management route
           },
         ),
 
@@ -36,27 +36,37 @@ class ManagerQuickActions extends StatelessWidget {
           title: 'Attendance',
 
           onTap: () {
-            context.push('/attendance');
+            // TODO: Create attendance management route
           },
         ),
 
         QuickActionCard(
           icon: Icons.grade_outlined,
 
-          title: 'Enter Grades',
+          title: 'Grades',
 
           onTap: () {
-            context.push('/documents');
+            // TODO: Create grade management route
           },
         ),
 
         QuickActionCard(
           icon: Icons.campaign_outlined,
 
-          title: 'Announcement',
+          title: 'Announcements',
 
           onTap: () {
-            context.push('/messages');
+            // TODO: Create announcement route
+          },
+        ),
+
+        QuickActionCard(
+          icon: Icons.settings_outlined,
+
+          title: 'Settings',
+
+          onTap: () {
+            context.push('/manager/settings');
           },
         ),
       ],

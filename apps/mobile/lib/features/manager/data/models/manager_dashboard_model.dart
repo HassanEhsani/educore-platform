@@ -1,3 +1,4 @@
+import '../../domain/entities/business_summary.dart';
 import '../../domain/entities/manager_dashboard.dart';
 
 class ManagerDashboardModel extends ManagerDashboard {
@@ -13,34 +14,70 @@ class ManagerDashboardModel extends ManagerDashboard {
     required super.netProfit,
     required super.pendingPayments,
     required super.todayAttendance,
+    required super.growth,
+    required super.businesses,
     required super.alerts,
     required super.notifications,
     required super.activities,
-    required super.growth,
   });
 
   factory ManagerDashboardModel.fromJson(Map<String, dynamic> json) {
     return ManagerDashboardModel(
-      managerName: json['managerName'] as String,
-      schoolName: json['schoolName'] as String,
+      managerName: json['managerName'] as String? ?? '',
 
-      students: json['students'] as int,
-      teachers: json['teachers'] as int,
-      classes: json['classes'] as int,
+      schoolName: json['schoolName'] as String? ?? '',
 
-      attendance: (json['attendance'] as num).toDouble(),
+      students: json['students'] as int? ?? 0,
 
-      monthlyRevenue: (json['monthlyRevenue'] as num).toDouble(),
+      teachers: json['teachers'] as int? ?? 0,
 
-      monthlyExpenses: (json['monthlyExpenses'] as num).toDouble(),
+      classes: json['classes'] as int? ?? 0,
 
-      netProfit: (json['netProfit'] as num).toDouble(),
+      attendance: (json['attendance'] as num? ?? 0).toDouble(),
 
-      pendingPayments: json['pendingPayments'] as int,
+      monthlyRevenue: (json['monthlyRevenue'] as num? ?? 0).toDouble(),
 
-      todayAttendance: json['todayAttendance'] as int,
+      monthlyExpenses: (json['monthlyExpenses'] as num? ?? 0).toDouble(),
 
-      growth: (json['growth'] as num).toDouble(),
+      netProfit: (json['netProfit'] as num? ?? 0).toDouble(),
+
+      pendingPayments: json['pendingPayments'] as int? ?? 0,
+
+      todayAttendance: json['todayAttendance'] as int? ?? 0,
+
+      growth: (json['growth'] as num? ?? 0).toDouble(),
+
+      businesses: (json['businesses'] as List<dynamic>? ?? [])
+          .map(
+            (business) => BusinessSummary(
+              id: business['id'] as String? ?? '',
+
+              name: business['name'] as String? ?? '',
+
+              type: BusinessType.values.firstWhere(
+                (type) => type.name == business['type'],
+
+                orElse: () => BusinessType.school,
+              ),
+
+              monthlyRevenue: (business['monthlyRevenue'] as num? ?? 0)
+                  .toDouble(),
+
+              monthlyExpenses: (business['monthlyExpenses'] as num? ?? 0)
+                  .toDouble(),
+
+              netProfit: (business['netProfit'] as num? ?? 0).toDouble(),
+
+              customers: business['customers'] as int? ?? 0,
+
+              status: BusinessStatus.values.firstWhere(
+                (status) => status.name == business['status'],
+
+                orElse: () => BusinessStatus.active,
+              ),
+            ),
+          )
+          .toList(),
 
       alerts: [],
 

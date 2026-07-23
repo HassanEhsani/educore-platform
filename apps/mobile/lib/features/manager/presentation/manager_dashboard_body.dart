@@ -8,6 +8,7 @@ import '../../../core/widgets/dashboard/dashboard_welcome_card.dart';
 import 'providers/manager_dashboard_provider.dart';
 
 import 'widgets/dashboard_alert_card.dart';
+import 'widgets/dashboard_notification_card.dart';
 import 'widgets/manager_quick_actions.dart';
 import 'widgets/manager_revenue_card.dart';
 import 'widgets/recent_activity_card.dart';
@@ -29,10 +30,8 @@ class ManagerDashboardBody extends ConsumerWidget {
         return Center(
           child: Padding(
             padding: const EdgeInsets.all(24),
-
             child: Column(
               mainAxisSize: MainAxisSize.min,
-
               children: [
                 const Icon(Icons.error_outline, size: 48),
 
@@ -46,7 +45,6 @@ class ManagerDashboardBody extends ConsumerWidget {
                   onPressed: () {
                     ref.invalidate(managerDashboardProvider);
                   },
-
                   child: const Text('Retry'),
                 ),
               ],
@@ -65,9 +63,7 @@ class ManagerDashboardBody extends ConsumerWidget {
             children: [
               DashboardWelcomeCard(
                 name: dashboard.managerName,
-
                 role: 'School Manager',
-
                 description:
                     'Manage students, teachers, attendance and school operations.',
               ),
@@ -76,10 +72,8 @@ class ManagerDashboardBody extends ConsumerWidget {
 
               _DashboardSection(
                 title: 'Financial Overview',
-
                 child: ManagerRevenueCard(
                   monthlyRevenue: dashboard.monthlyRevenue,
-
                   growthPercentage: dashboard.growth,
                 ),
               ),
@@ -88,7 +82,6 @@ class ManagerDashboardBody extends ConsumerWidget {
 
               _DashboardSection(
                 title: 'Alerts',
-
                 child: Column(
                   children: dashboard.alerts.map((alert) {
                     return DashboardAlertCard(alert: alert);
@@ -100,30 +93,23 @@ class ManagerDashboardBody extends ConsumerWidget {
 
               _DashboardSection(
                 title: 'School Overview',
-
                 child: Column(
                   children: [
                     StatisticsCard(
                       icon: Icons.people_outline,
-
                       title: 'Students',
-
                       value: dashboard.students.toString(),
                     ),
 
                     StatisticsCard(
                       icon: Icons.school_outlined,
-
                       title: 'Teachers',
-
                       value: dashboard.teachers.toString(),
                     ),
 
                     StatisticsCard(
                       icon: Icons.fact_check_outlined,
-
                       title: 'Attendance',
-
                       value: '${dashboard.attendance.toStringAsFixed(1)}%',
                     ),
                   ],
@@ -134,7 +120,6 @@ class ManagerDashboardBody extends ConsumerWidget {
 
               _DashboardSection(
                 title: 'Quick Actions',
-
                 child: const ManagerQuickActions(),
               ),
 
@@ -142,14 +127,11 @@ class ManagerDashboardBody extends ConsumerWidget {
 
               _DashboardSection(
                 title: 'Recent Activity',
-
                 child: Column(
                   children: dashboard.activities.map((activity) {
                     return RecentActivityCard(
                       icon: Icons.history,
-
                       title: activity.title,
-
                       subtitle: activity.description,
                     );
                   }).toList(),
@@ -160,17 +142,10 @@ class ManagerDashboardBody extends ConsumerWidget {
 
               _DashboardSection(
                 title: 'Notifications',
-
                 child: Column(
                   children: dashboard.notifications.map((notification) {
-                    return ListTile(
-                      contentPadding: EdgeInsets.zero,
-
-                      leading: const Icon(Icons.notifications_outlined),
-
-                      title: Text(notification.title),
-
-                      subtitle: Text(notification.message),
+                    return DashboardNotificationCard(
+                      notification: notification,
                     );
                   }).toList(),
                 ),

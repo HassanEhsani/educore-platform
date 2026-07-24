@@ -22,49 +22,39 @@ class ManagerQuickActions extends StatelessWidget {
       children: [
         QuickActionCard(
           icon: Icons.person_add_alt_1_outlined,
-
           title: 'Add Student',
-
           onTap: () {
-            // TODO: Create student management route
+            context.push('/manager/students');
           },
         ),
 
         QuickActionCard(
           icon: Icons.fact_check_outlined,
-
           title: 'Attendance',
-
           onTap: () {
-            // TODO: Create attendance management route
+            context.push('/manager/attendance');
           },
         ),
 
         QuickActionCard(
           icon: Icons.grade_outlined,
-
           title: 'Grades',
-
           onTap: () {
-            // TODO: Create grade management route
+            context.push('/manager/grades');
           },
         ),
 
         QuickActionCard(
           icon: Icons.campaign_outlined,
-
           title: 'Announcements',
-
           onTap: () {
-            // TODO: Create announcement route
+            context.push('/manager/announcements');
           },
         ),
 
         QuickActionCard(
           icon: Icons.settings_outlined,
-
           title: 'Settings',
-
           onTap: () {
             context.push('/manager/settings');
           },

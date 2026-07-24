@@ -11,6 +11,7 @@ import '../widgets/account_settings_card.dart';
 import '../widgets/security_settings_card.dart';
 import '../widgets/notification_settings_card.dart';
 import '../widgets/language_settings_card.dart';
+import '../widgets/theme_settings_card.dart';
 
 class ManagerSettingsPage extends ConsumerWidget {
   const ManagerSettingsPage({super.key});
@@ -102,6 +103,10 @@ class ManagerSettingsPage extends ConsumerWidget {
                 const Gap(20),
 
                 LanguageSettingsCard(settings: settings),
+
+                const Gap(20),
+
+                const ThemeSettingsCard(),
               ],
             ),
           );

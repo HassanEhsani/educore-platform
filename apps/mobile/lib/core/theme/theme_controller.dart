@@ -7,16 +7,16 @@ class ThemeController extends ChangeNotifier {
 
   ThemeMode get themeMode => _themeMode;
 
-  void loadTheme() {
+  Future<void> loadTheme() async {
     _themeMode = ThemeService.instance.getThemeMode();
 
     notifyListeners();
   }
 
   Future<void> setTheme(ThemeMode mode) async {
-    _themeMode = mode;
-
     await ThemeService.instance.saveThemeMode(mode);
+
+    _themeMode = mode;
 
     notifyListeners();
   }

@@ -14,15 +14,16 @@ class ThemeService {
   }
 
   ThemeMode getThemeMode() {
-    final value = StorageService.instance.getString(_key);
+    final savedTheme = StorageService.instance.getString(_key);
 
-    switch (value) {
+    switch (savedTheme) {
       case 'dark':
         return ThemeMode.dark;
 
       case 'light':
         return ThemeMode.light;
 
+      case 'system':
       default:
         return ThemeMode.system;
     }

@@ -1,25 +1,36 @@
 import 'package:flutter/material.dart';
 
+import '../services/theme_service.dart';
+
 class ThemeController extends ChangeNotifier {
   ThemeMode _themeMode = ThemeMode.system;
 
   ThemeMode get themeMode => _themeMode;
 
-  void setTheme(ThemeMode mode) {
-    _themeMode = mode;
+  void loadTheme() {
+    _themeMode = ThemeService.instance.getThemeMode();
+
     notifyListeners();
   }
 
-  void setLightMode() {
-    setTheme(ThemeMode.light);
+  Future<void> setTheme(ThemeMode mode) async {
+    _themeMode = mode;
+
+    await ThemeService.instance.saveThemeMode(mode);
+
+    notifyListeners();
   }
 
-  void setDarkMode() {
-    setTheme(ThemeMode.dark);
+  Future<void> setLightMode() async {
+    await setTheme(ThemeMode.light);
   }
 
-  void setSystemMode() {
-    setTheme(ThemeMode.system);
+  Future<void> setDarkMode() async {
+    await setTheme(ThemeMode.dark);
+  }
+
+  Future<void> setSystemMode() async {
+    await setTheme(ThemeMode.system);
   }
 }
 

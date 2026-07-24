@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+import 'storage_service.dart';
 
 class ThemeService {
   ThemeService._();
@@ -9,21 +10,19 @@ class ThemeService {
   static const String _key = 'theme_mode';
 
   Future<void> saveThemeMode(ThemeMode mode) async {
-    final prefs = await SharedPreferences.getInstance();
-
-    await prefs.setString(_key, mode.name);
+    await StorageService.instance.setString(_key, mode.name);
   }
 
-  Future<ThemeMode> getThemeMode() async {
-    final prefs = await SharedPreferences.getInstance();
-
-    final value = prefs.getString(_key);
+  ThemeMode getThemeMode() {
+    final value = StorageService.instance.getString(_key);
 
     switch (value) {
       case 'dark':
         return ThemeMode.dark;
+
       case 'light':
         return ThemeMode.light;
+
       default:
         return ThemeMode.system;
     }

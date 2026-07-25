@@ -3,18 +3,14 @@ import 'package:go_router/go_router.dart';
 
 class StudentBottomNavigation extends StatelessWidget {
   final int currentIndex;
-  final ValueChanged<int>? onTap;
 
-  const StudentBottomNavigation({
-    super.key,
-    required this.currentIndex,
-    this.onTap,
-  });
+  const StudentBottomNavigation({super.key, required this.currentIndex});
 
   @override
   Widget build(BuildContext context) {
     return NavigationBar(
       selectedIndex: currentIndex,
+
       onDestinationSelected: (index) {
         switch (index) {
           case 0:
@@ -22,36 +18,38 @@ class StudentBottomNavigation extends StatelessWidget {
             break;
 
           case 1:
-            context.push('/calendar');
+            context.go('/student/schedule');
             break;
 
           case 2:
-            context.push('/messages');
+            context.go('/student/notifications');
             break;
 
           case 3:
-            context.push('/profile');
+            context.go('/student/profile');
             break;
         }
-
-        onTap?.call(index);
       },
+
       destinations: const [
         NavigationDestination(
           icon: Icon(Icons.home_outlined),
           selectedIcon: Icon(Icons.home),
           label: 'Home',
         ),
+
         NavigationDestination(
           icon: Icon(Icons.calendar_month_outlined),
           selectedIcon: Icon(Icons.calendar_month),
-          label: 'Calendar',
+          label: 'Schedule',
         ),
+
         NavigationDestination(
-          icon: Icon(Icons.message_outlined),
-          selectedIcon: Icon(Icons.message),
-          label: 'Messages',
+          icon: Icon(Icons.notifications_outlined),
+          selectedIcon: Icon(Icons.notifications),
+          label: 'Notifications',
         ),
+
         NavigationDestination(
           icon: Icon(Icons.person_outline),
           selectedIcon: Icon(Icons.person),

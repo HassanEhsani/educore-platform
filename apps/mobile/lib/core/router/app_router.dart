@@ -5,13 +5,21 @@ import 'package:go_router/go_router.dart';
 // Auth
 import '../../features/auth/pages/login_page.dart';
 import '../../features/auth/presentation/role_selection_page.dart';
-
 // Dashboards
 import '../../features/student/presentation/student_dashboard_page.dart';
 import '../../features/teacher/presentation/teacher_dashboard_page.dart';
 import '../../features/parent/presentation/parent_dashboard_page.dart';
 import '../../features/manager/presentation/manager_dashboard_page.dart';
 import '../../features/admin/presentation/admin_dashboard_page.dart';
+
+// Student Pages
+import '../../features/student/presentation/pages/student_profile_page.dart';
+import '../../features/student/presentation/pages/student_grades_page.dart';
+import '../../features/student/presentation/pages/student_attendance_page.dart';
+import '../../features/student/presentation/pages/student_schedule_page.dart';
+import '../../features/student/presentation/pages/student_notifications_page.dart';
+import '../../features/student/presentation/pages/student_announcements_page.dart';
+import '../../features/student/presentation/pages/student_settings_page.dart';
 
 // Manager
 import '../../features/manager/presentation/notifications/manager_notifications_page.dart';
@@ -52,6 +60,41 @@ final GoRouter appRouter = GoRouter(
 
     // Student
     GoRoute(path: '/student', builder: (_, __) => const StudentDashboardPage()),
+
+    GoRoute(
+      path: '/student/profile',
+      builder: (_, __) => const StudentProfilePage(),
+    ),
+
+    GoRoute(
+      path: '/student/grades',
+      builder: (_, __) => const StudentGradesPage(),
+    ),
+
+    GoRoute(
+      path: '/student/attendance',
+      builder: (_, __) => const StudentAttendancePage(),
+    ),
+
+    GoRoute(
+      path: '/student/schedule',
+      builder: (_, __) => const StudentSchedulePage(),
+    ),
+
+    GoRoute(
+      path: '/student/notifications',
+      builder: (_, __) => const StudentNotificationsPage(),
+    ),
+
+    GoRoute(
+      path: '/student/announcements',
+      builder: (_, __) => const StudentAnnouncementsPage(),
+    ),
+
+    GoRoute(
+      path: '/student/settings',
+      builder: (_, __) => const StudentSettingsPage(),
+    ),
 
     // Teacher
     GoRoute(path: '/teacher', builder: (_, __) => const TeacherDashboardPage()),

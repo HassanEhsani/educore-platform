@@ -27,9 +27,12 @@ class StudentProfilePage extends StatelessWidget {
         ),
       ),
 
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
+
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+
           children: [
             StudentHeader(student: student),
 
@@ -38,15 +41,21 @@ class StudentProfilePage extends StatelessWidget {
             Card(
               child: ListTile(
                 leading: const Icon(Icons.badge),
+
                 title: const Text('Student Number'),
+
                 subtitle: Text(student.studentNumber),
               ),
             ),
 
+            const SizedBox(height: 12),
+
             Card(
               child: ListTile(
                 leading: const Icon(Icons.school),
+
                 title: const Text('Grade'),
+
                 subtitle: Text(student.grade.toString()),
               ),
             ),

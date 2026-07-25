@@ -1,27 +1,15 @@
-import 'subject_progress.dart';
+import 'academic_year_progress.dart';
 
 class AcademicProgress {
-  final double overallPercentage;
-  final List<SubjectProgress> subjects;
+  final List<AcademicYearProgress> years;
 
-  const AcademicProgress({
-    required this.overallPercentage,
-    required this.subjects,
-  });
+  const AcademicProgress({required this.years});
 
-  bool get isPassed {
-    return overallPercentage >= 60;
-  }
-
-  String get statusLabel {
-    if (overallPercentage >= 80) {
-      return 'Excellent';
+  AcademicYearProgress? get currentYear {
+    if (years.isEmpty) {
+      return null;
     }
 
-    if (overallPercentage >= 60) {
-      return 'Passed';
-    }
-
-    return 'Needs Improvement';
+    return years.first;
   }
 }

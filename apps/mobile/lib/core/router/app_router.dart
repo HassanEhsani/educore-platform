@@ -1,6 +1,7 @@
 // lib/core/router/app_router.dart
 
 import 'package:go_router/go_router.dart';
+import '../../features/student/presentation/pages/student_academic_progress_page.dart';
 
 // Auth
 import '../../features/auth/pages/login_page.dart';
@@ -94,6 +95,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/student/settings',
       builder: (_, __) => const StudentSettingsPage(),
+    ),
+    GoRoute(
+      path: '/student/academic-progress',
+      builder: (_, __) => const StudentAcademicProgressPage(),
     ),
 
     // Teacher

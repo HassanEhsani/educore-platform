@@ -1,7 +1,9 @@
 class SubjectProgress {
   final String subjectName;
   final String teacherName;
+
   final double percentage;
+
   final double assignmentScore;
   final double attendanceScore;
   final double examScore;

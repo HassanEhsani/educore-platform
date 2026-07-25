@@ -5,7 +5,15 @@ import 'package:flutter/material.dart';
 class StudentProgressCircle extends StatelessWidget {
   final double percentage;
 
-  const StudentProgressCircle({super.key, required this.percentage});
+  final double size;
+
+  const StudentProgressCircle({
+    super.key,
+
+    required this.percentage,
+
+    this.size = 180,
+  });
 
   Color get progressColor {
     if (percentage >= 60) {
@@ -25,7 +33,7 @@ class StudentProgressCircle extends StatelessWidget {
     }
 
     if (percentage >= 40) {
-      return 'Needs Effort';
+      return 'Effort';
     }
 
     return 'Critical';
@@ -34,18 +42,20 @@ class StudentProgressCircle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 180,
-      height: 180,
+      width: size,
+
+      height: size,
 
       child: Stack(
         alignment: Alignment.center,
 
         children: [
           CustomPaint(
-            size: const Size(180, 180),
+            size: Size(size, size),
 
             painter: _ProgressPainter(
               percentage: percentage,
+
               color: progressColor,
             ),
           ),
@@ -56,16 +66,22 @@ class StudentProgressCircle extends StatelessWidget {
             children: [
               Text(
                 '${percentage.toInt()}%',
-                style: const TextStyle(
-                  fontSize: 34,
+
+                style: TextStyle(
+                  fontSize: size * 0.20,
+
                   fontWeight: FontWeight.bold,
                 ),
               ),
 
               Text(
                 statusText,
+
                 style: TextStyle(
                   color: progressColor,
+
+                  fontSize: size * 0.09,
+
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -79,6 +95,7 @@ class StudentProgressCircle extends StatelessWidget {
 
 class _ProgressPainter extends CustomPainter {
   final double percentage;
+
   final Color color;
 
   _ProgressPainter({required this.percentage, required this.color});
@@ -89,23 +106,27 @@ class _ProgressPainter extends CustomPainter {
 
     final radius = size.width / 2;
 
+    final strokeWidth = size.width * 0.08;
+
     final backgroundPaint = Paint()
       ..color = Colors.grey.shade300
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 14;
+      ..strokeWidth = strokeWidth;
 
     final progressPaint = Paint()
       ..color = color
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 14
+      ..strokeWidth = strokeWidth
       ..strokeCap = StrokeCap.round;
 
-    canvas.drawCircle(center, radius - 10, backgroundPaint);
+    final circleRadius = radius - strokeWidth;
+
+    canvas.drawCircle(center, circleRadius, backgroundPaint);
 
     final sweepAngle = 2 * pi * (percentage / 100);
 
     canvas.drawArc(
-      Rect.fromCircle(center: center, radius: radius - 10),
+      Rect.fromCircle(center: center, radius: circleRadius),
 
       -pi / 2,
 
@@ -119,6 +140,6 @@ class _ProgressPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _ProgressPainter oldDelegate) {
-    return oldDelegate.percentage != percentage;
+    return oldDelegate.percentage != percentage || oldDelegate.color != color;
   }
 }

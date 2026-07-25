@@ -2,7 +2,7 @@ class Student {
   final String id;
   final String fullName;
   final String studentNumber;
-  final String grade;
+  final int grade;
   final String avatarUrl;
 
   const Student({
@@ -12,4 +12,8 @@ class Student {
     required this.grade,
     required this.avatarUrl,
   });
+
+  String get gradeLabel {
+    return 'Grade $grade';
+  }
 }

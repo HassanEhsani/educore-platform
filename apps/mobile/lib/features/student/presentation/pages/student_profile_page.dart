@@ -47,7 +47,7 @@ class StudentProfilePage extends StatelessWidget {
               child: ListTile(
                 leading: const Icon(Icons.school),
                 title: const Text('Grade'),
-                subtitle: Text(student.grade),
+                subtitle: Text(student.grade.toString()),
               ),
             ),
           ],

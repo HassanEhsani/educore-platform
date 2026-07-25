@@ -6,7 +6,7 @@ class FakeStudentData {
     id: 'ST001',
     fullName: 'Ali Ahmadi',
     studentNumber: '2026001',
-    grade: '10',
+    grade: 10,
     avatarUrl: '',
   );
 

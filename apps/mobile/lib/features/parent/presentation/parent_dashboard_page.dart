@@ -10,13 +10,27 @@ class ParentDashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
+
       appBar: AppBar(
         title: const Text('Parent Dashboard'),
+
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.go('/roles'),
+
+          onPressed: () {
+            context.go('/roles');
+          },
         ),
+
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.notifications_outlined),
+
+            onPressed: () {},
+          ),
+        ],
       ),
+
       body: const ParentDashboardBody(),
     );
   }

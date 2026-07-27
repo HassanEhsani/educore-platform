@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../widgets/auth_background.dart';
 import '../widgets/login_form_wrapper.dart';
+import '../widgets/auth_branding.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -16,7 +17,10 @@ class LoginPage extends StatelessWidget {
               padding: const EdgeInsets.all(24),
               child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 420),
-                child: const LoginFormWrapper(),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [AuthBranding(), LoginFormWrapper()],
+                ),
               ),
             ),
           ),

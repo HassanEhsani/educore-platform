@@ -63,7 +63,6 @@ class StudentDashboardBody extends StatelessWidget {
 
         Wrap(
           spacing: AppSpacing.md,
-
           runSpacing: AppSpacing.md,
 
           children: [
@@ -109,18 +108,14 @@ class StudentDashboardBody extends StatelessWidget {
 
         const Gap(AppSpacing.md),
 
-        SizedBox(
-          width: double.infinity,
+        QuickActionCard(
+          icon: Icons.analytics_rounded,
 
-          child: QuickActionCard(
-            icon: Icons.analytics_rounded,
+          title: 'Academic Progress',
 
-            title: 'Academic Progress',
-
-            onTap: () {
-              context.push('/student/academic-progress');
-            },
-          ),
+          onTap: () {
+            context.push('/student/academic-progress');
+          },
         ),
       ],
     );
@@ -128,11 +123,8 @@ class StudentDashboardBody extends StatelessWidget {
 
   Widget _actionCard(
     BuildContext context, {
-
     required IconData icon,
-
     required String title,
-
     required String route,
   }) {
     return SizedBox(
@@ -166,9 +158,7 @@ class StudentDashboardBody extends StatelessWidget {
 
           subtitle: 'Books, homework and resources',
 
-          onTap: () {
-            context.push('/student/grades');
-          },
+          onTap: () {},
         ),
 
         DashboardCard(
@@ -178,9 +168,7 @@ class StudentDashboardBody extends StatelessWidget {
 
           subtitle: 'View attendance history',
 
-          onTap: () {
-            context.push('/student/attendance');
-          },
+          onTap: () {},
         ),
 
         DashboardCard(
@@ -190,9 +178,7 @@ class StudentDashboardBody extends StatelessWidget {
 
           subtitle: 'Latest school news',
 
-          onTap: () {
-            context.push('/student/announcements');
-          },
+          onTap: () {},
         ),
       ],
     );
@@ -224,14 +210,6 @@ class StudentDashboardBody extends StatelessWidget {
                 title: Text('Homework submitted'),
 
                 subtitle: Text('Yesterday'),
-              ),
-
-              ListTile(
-                leading: Icon(Icons.campaign_outlined),
-
-                title: Text('New announcement received'),
-
-                subtitle: Text('2 days ago'),
               ),
             ],
           ),

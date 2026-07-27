@@ -55,162 +55,162 @@ import '../../features/admin/presentation/settings/admin_system_info_page.dart';
 final GoRouter appRouter = GoRouter(
   initialLocation: '/',
   routes: [
-    GoRoute(path: '/', builder: (_, __) => const LoginPage()),
+    GoRoute(path: '/', builder: (_, _) => const LoginPage()),
 
-    GoRoute(path: '/roles', builder: (_, __) => const RoleSelectionPage()),
+    GoRoute(path: '/roles', builder: (_, _) => const RoleSelectionPage()),
 
     // Student
-    GoRoute(path: '/student', builder: (_, __) => const StudentDashboardPage()),
+    GoRoute(path: '/student', builder: (_, _) => const StudentDashboardPage()),
 
     GoRoute(
       path: '/student/profile',
-      builder: (_, __) => const StudentProfilePage(),
+      builder: (_, _) => const StudentProfilePage(),
     ),
 
     GoRoute(
       path: '/student/grades',
-      builder: (_, __) => const StudentGradesPage(),
+      builder: (_, _) => const StudentGradesPage(),
     ),
 
     GoRoute(
       path: '/student/attendance',
-      builder: (_, __) => const StudentAttendancePage(),
+      builder: (_, _) => const StudentAttendancePage(),
     ),
 
     GoRoute(
       path: '/student/schedule',
-      builder: (_, __) => const StudentSchedulePage(),
+      builder: (_, _) => const StudentSchedulePage(),
     ),
 
     GoRoute(
       path: '/student/notifications',
-      builder: (_, __) => const StudentNotificationsPage(),
+      builder: (_, _) => const StudentNotificationsPage(),
     ),
 
     GoRoute(
       path: '/student/announcements',
-      builder: (_, __) => const StudentAnnouncementsPage(),
+      builder: (_, _) => const StudentAnnouncementsPage(),
     ),
 
     GoRoute(
       path: '/student/settings',
-      builder: (_, __) => const StudentSettingsPage(),
+      builder: (_, _) => const StudentSettingsPage(),
     ),
     GoRoute(
       path: '/student/academic-progress',
-      builder: (_, __) => const StudentAcademicProgressPage(),
+      builder: (_, _) => const StudentAcademicProgressPage(),
     ),
 
     // Teacher
-    GoRoute(path: '/teacher', builder: (_, __) => const TeacherDashboardPage()),
+    GoRoute(path: '/teacher', builder: (_, _) => const TeacherDashboardPage()),
 
     // Parent
-    GoRoute(path: '/parent', builder: (_, __) => const ParentDashboardPage()),
+    GoRoute(path: '/parent', builder: (_, _) => const ParentDashboardPage()),
 
     // Manager
-    GoRoute(path: '/manager', builder: (_, __) => const ManagerDashboardPage()),
+    GoRoute(path: '/manager', builder: (_, _) => const ManagerDashboardPage()),
 
     GoRoute(
       path: '/manager/notifications',
-      builder: (_, __) => const ManagerNotificationsPage(),
+      builder: (_, _) => const ManagerNotificationsPage(),
     ),
 
     GoRoute(
       path: '/manager/profile',
-      builder: (_, __) => const ManagerProfilePage(),
+      builder: (_, _) => const ManagerProfilePage(),
     ),
 
     GoRoute(
       path: '/manager/settings',
-      builder: (_, __) => const ManagerSettingsPage(),
+      builder: (_, _) => const ManagerSettingsPage(),
     ),
 
     GoRoute(
       path: '/manager/students',
-      builder: (_, __) => const ManagerStudentsPage(),
+      builder: (_, _) => const ManagerStudentsPage(),
     ),
 
     GoRoute(
       path: '/manager/attendance',
-      builder: (_, __) => const ManagerAttendancePage(),
+      builder: (_, _) => const ManagerAttendancePage(),
     ),
 
     GoRoute(
       path: '/manager/grades',
-      builder: (_, __) => const ManagerGradesPage(),
+      builder: (_, _) => const ManagerGradesPage(),
     ),
 
     GoRoute(
       path: '/manager/announcements',
-      builder: (_, __) => const ManagerAnnouncementsPage(),
+      builder: (_, _) => const ManagerAnnouncementsPage(),
     ),
 
     // Admin
-    GoRoute(path: '/admin', builder: (_, __) => const AdminDashboardPage()),
+    GoRoute(path: '/admin', builder: (_, _) => const AdminDashboardPage()),
 
     GoRoute(
       path: '/admin/profile',
-      builder: (_, __) => const AdminProfilePage(),
+      builder: (_, _) => const AdminProfilePage(),
     ),
 
     GoRoute(
       path: '/admin/profile/edit',
-      builder: (_, __) => const AdminEditProfilePage(),
+      builder: (_, _) => const AdminEditProfilePage(),
     ),
 
     GoRoute(
       path: '/admin/security',
-      builder: (_, __) => const AdminSecurityPage(),
+      builder: (_, _) => const AdminSecurityPage(),
     ),
 
     GoRoute(
       path: '/admin/security/change-password',
-      builder: (_, __) => const AdminChangePasswordPage(),
+      builder: (_, _) => const AdminChangePasswordPage(),
     ),
 
     GoRoute(
       path: '/admin/security/two-factor',
-      builder: (_, __) => const AdminTwoFactorPage(),
+      builder: (_, _) => const AdminTwoFactorPage(),
     ),
 
     GoRoute(
       path: '/admin/security/activity',
-      builder: (_, __) => const AdminSecurityActivityPage(),
+      builder: (_, _) => const AdminSecurityActivityPage(),
     ),
 
     GoRoute(
       path: '/admin/notifications',
-      builder: (_, __) => const AdminNotificationsPage(),
+      builder: (_, _) => const AdminNotificationsPage(),
     ),
 
     GoRoute(
       path: '/admin/settings',
-      builder: (_, __) => const AdminSettingsPage(),
+      builder: (_, _) => const AdminSettingsPage(),
     ),
 
     GoRoute(
       path: '/admin/settings/language',
-      builder: (_, __) => const AdminLanguagePage(),
+      builder: (_, _) => const AdminLanguagePage(),
     ),
 
     GoRoute(
       path: '/admin/settings/theme',
-      builder: (_, __) => const AdminThemePage(),
+      builder: (_, _) => const AdminThemePage(),
     ),
 
     GoRoute(
       path: '/admin/settings/notifications',
-      builder: (_, __) => const AdminNotificationSettingsPage(),
+      builder: (_, _) => const AdminNotificationSettingsPage(),
     ),
 
     GoRoute(
       path: '/admin/settings/backup',
-      builder: (_, __) => const AdminBackupPage(),
+      builder: (_, _) => const AdminBackupPage(),
     ),
 
     GoRoute(
       path: '/admin/settings/system-info',
-      builder: (_, __) => const AdminSystemInfoPage(),
+      builder: (_, _) => const AdminSystemInfoPage(),
     ),
   ],
 );

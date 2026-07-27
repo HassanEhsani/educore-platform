@@ -41,7 +41,7 @@ class _ManagerAttendancePageState extends State<ManagerAttendancePage> {
             const SizedBox(height: 20),
 
             DropdownButtonFormField<String>(
-              value: selectedClass,
+              initialValue: selectedClass,
 
               decoration: const InputDecoration(
                 labelText: 'Select Class',

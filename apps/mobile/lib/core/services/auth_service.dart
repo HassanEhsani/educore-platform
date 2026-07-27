@@ -3,15 +3,33 @@ class AuthService {
 
   static final AuthService instance = AuthService._();
 
-  bool _initialized = false;
+  bool _isLoggedIn = false;
+
+  String? _currentUserId;
 
   Future<void> init() async {
-    _initialized = true;
+    // TODO:
+    // Later load token/session from secure storage
+    _isLoggedIn = true;
   }
 
-  bool get isInitialized => _initialized;
+  bool get isLoggedIn => _isLoggedIn;
+
+  String? get currentUserId => _currentUserId;
+
+  Future<void> login(String userId) async {
+    _currentUserId = userId;
+    _isLoggedIn = true;
+  }
 
   Future<void> logout() async {
-    _initialized = false;
+    // TODO:
+    // Later:
+    // - remove access token
+    // - clear refresh token
+    // - clear local storage
+
+    _currentUserId = null;
+    _isLoggedIn = false;
   }
 }

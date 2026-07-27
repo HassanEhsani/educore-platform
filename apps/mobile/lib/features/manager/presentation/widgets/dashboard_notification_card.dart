@@ -38,7 +38,7 @@ class DashboardNotificationCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
 
-              child: Icon(icon, color: color, size: 24),
+              child: Icon(icon, color: color),
             ),
 
             const SizedBox(width: 14),
@@ -57,7 +57,7 @@ class DashboardNotificationCard extends StatelessWidget {
                           style: Theme.of(context).textTheme.titleMedium
                               ?.copyWith(
                                 fontWeight: notification.isRead
-                                    ? FontWeight.w500
+                                    ? FontWeight.normal
                                     : FontWeight.bold,
                               ),
                         ),
@@ -80,11 +80,7 @@ class DashboardNotificationCard extends StatelessWidget {
 
                   const SizedBox(height: 6),
 
-                  Text(
-                    notification.message,
-
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
+                  Text(notification.message),
 
                   const SizedBox(height: 8),
 
@@ -93,7 +89,7 @@ class DashboardNotificationCard extends StatelessWidget {
 
                     style: Theme.of(
                       context,
-                    ).textTheme.bodySmall?.copyWith(color: Colors.grey[600]),
+                    ).textTheme.bodySmall?.copyWith(color: Colors.grey),
                   ),
                 ],
               ),
@@ -106,33 +102,57 @@ class DashboardNotificationCard extends StatelessWidget {
 
   Color _getTypeColor(NotificationType type) {
     switch (type) {
-      case NotificationType.payment:
-        return Colors.green;
+      case NotificationType.academic:
+        return Colors.blue;
+
+      case NotificationType.grade:
+        return Colors.indigo;
+
+      case NotificationType.assignment:
+        return Colors.purple;
 
       case NotificationType.attendance:
         return Colors.orange;
 
-      case NotificationType.academic:
-        return Colors.blue;
+      case NotificationType.announcement:
+        return Colors.amber;
+
+      case NotificationType.payment:
+        return Colors.green;
 
       case NotificationType.system:
         return Colors.grey;
+
+      case NotificationType.general:
+        return Colors.teal;
     }
   }
 
   IconData _getTypeIcon(NotificationType type) {
     switch (type) {
-      case NotificationType.payment:
-        return Icons.payment_outlined;
+      case NotificationType.academic:
+        return Icons.school_outlined;
+
+      case NotificationType.grade:
+        return Icons.grade_outlined;
+
+      case NotificationType.assignment:
+        return Icons.assignment_outlined;
 
       case NotificationType.attendance:
         return Icons.fact_check_outlined;
 
-      case NotificationType.academic:
-        return Icons.school_outlined;
+      case NotificationType.announcement:
+        return Icons.campaign_outlined;
+
+      case NotificationType.payment:
+        return Icons.payment_outlined;
 
       case NotificationType.system:
         return Icons.settings_outlined;
+
+      case NotificationType.general:
+        return Icons.notifications_outlined;
     }
   }
 

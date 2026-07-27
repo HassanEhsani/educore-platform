@@ -11,6 +11,7 @@
 ///
 /// Future migration:
 /// features/merchant/domain/merchant_profile.dart
+library;
 
 class Admin {
   /// Merchant unique identifier.

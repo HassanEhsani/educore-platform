@@ -11,6 +11,7 @@
 ///
 /// Future migration:
 /// features/merchant/domain/merchant_activity.dart
+library;
 
 enum ActivityType { payment, education, business, report, user }
 

@@ -5,22 +5,27 @@ class DashboardNotificationModel extends DashboardNotification {
     required super.id,
     required super.title,
     required super.message,
-    required super.type,
     required super.createdAt,
+    required super.type,
     required super.isRead,
   });
 
   factory DashboardNotificationModel.fromJson(Map<String, dynamic> json) {
     return DashboardNotificationModel(
-      id: json['id'] as String,
-      title: json['title'] as String,
-      message: json['message'] as String,
-      type: NotificationType.values.firstWhere(
-        (type) => type.name == json['type'],
-        orElse: () => NotificationType.system,
-      ),
+      id: json['id'] as String? ?? '',
+
+      title: json['title'] as String? ?? '',
+
+      message: json['message'] as String? ?? '',
+
       createdAt: DateTime.parse(json['createdAt'] as String),
-      isRead: json['isRead'] as bool,
+
+      type: NotificationType.values.firstWhere(
+        (item) => item.name == json['type'],
+        orElse: () => NotificationType.general,
+      ),
+
+      isRead: json['isRead'] as bool? ?? false,
     );
   }
 
@@ -29,8 +34,8 @@ class DashboardNotificationModel extends DashboardNotification {
       'id': id,
       'title': title,
       'message': message,
-      'type': type.name,
       'createdAt': createdAt.toIso8601String(),
+      'type': type.name,
       'isRead': isRead,
     };
   }

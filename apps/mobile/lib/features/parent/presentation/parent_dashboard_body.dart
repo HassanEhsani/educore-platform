@@ -18,10 +18,8 @@ class ParentDashboardBody extends StatelessWidget {
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(AppSpacing.lg),
-
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-
         children: [
           ParentHeader(parent: parent),
 
@@ -33,48 +31,31 @@ class ParentDashboardBody extends StatelessWidget {
 
           Wrap(
             spacing: 12,
-
             runSpacing: 12,
-
             children: [
               _summaryCard(
                 context,
-
                 title: 'Average',
-
                 value: summary.averageScore.toString(),
-
                 icon: Icons.grade_outlined,
               ),
-
               _summaryCard(
                 context,
-
                 title: 'Attendance',
-
                 value: '${summary.attendanceRate}%',
-
                 icon: Icons.event_available_outlined,
               ),
-
               _summaryCard(
                 context,
-
                 title: 'Homework',
-
                 value:
                     '${summary.completedAssignments}/${summary.totalAssignments}',
-
                 icon: Icons.assignment_outlined,
               ),
-
               _summaryCard(
                 context,
-
                 title: 'Exams',
-
                 value: '${summary.upcomingExams}',
-
                 icon: Icons.quiz_outlined,
               ),
             ],
@@ -86,52 +67,47 @@ class ParentDashboardBody extends StatelessWidget {
 
           const Gap(14),
 
-          GridView.count(
-            shrinkWrap: true,
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final crossAxisCount = constraints.maxWidth > 600 ? 4 : 2;
 
-            physics: const NeverScrollableScrollPhysics(),
-
-            crossAxisCount: 2,
-
-            crossAxisSpacing: 14,
-
-            mainAxisSpacing: 14,
-
-            children: [
-              ParentActionCard(
-                icon: Icons.grade_outlined,
-
-                title: 'Grades',
-
-                onTap: () {},
-              ),
-
-              ParentActionCard(
-                icon: Icons.message_outlined,
-
-                title: 'Messages',
-
-                onTap: () {
-                  context.push('/messages');
-                },
-              ),
-
-              ParentActionCard(
-                icon: Icons.payments_outlined,
-
-                title: 'Fees',
-
-                onTap: () {},
-              ),
-
-              ParentActionCard(
-                icon: Icons.calendar_month_outlined,
-
-                title: 'Schedule',
-
-                onTap: () {},
-              ),
-            ],
+              return GridView.count(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisCount: crossAxisCount,
+                crossAxisSpacing: 14,
+                mainAxisSpacing: 14,
+                childAspectRatio: 1.25,
+                children: [
+                  ParentActionCard(
+                    icon: Icons.grade_outlined,
+                    title: 'Grades',
+                    onTap: () {
+                      context.push('/parent/grades');
+                    },
+                  ),
+                  ParentActionCard(
+                    icon: Icons.message_outlined,
+                    title: 'Messages',
+                    onTap: () {
+                      context.push('/parent/messages');
+                    },
+                  ),
+                  ParentActionCard(
+                    icon: Icons.payments_outlined,
+                    title: 'Fees',
+                    onTap: () {
+                      context.push('/parent/fees');
+                    },
+                  ),
+                  ParentActionCard(
+                    icon: Icons.calendar_month_outlined,
+                    title: 'Schedule',
+                    onTap: () {},
+                  ),
+                ],
+              );
+            },
           ),
 
           const Gap(30),
@@ -142,48 +118,44 @@ class ParentDashboardBody extends StatelessWidget {
 
           ParentChildCard(
             icon: Icons.school_outlined,
-
             title: parent.studentName,
-
             subtitle: '${parent.studentClass} • ${parent.studentNumber}',
-
-            onTap: () {},
+            onTap: () {
+              context.push('/parent/children');
+            },
           ),
 
           const Gap(12),
 
           ParentChildCard(
             icon: Icons.event_available_outlined,
-
             title: 'Attendance',
-
             subtitle: '${parent.attendance}% attendance rate',
-
-            onTap: () {},
+            onTap: () {
+              context.push('/parent/attendance');
+            },
           ),
 
           const Gap(12),
 
           ParentChildCard(
             icon: Icons.notifications_outlined,
-
             title: 'Notifications',
-
             subtitle: '${parent.unreadMessages} unread messages',
-
-            onTap: () {},
+            onTap: () {
+              context.push('/parent/notifications');
+            },
           ),
 
           const Gap(12),
 
           ParentChildCard(
             icon: Icons.account_balance_wallet_outlined,
-
             title: 'Pending Fees',
-
             subtitle: '${summary.pendingFees} payment pending',
-
-            onTap: () {},
+            onTap: () {
+              context.push('/parent/fees');
+            },
           ),
 
           const Gap(30),
@@ -194,32 +166,25 @@ class ParentDashboardBody extends StatelessWidget {
 
           Card(
             elevation: 0,
-
             child: ListTile(
               leading: Container(
-                height: 45,
-
-                width: 45,
-
+                height: 42,
+                width: 42,
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary.withOpacity(.12),
-
-                  borderRadius: BorderRadius.circular(14),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.primary.withValues(alpha: .12),
+                  borderRadius: BorderRadius.circular(12),
                 ),
-
                 child: Icon(
                   Icons.event_note_outlined,
-
                   color: Theme.of(context).colorScheme.primary,
                 ),
               ),
-
               title: const Text(
                 'Upcoming Exams',
-
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-
               subtitle: Text('${summary.upcomingExams} exams scheduled'),
             ),
           ),
@@ -231,7 +196,6 @@ class ParentDashboardBody extends StatelessWidget {
   Widget _sectionTitle(BuildContext context, String title) {
     return Text(
       title,
-
       style: Theme.of(
         context,
       ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
@@ -240,39 +204,28 @@ class ParentDashboardBody extends StatelessWidget {
 
   Widget _summaryCard(
     BuildContext context, {
-
     required String title,
-
     required String value,
-
     required IconData icon,
   }) {
     final colorScheme = Theme.of(context).colorScheme;
 
     return SizedBox(
       width: 160,
-
       child: Card(
         elevation: 0,
-
         child: Padding(
           padding: const EdgeInsets.all(16),
-
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-
             children: [
               Container(
                 height: 42,
-
                 width: 42,
-
                 decoration: BoxDecoration(
-                  color: colorScheme.primary.withOpacity(.12),
-
+                  color: colorScheme.primary.withValues(alpha: .12),
                   borderRadius: BorderRadius.circular(14),
                 ),
-
                 child: Icon(icon, color: colorScheme.primary),
               ),
 
@@ -280,10 +233,8 @@ class ParentDashboardBody extends StatelessWidget {
 
               Text(
                 value,
-
                 style: const TextStyle(
                   fontSize: 22,
-
                   fontWeight: FontWeight.bold,
                 ),
               ),

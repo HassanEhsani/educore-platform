@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/constants/app_assets.dart';
-
 class AuthBranding extends StatefulWidget {
   const AuthBranding({super.key});
 
@@ -19,63 +17,38 @@ class _AuthBrandingState extends State<AuthBranding>
   late final Animation<double> _cardOpacity;
   late final Animation<Offset> _cardSlide;
 
-  late final Animation<double> _companyScale;
-
-  late final Animation<double> _schoolOpacity;
-  late final Animation<Offset> _schoolSlide;
-
   @override
   void initState() {
     super.initState();
 
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1400),
+      duration: const Duration(milliseconds: 1000),
     )..forward();
 
     _titleOpacity = CurvedAnimation(
       parent: _controller,
-      curve: const Interval(0.0, 0.25, curve: Curves.easeOut),
+      curve: const Interval(0.0, 0.30, curve: Curves.easeOut),
     );
 
-    _titleSlide = Tween<Offset>(begin: const Offset(0, -0.35), end: Offset.zero)
+    _titleSlide = Tween<Offset>(begin: const Offset(0, -0.20), end: Offset.zero)
         .animate(
           CurvedAnimation(
             parent: _controller,
-            curve: const Interval(0.0, 0.25, curve: Curves.easeOutCubic),
+            curve: const Interval(0.0, 0.30, curve: Curves.easeOutCubic),
           ),
         );
 
     _cardOpacity = CurvedAnimation(
       parent: _controller,
-      curve: const Interval(0.15, 0.65, curve: Curves.easeOut),
+      curve: const Interval(0.15, 0.75, curve: Curves.easeOut),
     );
 
-    _cardSlide = Tween<Offset>(begin: const Offset(0, 0.12), end: Offset.zero)
+    _cardSlide = Tween<Offset>(begin: const Offset(0, 0.10), end: Offset.zero)
         .animate(
           CurvedAnimation(
             parent: _controller,
-            curve: const Interval(0.15, 0.65, curve: Curves.easeOutCubic),
-          ),
-        );
-
-    _companyScale = Tween<double>(begin: .75, end: 1).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(0.30, 0.70, curve: Curves.elasticOut),
-      ),
-    );
-
-    _schoolOpacity = CurvedAnimation(
-      parent: _controller,
-      curve: const Interval(0.55, 1, curve: Curves.easeOut),
-    );
-
-    _schoolSlide = Tween<Offset>(begin: const Offset(.25, 0), end: Offset.zero)
-        .animate(
-          CurvedAnimation(
-            parent: _controller,
-            curve: const Interval(0.55, 1, curve: Curves.easeOutCubic),
+            curve: const Interval(0.15, 0.75, curve: Curves.easeOutCubic),
           ),
         );
   }
@@ -89,6 +62,7 @@ class _AuthBrandingState extends State<AuthBranding>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colors = theme.colorScheme;
 
     return Column(
       children: [
@@ -118,8 +92,8 @@ class _AuthBrandingState extends State<AuthBranding>
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    theme.colorScheme.primary,
-                    theme.colorScheme.primary.withOpacity(.78),
+                    colors.primary,
+                    colors.primary.withValues(alpha: 0.78),
                   ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -127,117 +101,35 @@ class _AuthBrandingState extends State<AuthBranding>
                 borderRadius: BorderRadius.circular(32),
                 boxShadow: [
                   BoxShadow(
-                    color: theme.colorScheme.primary.withOpacity(.30),
+                    color: colors.primary.withValues(alpha: 0.30),
                     blurRadius: 35,
                     spreadRadius: 2,
                     offset: const Offset(0, 18),
                   ),
                 ],
               ),
-              child: Column(
+              child: const Column(
                 children: [
-                  ScaleTransition(
-                    scale: _companyScale,
-                    child: Container(
-                      height: 155,
-                      width: 155,
-                      padding: const EdgeInsets.all(14),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(34),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(.12),
-                            blurRadius: 18,
-                            offset: const Offset(0, 8),
-                          ),
-                        ],
-                      ),
-                      child: Image.asset(
-                        AppAssets.companyLogo,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ),
+                  Icon(Icons.school_rounded, size: 72, color: Colors.white),
 
-                  const SizedBox(height: 22),
+                  SizedBox(height: 22),
 
-                  const Text(
-                    'Business Management',
+                  Text(
+                    'Education Management',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),
+                    textAlign: TextAlign.center,
                   ),
 
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8),
 
-                  const Text(
-                    'Smart solutions for your business',
+                  Text(
+                    'Smart solutions for modern education',
                     style: TextStyle(color: Colors.white70, fontSize: 14),
-                  ),
-
-                  const SizedBox(height: 30),
-
-                  Container(height: 1, color: Colors.white24),
-
-                  const SizedBox(height: 28),
-
-                  FadeTransition(
-                    opacity: _schoolOpacity,
-                    child: SlideTransition(
-                      position: _schoolSlide,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 82,
-                            width: 82,
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(.12),
-                                  blurRadius: 15,
-                                  offset: const Offset(0, 6),
-                                ),
-                              ],
-                            ),
-                            child: Image.asset(
-                              AppAssets.schoolLogo,
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-
-                          const SizedBox(width: 18),
-
-                          const Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'School Platform',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                ),
-                              ),
-                              SizedBox(height: 6),
-                              Text(
-                                'Education Management',
-                                style: TextStyle(
-                                  color: Colors.white70,
-                                  fontSize: 13,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
+                    textAlign: TextAlign.center,
                   ),
                 ],
               ),

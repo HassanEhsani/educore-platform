@@ -1,65 +1,70 @@
-// lib/core/router/app_router.dart
-
 import 'package:go_router/go_router.dart';
-import '../../features/student/presentation/pages/student_academic_progress_page.dart';
 
 // Auth
 import '../../features/auth/pages/login_page.dart';
 import '../../features/auth/presentation/role_selection_page.dart';
+
 // Dashboards
+import '../../features/admin/presentation/admin_dashboard_page.dart';
+import '../../features/manager/presentation/manager_dashboard_page.dart';
+import '../../features/parent/presentation/parent_dashboard_page.dart';
 import '../../features/student/presentation/student_dashboard_page.dart';
 import '../../features/teacher/presentation/teacher_dashboard_page.dart';
-import '../../features/parent/presentation/parent_dashboard_page.dart';
-import '../../features/manager/presentation/manager_dashboard_page.dart';
-import '../../features/admin/presentation/admin_dashboard_page.dart';
 
 // Student Pages
-import '../../features/student/presentation/pages/student_profile_page.dart';
-import '../../features/student/presentation/pages/student_grades_page.dart';
-import '../../features/student/presentation/pages/student_attendance_page.dart';
-import '../../features/student/presentation/pages/student_schedule_page.dart';
-import '../../features/student/presentation/pages/student_notifications_page.dart';
+import '../../features/student/presentation/pages/student_academic_progress_page.dart';
 import '../../features/student/presentation/pages/student_announcements_page.dart';
+import '../../features/student/presentation/pages/student_attendance_page.dart';
+import '../../features/student/presentation/pages/student_grades_page.dart';
+import '../../features/student/presentation/pages/student_notifications_page.dart';
+import '../../features/student/presentation/pages/student_profile_page.dart';
+import '../../features/student/presentation/pages/student_schedule_page.dart';
 import '../../features/student/presentation/pages/student_settings_page.dart';
 
-// Manager
+// Parent Pages
+import '../../features/parent/presentation/pages/parent_attendance_page.dart';
+import '../../features/parent/presentation/pages/parent_children_page.dart';
+import '../../features/parent/presentation/pages/parent_fees_page.dart';
+import '../../features/parent/presentation/pages/parent_grades_page.dart';
+import '../../features/parent/presentation/pages/parent_homework_page.dart';
+import '../../features/parent/presentation/pages/parent_messages_page.dart';
+import '../../features/parent/presentation/pages/parent_notifications_page.dart';
+import '../../features/parent/presentation/pages/parent_profile_page.dart';
+import '../../features/parent/presentation/pages/parent_settings_page.dart';
+
+// Manager Pages
 import '../../features/manager/presentation/notifications/manager_notifications_page.dart';
-import '../../features/manager/presentation/profile/manager_profile_page.dart';
-import '../../features/manager/presentation/pages/manager_settings_page.dart';
-import '../../features/manager/presentation/pages/manager_students_page.dart';
+import '../../features/manager/presentation/pages/manager_announcements_page.dart';
 import '../../features/manager/presentation/pages/manager_attendance_page.dart';
 import '../../features/manager/presentation/pages/manager_grades_page.dart';
-import '../../features/manager/presentation/pages/manager_announcements_page.dart';
+import '../../features/manager/presentation/pages/manager_settings_page.dart';
+import '../../features/manager/presentation/pages/manager_students_page.dart';
+import '../../features/manager/presentation/profile/manager_profile_page.dart';
 
-// Admin Profile
-import '../../features/admin/presentation/profile/admin_profile_page.dart';
-import '../../features/admin/presentation/profile/admin_edit_profile_page.dart';
-
-// Admin Security
-import '../../features/admin/presentation/security/admin_security_page.dart';
-import '../../features/admin/presentation/security/admin_change_password_page.dart';
-import '../../features/admin/presentation/security/admin_two_factor_page.dart';
-import '../../features/admin/presentation/security/admin_security_activity_page.dart';
-
-// Admin Notifications
+// Admin Pages
 import '../../features/admin/presentation/notifications/admin_notifications_page.dart';
-
-// Admin Settings
-import '../../features/admin/presentation/settings/admin_settings_page.dart';
-import '../../features/admin/presentation/settings/admin_language_page.dart';
-import '../../features/admin/presentation/settings/admin_theme_page.dart';
-import '../../features/admin/presentation/settings/admin_notification_settings_page.dart';
+import '../../features/admin/presentation/profile/admin_edit_profile_page.dart';
+import '../../features/admin/presentation/profile/admin_profile_page.dart';
+import '../../features/admin/presentation/security/admin_change_password_page.dart';
+import '../../features/admin/presentation/security/admin_security_activity_page.dart';
+import '../../features/admin/presentation/security/admin_security_page.dart';
+import '../../features/admin/presentation/security/admin_two_factor_page.dart';
 import '../../features/admin/presentation/settings/admin_backup_page.dart';
+import '../../features/admin/presentation/settings/admin_language_page.dart';
+import '../../features/admin/presentation/settings/admin_notification_settings_page.dart';
+import '../../features/admin/presentation/settings/admin_settings_page.dart';
 import '../../features/admin/presentation/settings/admin_system_info_page.dart';
+import '../../features/admin/presentation/settings/admin_theme_page.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/',
   routes: [
+    // ================= AUTH =================
     GoRoute(path: '/', builder: (_, _) => const LoginPage()),
 
     GoRoute(path: '/roles', builder: (_, _) => const RoleSelectionPage()),
 
-    // Student
+    // ================= STUDENT =================
     GoRoute(path: '/student', builder: (_, _) => const StudentDashboardPage()),
 
     GoRoute(
@@ -96,18 +101,61 @@ final GoRouter appRouter = GoRouter(
       path: '/student/settings',
       builder: (_, _) => const StudentSettingsPage(),
     ),
+
     GoRoute(
       path: '/student/academic-progress',
       builder: (_, _) => const StudentAcademicProgressPage(),
     ),
 
-    // Teacher
+    // ================= TEACHER =================
     GoRoute(path: '/teacher', builder: (_, _) => const TeacherDashboardPage()),
 
-    // Parent
+    // ================= PARENT =================
     GoRoute(path: '/parent', builder: (_, _) => const ParentDashboardPage()),
 
-    // Manager
+    GoRoute(
+      path: '/parent/children',
+      builder: (_, _) => const ParentChildrenPage(),
+    ),
+
+    GoRoute(
+      path: '/parent/grades',
+      builder: (_, _) => const ParentGradesPage(),
+    ),
+
+    GoRoute(
+      path: '/parent/attendance',
+      builder: (_, _) => const ParentAttendancePage(),
+    ),
+
+    GoRoute(path: '/parent/fees', builder: (_, _) => const ParentFeesPage()),
+
+    GoRoute(
+      path: '/parent/homework',
+      builder: (_, _) => const ParentHomeworkPage(),
+    ),
+
+    GoRoute(
+      path: '/parent/messages',
+      builder: (_, _) => const ParentMessagesPage(),
+    ),
+
+    GoRoute(
+      path: '/parent/notifications',
+      builder: (_, _) => const ParentNotificationsPage(),
+    ),
+
+    GoRoute(
+      path: '/parent/profile',
+      builder: (_, _) => const ParentProfilePage(),
+    ),
+
+    GoRoute(
+      path: '/parent/settings',
+      builder: (_, _) => const ParentSettingsPage(),
+    ),
+
+    // ================= MANAGER =================
     GoRoute(path: '/manager', builder: (_, _) => const ManagerDashboardPage()),
 
     GoRoute(
@@ -145,7 +193,7 @@ final GoRouter appRouter = GoRouter(
       builder: (_, _) => const ManagerAnnouncementsPage(),
     ),
 
-    // Admin
+    // ================= ADMIN =================
     GoRoute(path: '/admin', builder: (_, _) => const AdminDashboardPage()),
 
     GoRoute(
